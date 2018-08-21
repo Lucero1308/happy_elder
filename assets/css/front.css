@@ -1,0 +1,38 @@
+.bd-navbar {
+	min-height: 4rem;
+	background-color: #563d7c;
+	box-shadow: 0 0.5rem 1rem rgba(0,0,0,.05), inset 0 -1px 0 rgba(0,0,0,.1);
+}
+@media (min-width: 768px) {
+	.bd-navbar {
+		position: -webkit-sticky;
+		position: sticky;
+		top: 0;
+		z-index: 1071;
+	}
+}
+.navbar-brand {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+.navbar-brand img {
+	width: 55px;
+}
+.navbar-dark .navbar-nav .nav-link {
+	color: rgba(255, 255, 255, 1);
+}
+
+.text-muted {
+	color: #6c757d!important;
+}
+main.main {
+	background-color: #f8f9fa!important;
+}
+footer {
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+}
+.starter-template {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
