@@ -31,8 +31,4 @@ class Usuarios_model extends CI_Model{
 			return false;
 		}
 	}
-	public function delete($id){
-		$delete = $this->db->delete($this->table,array( $this->primary_key =>$id));
-		return $delete?true:false;
-	}
 }
