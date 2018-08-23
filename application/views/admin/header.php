@@ -18,14 +18,24 @@
 		<div class="row">
 			<?php $this->view('admin/sidebar'); ?>
 			<main class="col-md-9 ml-sm-auto col-lg-10 px-4 py-5">
-				<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+				<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow py-1">
 					<ul class="ml-auto navbar-nav px-3">
 						<li class="nav-item text-nowrap">
 							<a class="nav-link" href="<?= base_url("/login/logout") ?>">Cerrar sesión</a>
 						</li>
 					</ul>
 				</nav>
-				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+				<div class="flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+					<?php if($this->session->flashdata('log_success')){?>
+						<div class="alert alert-success">
+							<?php echo $this->session->flashdata('log_success');?>
+						</div>
+					<?php }?>
+					<?php if($this->session->flashdata('log_error')){?>
+						<div class="alert alert-danger">
+							<?php echo $this->session->flashdata('log_error');?>
+						</div>
+					<?php }?>
 					<h1 class="h2"><?= $title ?></h1>
 					<!--<div class="btn-toolbar mb-2 mb-md-0">
 						<div class="btn-group mr-2">

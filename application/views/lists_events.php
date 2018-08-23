@@ -1,5 +1,5 @@
 <?php if ( $posts ): ?>
-	<div class="py-5 row">
+	<div class="py-4 row">
 	<?php foreach ($posts as $key => $post): ?>
 		<div class="col-md-4">
 			<div class="card mb-4 shadow-sm">

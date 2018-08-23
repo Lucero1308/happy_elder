@@ -1,13 +1,14 @@
 <?php
-class Services extends CI_Model{
-	public $table = 'services';
-	public $primary_key = 'services.id';
+class Usuarios_model extends CI_Model{
+	public $table = 'users';
+	public $primary_key = 'users.id';
+	public $status = 'users.status';
 	function __construct(){
 		parent::__construct();
 	}
 	function getRows($id = ""){
 		if(!empty($id)){
-			$query = $this->db->get_where($this->table, array( $this->primary_key => $id));
+			$query = $this->db->get_where($this->table, array( $this->primary_key => $id ));
 			return $query->row_array();
 		}else{
 			$query = $this->db->get($this->table);

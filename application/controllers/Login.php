@@ -16,7 +16,7 @@ class Login extends CI_Controller {
 		if ( isset( $_POST ) && count( $_POST ) ) {
 			$config = array(
 				array(
-					'field' => 'username',
+					'field' => 'userName',
 					'label' => 'Usuario',
 					'rules' => 'trim|required'
 				),
@@ -36,7 +36,6 @@ class Login extends CI_Controller {
 			} else {
 				$data_user = $this->security->xss_clean($_POST);
 				$user = $this->Login_model->checkUser($data_user);
-				var_dump( $user );
 				if ($user) {
 					$this->session->set_userdata($user);
 					$this->session->set_flashdata('log_success','Sesión iniciada correctamente');
@@ -53,7 +52,7 @@ class Login extends CI_Controller {
 		$this->load->view('admin/login_register/header', $data);
 		$this->load->view('admin/login', $data);
 		$this->load->view('admin/login_register/footer');
-	}    
+	}
 	public function isLoggedin() {
 		if(!empty($this->session->userdata['id'])) {
 			return true;

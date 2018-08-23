@@ -1,4 +1,4 @@
-<div class="py-5 row">
+<div class="py-4 row">
 	<?php for ($i=0; $i < 6; $i++) { ?>
 		<div class="col-md-4">
 			<div class="card mb-4 shadow-sm">
