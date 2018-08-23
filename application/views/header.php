@@ -45,7 +45,7 @@
 				<ul class="navbar-nav ml-md-auto d-md-flex">
 					<?php if ( $this->session && $this->session->userdata && ! empty( $this->session->userdata['id'] ) ): ?>
 						<li class="nav-item">
-							<a class="nav-link" href="<?= base_url("/admin/dashboard") ?>" >Hola <?= $this->session->userdata['fullName'] ?></a>
+							<a class="nav-link" href="<?= base_url("/admin/dashboard") ?>" >Hola <?= $this->session->userdata['fullName'] ?> </a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="<?= base_url("/login/logout") ?>" >Cerrar sesión</a>
