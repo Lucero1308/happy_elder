@@ -6,11 +6,19 @@ class Usuarios_model extends CI_Model{
 	function __construct(){
 		parent::__construct();
 	}
+	function getRoles(){
+		$query = $this->db->get('roles');
+		return $query->result_array();
+	}
 	function getRows($id = ""){
 		if(!empty($id)){
+			$this->db->select('users.*, roles.name as rolName');
+			$this->db->join('roles', 'roles.role_id = users.rol', 'LEFT');
 			$query = $this->db->get_where($this->table, array( $this->primary_key => $id ));
 			return $query->row_array();
 		}else{
+			$this->db->select('users.*, roles.name as rolName');
+			$this->db->join('roles', 'roles.role_id = users.rol', 'LEFT');
 			$query = $this->db->get($this->table);
 			return $query->result_array();
 		}
@@ -26,7 +34,13 @@ class Usuarios_model extends CI_Model{
 	public function update($data, $id) {
 		if(!empty($data) && !empty($id)){
 			$update = $this->db->update($this->table, $data, array( $this->primary_key =>$id));
-			return $update?true:false;
+			if($update){
+				return true;
+			}else{
+				print_r( $this->db->_error_messag );
+				exit();
+				return $this->db->_error_message(); 
+			}
 		}else{
 			return false;
 		}
