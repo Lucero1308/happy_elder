@@ -7,6 +7,20 @@ class Usuarios extends CI_Controller {
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$this->load->model('Usuarios_model');
+		$this->validate_sesion();
+	}
+	private function validate_sesion() {
+		if( !$this->isLoggedin() ) { 
+			redirect( base_url().'cuenta/login');
+		}
+	}
+	public function isLoggedin() {
+		if(!empty($this->session->userdata['id'])) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	public function index() {
 		if ( !empty( $this->session->userdata['id'] ) && $this->session->userdata['rol'] != 1 ) {

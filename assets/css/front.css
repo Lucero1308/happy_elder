@@ -43,3 +43,37 @@ footer {
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;  
 }
+
+.main .container {
+	max-width: 980px;
+}
+
+.input-group-addon {
+	padding: .375rem .75rem;
+	margin-bottom: 0;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5;
+	color: #495057;
+	text-align: center;
+	background-color: #e9ecef;
+	border: 1px solid #ced4da;
+	border-radius: .25rem;
+
+
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+
+	border-right: 0;
+}
+a {
+	color: #563d7c;
+}
+a:hover {
+	color: #6138a0;
+	text-decoration: none;
+}
+
+.alert p {
+	margin-bottom: 0;
+}

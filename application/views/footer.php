@@ -1,3 +1,4 @@
+			</div>
 		</div>
 	</main>
 	<footer class="text-muted">
@@ -5,7 +6,7 @@
 			<p class="mb-0 float-right">
 				<a href="#">Subir</a>
 			</p>
-			<p class="mb-0">HAPPY ELDER © Copyright 2018</p>
+			<p class="mb-0">HAPPY ELDER © Copyright <?= date('Y') ?></p>
 		</div>
 	</footer>
 	<script src="<?php echo base_url('assets/js/jquery.min.js') ?>"></script>

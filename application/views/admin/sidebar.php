@@ -22,11 +22,6 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link <?= $this->uri->segment(2) == 'donaciones' ? 'active' : '' ?>" href="<?= base_url("/admin/donaciones") ?>">
-					Donaciones
-				</a>
-			</li>
-			<li class="nav-item">
 				<a class="nav-link <?= $this->uri->segment(2) == 'ubicaciones' ? 'active' : '' ?>" href="<?= base_url("/admin/ubicaciones") ?>">
 					Ubicaciones
 				</a>

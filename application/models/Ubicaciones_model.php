@@ -1,8 +1,8 @@
 <?php
-class Servicios_model extends CI_Model{
-	public $table = 'services';
-	public $primary_key = 'services.id';
-	public $status = 'services.status';
+class Ubicaciones_model extends CI_Model{
+	public $table = 'locations';
+	public $primary_key = 'locations.id';
+	public $status = 'locations.status';
 	function __construct(){
 		parent::__construct();
 	}
@@ -17,7 +17,7 @@ class Servicios_model extends CI_Model{
 	}
 	function getRowBySlug($slug = ""){
 		if(!empty($slug)){
-			$query = $this->db->get_where($this->table, array( 'services.slug' => $slug, $this->status => 'publish' ));
+			$query = $this->db->get_where($this->table, array( 'locations.slug' => $slug, $this->status => 'publish' ));
 			return $query->row_array();
 		}else{
 			return array();
@@ -25,7 +25,7 @@ class Servicios_model extends CI_Model{
 	}
 	function getRowsByUser($id = ""){
 		if(!empty($id)){
-			$query = $this->db->get_where($this->table, array( 'services.user_id' => $id, $this->status => 'publish' ));
+			$query = $this->db->get_where($this->table, array( 'locations.user_id' => $id, $this->status => 'publish' ));
 			return $query->result_array();
 		}else{
 			return array();

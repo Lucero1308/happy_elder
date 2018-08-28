@@ -8,7 +8,7 @@
 		<?php if ( $list && count( $list ) ): ?>
 			<?php foreach ($list as $key => $row): ?>
 				<tr>
-					<td><a href="<?= base_url("/admin/eventos/eliminar/" . $row['id']) ?>">Eliminar</a> | <a href="<?= base_url("/admin/eventos/editar/" . $row['id'] ) ?>">Editar</a></td>
+					<td><a href="<?= base_url("/admin/ubicaciones/eliminar/" . $row['id']) ?>">Eliminar</a> | <a href="<?= base_url("/admin/ubicaciones/editar/" . $row['id'] ) ?>">Editar</a></td>
 					<td><?= $row['id'] ?></td>
 					<td><?= $row['name'] ?></td>
 				</tr>

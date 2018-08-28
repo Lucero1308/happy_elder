@@ -1,21 +1,58 @@
-<form class="form-signin text-center mt-4" action="" method="post">
+<form class="form-signin mt-4" action="" method="post">
 	<?php if( isset($errors) ): ?>
 		<div class="alert alert-danger text-left">
 			<?php print_r($errors); ?>
 		</div>
 	<?php endif ?>
-	<img class="mb-2" src="<?= base_url('assets/img/logo.png') ?>" style="width: 150px; ">
-	<h1 class="h3 mb-3  font-weight-normal">Registrarse</h1>
-	<label for="inputFirstName" class="sr-only">Nombres</label>
-	<input type="text" name="firstName" id="inputFirstName" class="form-control" placeholder="Nombres" required>
-	<label for="inputLastName" class="sr-only">Apellidos</label>
-	<input type="text" name="lastName" id="inputLastName" class="form-control" placeholder="Apellidos" required>
-	<label for="inputTelephone" class="sr-only">Teléfono</label>
-	<input type="text" name="telephone" id="inputTelephone" class="form-control" placeholder="Teléfono" required>
-	<label for="inputUserName" class="sr-only">Correo (usuario)</label>
-	<input type="email" name="userName" id="inputUserName" class="form-control" placeholder="Correo (usuario)" required>
-	<label for="inputPassword" class="sr-only">Contraseña</label>
-	<input type="password" name="password" id="inputPassword" class="form-control" placeholder="Contraseña" required>
-	<button class="btn btn-lg btn-primary btn-block" type="submit">Registrar</button>
-	<p class="text-center mt-3"><a href="<?= base_url("/login") ?>">Iniciar sesión</a></p>
+	<div class="text-center">
+		<img class="mb-2" src="<?= base_url('assets/img/logo.png') ?>" style="width: 150px; ">
+		<h1 class="h3 mb-3	font-weight-normal">Registrarse</h1>
+	</div>
+	
+	<div class="form-group">
+		<label for="firstName">Nombres</label> 
+		<input id="firstName" name="firstName" type="text" class="form-control" required="required">
+	</div>
+	<div class="form-group">
+		<label for="lastName">Apellidos</label> 
+		<input id="lastName" name="lastName" type="text" class="form-control" required="required">
+	</div>
+	<div class="form-group">
+		<label for="telephone">Teléfono</label> 
+		<input id="telephone" name="telephone" type="text" class="form-control" required="required">
+	</div>
+	<?php if ( isset( $roles ) && $roles ): ?>
+		<div class="form-group">
+			<label for="userRole">Rol</label> 
+			<select id="userRole" name="rol" class="form-control" required="required">
+				<?php foreach ($roles as $key => $rol): ?>
+					<?php if ( $rol['role_id'] != 1 ): ?>
+						<option value="<?= $rol['role_id'] ?>"><?= $rol['name'] ?></option>
+					<?php endif ?>
+				<?php endforeach ?>
+			</select>
+		</div>
+	<?php endif ?>
+	<div class="form-group">
+		<label for="userName">Correo (usuario)</label> 
+		<div class="input-group">
+			<div class="input-group-addon">
+				<i class="fa fa-user-circle-o"></i>
+			</div> 
+			<input id="userName" name="userName" type="text" class="form-control" required="required">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="password">Contraseña</label> 
+		<div class="input-group">
+			<div class="input-group-addon">
+				<i class="fa fa-key"></i>
+			</div> 
+			<input id="password" name="password" type="password" class="form-control" required="required">
+		</div>
+	</div> 
+	<div class="form-group">
+		<button name="submit" type="submit" class="btn btn-lg btn-primary btn-block">Registrar</button>
+	</div>
+	<p class="text-center mt-3"><a href="<?= base_url("/cuenta/login") ?>">Iniciar sesión</a></p>
 </form>

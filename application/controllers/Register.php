@@ -5,6 +5,7 @@ class Register extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 		$this->load->model('Login_model');
+		$this->load->model('Usuarios_model');
 		$this->load->library('form_validation');
 	}
 	public function index() {
@@ -13,6 +14,7 @@ class Register extends CI_Controller {
 		if( $this->isLoggedin() ) { 
 			redirect( base_url().'admin/dashboard');
 		}
+		$data['roles'] = $this->Usuarios_model->getRoles();
 		if ( isset( $_POST ) && count( $_POST ) ) {
 			$config = array(
 				array(
@@ -36,6 +38,11 @@ class Register extends CI_Controller {
 					'rules' => 'trim|required'
 				),
 				array(
+					'field' => 'rol',
+					'label' => 'Rol',
+					'rules' => 'trim|required'
+				),
+				array(
 					'field' => 'password',
 					'label' => 'Contraseña',
 					'rules' => 'trim|required'
@@ -50,15 +57,19 @@ class Register extends CI_Controller {
 				);
 			} else {
 				$data_user = $this->security->xss_clean($_POST);
-				$user_id = $this->Login_model->register($data_user);
-				if( $user_id ) {
-					$user = $this->Login_model->getById($user_id);
-					if( $user ) {
-						$this->session->set_userdata($user);
-						$this->session->set_flashdata('log_success','Se creó la cuenta correctamente.');
-						redirect( base_url().'admin/dashboard');
+
+				if ( !$this->Login_model->checkUserName( $data_user['userName'] ) ) {
+					$user_id = $this->Login_model->register($data_user);
+					if( $user_id ) {
+						$user = $this->Login_model->getById($user_id);
+						if( $user ) {
+							$this->session->set_userdata($user);
+							$this->session->set_flashdata('log_success','Se creó la cuenta correctamente.');
+							redirect( base_url().'admin/dashboard');
+						}
 					}
 				}
+				$data['errors'] = 'Ya existe un cuenta con ese mismo correo.';
 			}
 		}
 		$this->load->view('admin/login_register/header', $data);

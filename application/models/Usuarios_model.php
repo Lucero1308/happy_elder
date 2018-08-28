@@ -14,12 +14,12 @@ class Usuarios_model extends CI_Model{
 		if(!empty($id)){
 			$this->db->select('users.*, roles.name as rolName');
 			$this->db->join('roles', 'roles.role_id = users.rol', 'LEFT');
-			$query = $this->db->get_where($this->table, array( $this->primary_key => $id ));
+			$query = $this->db->get_where($this->table, array( $this->primary_key => $id, $this->status => 'approved' ));
 			return $query->row_array();
 		}else{
 			$this->db->select('users.*, roles.name as rolName');
 			$this->db->join('roles', 'roles.role_id = users.rol', 'LEFT');
-			$query = $this->db->get($this->table);
+			$query = $this->db->get_where($this->table, array(  $this->status => 'approved' ));
 			return $query->result_array();
 		}
 	}

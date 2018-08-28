@@ -15,6 +15,22 @@ class Eventos_model extends CI_Model{
 			return $query->result_array();
 		}
 	}
+	function getRowBySlug($slug = ""){
+		if(!empty($slug)){
+			$query = $this->db->get_where($this->table, array( 'events.slug' => $slug, $this->status => 'publish' ));
+			return $query->row_array();
+		}else{
+			return array();
+		}
+	}
+	function getRowsByUser($id = ""){
+		if(!empty($id)){
+			$query = $this->db->get_where($this->table, array( 'events.user_id' => $id, $this->status => 'publish' ));
+			return $query->result_array();
+		}else{
+			return array();
+		}
+	}
 	public function insert($data = array()) {
 		$insert = $this->db->insert($this->table, $data);
 		if($insert){
