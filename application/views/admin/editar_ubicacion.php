@@ -1,22 +1,18 @@
 <div class="pt-2">
 	 <?php 
-		$evento_id 			= $evento['id'];
+		$ubicacion_id 			= $ubicacion['id'];
 		if( $this->input->post('is_submitted') ) {
 			$name			= set_value('name');
 			$description	= set_value('description');
-			$organizer		= set_value('organizer');
-			$location		= set_value('location');
-			$dateEvent		= set_value('dateEvent');
+			$address		= set_value('address');
 		} else {
-			$name			= $evento['name'];
-			$description	= $evento['description'];
-			$organizer		= $evento['organizer'];
-			$location		= $evento['location'];
-			$dateEvent		= $evento['dateEvent'];
+			$name			= $ubicacion['name'];
+			$description	= $ubicacion['description'];
+			$address		= $ubicacion['address'];
 		}
 	?>
 	<div class="row">
-		<?=	form_open_multipart('cuenta/editar_evento/'.$evento_id,['class'=>'col-12 col-xl-5']) ?>
+		<?=	form_open_multipart('admin/ubicaciones/editar/'.$ubicacion_id,['class'=>'col-12 col-xl-5']) ?>
 			<?php if( isset($errors) ): ?>
 				<div class="alert alert-danger text-left">
 					<?php print_r($errors); ?>
@@ -31,16 +27,8 @@
 				<textarea name="description" required="required" class="form-control" id="description" cols="30" rows="5"><?= $description ?></textarea>
 			</div>
 			<div class="form-group">
-				<label for="organizer">Organizador</label> 
-				<input id="organizer" name="organizer" value="<?= $organizer ?>" type="text" required="required" class="form-control">
-			</div>
-			<div class="form-group">
-				<label for="location">Ubicación</label> 
-				<input id="location" name="location" value="<?= $location ?>" type="text" required="required" class="form-control">
-			</div>
-			<div class="form-group">
-				<label for="dateEvent">Fecha</label> 
-				<input id="dateEvent" name="dateEvent" value="<?= $dateEvent ?>" type="text" required="required" class="form-control">
+				<label for="address">Dirección</label> 
+				<input id="address" name="address" value="<?= $address ?>" type="text" required="required" class="form-control">
 			</div>
 			<div class="form-group">
 				<div class="input-group">
@@ -50,7 +38,7 @@
 			<div class="form-group">
 				<input type="hidden" name="is_submitted" value="1">
 				<button name="submit" type="submit" class="btn btn-primary">Actualizar</button>
-				 <a class="btn btn-cancel" href="<?= base_url( '/cuenta/eventos' ) ?>">Cancelar</a>
+				 <a class="btn btn-cancel" href="<?= base_url( '/admin/ubicaciones' ) ?>">Cancelar</a>
 			</div>
 		</form>
 	</div>

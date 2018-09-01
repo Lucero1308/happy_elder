@@ -160,7 +160,8 @@ class Usuarios extends CI_Controller {
 				unset( $data_user['submit'] );
 				unset( $data_user['is_submitted'] );
 
-				$data_user['password'] = sha1(md5($data['password']));
+				$data_user['status'] = 'approved';
+				$data_user['password'] = sha1(md5($data_user['password']));
 				$data_user['hash'] = sha1(md5($this->session->userdata['session_id']));
 				$user_id = $this->Usuarios_model->insert($data_user);
 				if( $user_id ) {

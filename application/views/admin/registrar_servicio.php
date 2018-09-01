@@ -1,20 +1,19 @@
 <div class="pt-2">
 	 <?php 
-		$servicio_id 		= $servicio['id'];
 		if( $this->input->post('is_submitted') ) {
 			$name			= set_value('name');
 			$description	= set_value('description');
 			$price			= set_value('price');
 			$schedule		= set_value('schedule');
 		} else {
-			$name			= $servicio['name'];
-			$description	= $servicio['description'];
-			$price			= $servicio['price'];
-			$schedule		= $servicio['schedule'];
+			$name			= '';
+			$description	= '';
+			$price			= '';
+			$schedule		= '';
 		}
 	?>
 	<div class="row">
-		<?=	form_open_multipart('admin/servicios/editar/'.$servicio_id,['class'=>'col-12 col-xl-5']) ?>
+		<?=	form_open_multipart('admin/servicios/registrar/',['class'=>'col-12 col-xl-5']) ?>
 			<?php if( isset($errors) ): ?>
 				<div class="alert alert-danger text-left">
 					<?php print_r($errors); ?>
@@ -43,7 +42,7 @@
 			</div>
 			<div class="form-group">
 				<input type="hidden" name="is_submitted" value="1">
-				<button name="submit" type="submit" class="btn btn-primary">Actualizar</button>
+				<button name="submit" type="submit" class="btn btn-primary">Registrar</button>
 				 <a class="btn btn-cancel" href="<?= base_url( '/admin/servicios' ) ?>">Cancelar</a>
 			</div>
 		</form>

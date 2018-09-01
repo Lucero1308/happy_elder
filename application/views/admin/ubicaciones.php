@@ -1,3 +1,4 @@
+<p><a class="btn btn-primary" href="<?= base_url("/admin/ubicaciones/registrar/" ) ?>">Crear nuevo</a></p>
 <div class="table-responsive">
 	<table class="table-hover table table-bordered">
 		<tr>

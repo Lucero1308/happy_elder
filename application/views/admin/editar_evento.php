@@ -23,7 +23,7 @@
 				</div>
 			<?php endif ?>
 			<div class="form-group">
-				<label for="name">Titulo</label> 
+				<label for="name">Título</label> 
 				<input id="name" name="name" value="<?= $name ?>" type="text" required="required" class="form-control">
 			</div>
 			<div class="form-group">

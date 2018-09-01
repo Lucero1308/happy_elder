@@ -1,6 +1,5 @@
 <div class="pt-2">
 	 <?php 
-		$evento_id 			= $evento['id'];
 		if( $this->input->post('is_submitted') ) {
 			$name			= set_value('name');
 			$description	= set_value('description');
@@ -8,15 +7,15 @@
 			$location		= set_value('location');
 			$dateEvent		= set_value('dateEvent');
 		} else {
-			$name			= $evento['name'];
-			$description	= $evento['description'];
-			$organizer		= $evento['organizer'];
-			$location		= $evento['location'];
-			$dateEvent		= $evento['dateEvent'];
+			$name			= '';
+			$description	= '';
+			$organizer		= '';
+			$location		= '';
+			$dateEvent		= '';
 		}
 	?>
 	<div class="row">
-		<?=	form_open_multipart('cuenta/editar_evento/'.$evento_id,['class'=>'col-12 col-xl-5']) ?>
+		<?=	form_open_multipart('admin/eventos/registrar/',['class'=>'col-12 col-xl-5']) ?>
 			<?php if( isset($errors) ): ?>
 				<div class="alert alert-danger text-left">
 					<?php print_r($errors); ?>
@@ -49,8 +48,8 @@
 			</div>
 			<div class="form-group">
 				<input type="hidden" name="is_submitted" value="1">
-				<button name="submit" type="submit" class="btn btn-primary">Actualizar</button>
-				 <a class="btn btn-cancel" href="<?= base_url( '/cuenta/eventos' ) ?>">Cancelar</a>
+				<button name="submit" type="submit" class="btn btn-primary">Registrar</button>
+				 <a class="btn btn-cancel" href="<?= base_url( '/admin/eventos' ) ?>">Cancelar</a>
 			</div>
 		</form>
 	</div>
