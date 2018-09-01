@@ -14,7 +14,7 @@
 	?>
 	<div class="row">
 		<?=	form_open_multipart('cuenta/registrar_servicio/',['class'=>'col-12 col-xl-5']) ?>
-			<?php if( isset($errors) ): ?>
+			<?php if( isset($errors)  ): ?> <!-- estilo para los errores -->
 				<div class="alert alert-danger text-left">
 					<?php print_r($errors); ?>
 				</div>

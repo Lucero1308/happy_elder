@@ -11,11 +11,11 @@ class Ubicaciones extends CI_Controller {
 	}
 	private function validate_sesion() {
 		if( !$this->isLoggedin() ) { 
-			redirect( base_url().'cuenta/login');
+			redirect( base_url() );
 		}
 	}
 	public function isLoggedin() {
-		if(!empty($this->session->userdata['id'])) {
+		if(!empty($this->session->userdata['id']) && $this->session->userdata['rol'] == 1) {
 			return true;
 		}
 		else {
@@ -23,9 +23,7 @@ class Ubicaciones extends CI_Controller {
 		}
 	}
 	public function index() {
-		if ( !empty( $this->session->userdata['id'] ) && $this->session->userdata['rol'] != 1 ) {
-			redirect( base_url());
-		}
+		
 		$data = array();
 		$data['list'] = $this->Ubicaciones_model->getRows();
 		$data['title'] = 'Ubicaciones';
@@ -116,6 +114,58 @@ class Ubicaciones extends CI_Controller {
 		$data['title'] = 'Editar ubicación';
 		$this->load->view('admin/header', $data);
 		$this->load->view('admin/editar_ubicacion', $data);
+		$this->load->view('admin/footer');
+	}
+	public function registrar_beneficiario( $id_ubicacion ) {
+		$data = array();
+		if ( isset( $_POST ) && count( $_POST ) ) {
+			$config = array(
+				array(
+					'field' => 'firstName',
+					'label' => 'Nombres',
+					'rules' => 'trim|required'
+				),
+				array(
+					'field' => 'lastName',
+					'label' => 'Apellidos',
+					'rules' => 'trim|required'
+				),
+				array(
+					'field' => 'telephone',
+					'label' => 'Teléfono',
+					'rules' => 'trim|required'
+				),
+				array(
+					'field' => 'dni',
+					'label' => 'DNI',
+					'rules' => 'trim|required'
+				),
+			);
+			$this->form_validation->set_rules($config);
+			if ($this->form_validation->run() == false) {
+				$data['errors'] = validation_errors();
+			} else {
+				$data_post = $this->security->xss_clean($_POST);
+				unset( $data_post['submit'] ); //unset=borrar de un arreglo
+				unset( $data_post['is_submitted'] );
+				$data_post['status'] = 'libre';
+				$data_post['location_id'] = $id_ubicacion;
+				$data_post['fullName'] = $data_post['firstName'] . ' ' . $data_post['lastName'];
+				$beneficiario_id = $this->Ubicaciones_model->insertBeneficiario($data_post);
+				if( $beneficiario_id ) {
+					$this->session->set_flashdata('log_success','Se registró correctamente al beneficiario.');
+					redirect( base_url().'admin/ubicaciones');
+				}
+				$data['errors'] = 'Ocurrió un error al registrar el beneficiario.';
+				$data_post['is_submitted'] = 1;
+				$data_post['submit'] = 1;
+			}
+		}
+
+		$data['beneficiario'] = array();
+		$data['title'] = 'Registrar beneficiario';
+		$this->load->view('admin/header', $data);
+		$this->load->view('admin/registrar_beneficiario', $data);
 		$this->load->view('admin/footer');
 	}
 	public function registrar( ) {

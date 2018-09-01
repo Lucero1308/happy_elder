@@ -1,3 +1,13 @@
+<?php if($this->session->flashdata('log_success')){?>
+	<div class="alert alert-success">
+		<?php echo $this->session->flashdata('log_success');?>
+	</div>
+<?php }?>
+<?php if($this->session->flashdata('log_error')){?>
+	<div class="alert alert-danger">
+		<?php echo $this->session->flashdata('log_error');?>
+	</div>
+<?php }?>
 <?php if ( $posts && count( $posts ) ): ?>
 	<div class="pt-2 row">
 		<?php foreach ($posts as $key => $post): ?>
@@ -9,8 +19,8 @@
 					<div class="card-body">
 						<h4 class="card-title mb-0"><a href="<?= base_url( '/ubicaciones/ver/'.$post['slug'] )  ?>"><?= $post['name'] ?></a></h4>
 						<?php if ( $this->session && $this->session->userdata && ! empty( $this->session->userdata['id'] ) ): ?>
-							<?php if ( $this->session->userdata['rol'] == 2 ): ?>
-								<div class="text mt-3"><a class="btn btn-primary" href="<?= base_url( '/ubicaciones/reservar/'.$post['id'] )  ?>">Reservar servicio</a></div>
+							<?php if ( $this->session->userdata['rol'] == 4 ): ?>
+								<div class="text mt-3"><a class="btn btn-primary" href="<?= base_url( '/ubicaciones/seleccionar/'.$post['slug'] )  ?>">Seleccionar beneficiario</a></div>
 							<?php endif ?>
 						<?php endif ?>
 					</div>

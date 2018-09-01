@@ -1,3 +1,5 @@
+<p><a class="btn btn-primary" href="<?= base_url("/admin/usuarios/registrar/" ) ?>">Crear nuevo</a></p>
+
 <div class="table-responsive">
 	<table class="table-hover table table-bordered">
 		<tr>
@@ -12,7 +14,12 @@
 		<?php if ( $list && count( $list ) ): ?>
 			<?php foreach ($list as $key => $row): ?>
 				<tr>
-					<td><a href="<?= base_url("/admin/usuarios/eliminar/" . $row['id']) ?>">Eliminar</a> | <a href="<?= base_url("/admin/usuarios/editar/" . $row['id'] ) ?>">Editar</a></td>
+					<!-- Condicional para solo mostrar editar con el usuario activo -->
+					<?php if ( $row['id'] == $this->session->userdata['id'] ): ?>
+						<td><a href="<?= base_url("/admin/usuarios/editar/" . $row['id'] ) ?>">Editar</a></td>
+					<?php else: ?>
+						<td><a href="<?= base_url("/admin/usuarios/eliminar/" . $row['id']) ?>">Eliminar</a> | <a href="<?= base_url("/admin/usuarios/editar/" . $row['id'] ) ?>">Editar</a></td>
+					<?php endif ?>
 					<td><?= $row['id'] ?></td>
 					<td><?= $row['userName'] ?></td>
 					<td><?= $row['firstName'] ?></td>

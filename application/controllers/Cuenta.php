@@ -441,15 +441,20 @@ class Cuenta extends CI_Controller {
 						unset( $data_post['is_submitted'] );
 						$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
 						$data_post['user_id'] = $this->session->userdata['id'];
-						$data_post['slug'] = url_title($data_post['name'], 'dash', true);
-						$services_id = $this->Servicios_model->insert($data_post);
-						if( $services_id ) {
-							$this->session->set_flashdata('log_success','Se creó el servicio correctamente.');
-							redirect( base_url().'cuenta/servicios');
+						$data_post['slug'] = url_title($data_post['name'], 'dash', true); //convertir titulo en slug
+						if( !$this->Servicios_model->getRowBySlug( $data_post['slug'] ) ) {
+							$services_id = $this->Servicios_model->insert($data_post);
+							if( $services_id ) {
+								$this->session->set_flashdata('log_success','Se creó el servicio correctamente.');
+								redirect( base_url().'cuenta/servicios');
+							}
+							$data['errors'] = 'Ocurrió un error al actualizar el servicio.';
+							$data_post['is_submitted'] = 1;
+							$data_post['submit'] = 1;
+						} else {
+							$data['errors'] = 'Ya existe un servicio con el mismo nombre.';
 						}
-						$data['errors'] = 'Ocurrió un error al actualizar el servicio.';
-						$data_post['is_submitted'] = 1;
-						$data_post['submit'] = 1;
+
 					}
 				} else {
 					$data_post = $this->security->xss_clean($_POST);
@@ -458,14 +463,18 @@ class Cuenta extends CI_Controller {
 
 					$data_post['user_id'] = $this->session->userdata['id'];
 					$data_post['slug'] = url_title($data_post['name'], 'dash', true);
-					$services_id = $this->Servicios_model->insert($data_post);
-					if( $services_id ) {
-						$this->session->set_flashdata('log_success','Se creó el servicio correctamente.');
-						redirect( base_url().'cuenta/servicios');
+					if( !$this->Servicios_model->getRowBySlug( $data_post['slug'] ) ) {
+						$services_id = $this->Servicios_model->insert($data_post);
+						if( $services_id ) {
+							$this->session->set_flashdata('log_success','Se creó el servicio correctamente.');
+							redirect( base_url().'cuenta/servicios');
+						}
+						$data['errors'] = 'Ocurrió un error al actualizar el servicio.';
+						$data_post['is_submitted'] = 1;
+						$data_post['submit'] = 1;
+					} else {
+						$data['errors'] = 'Ya existe un servicio con el mismo nombre.';
 					}
-					$data['errors'] = 'Ocurrió un error al actualizar el servicio.';
-					$data_post['is_submitted'] = 1;
-					$data_post['submit'] = 1;
 				}
 			}
 		}

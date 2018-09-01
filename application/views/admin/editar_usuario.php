@@ -56,7 +56,9 @@
 		<div class="form-group">
 			<input type="hidden" name="is_submitted" value="1">
 			<input type="hidden" name="inputUseId" value="<?= $user_id ?>">
-			<button name="submit" type="submit" class="btn btn-primary">Editar</button>
+			<button name="submit" type="submit" class="btn btn-primary">Actualizar</button>
+
+			<a class="btn btn-cancel" href="<?= base_url( '/admin/usuarios' ) ?>">Cancelar</a>
 		</div>
 	</form>
 </div>
