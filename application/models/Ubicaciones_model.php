@@ -37,14 +37,6 @@ class Ubicaciones_model extends CI_Model{
 			return array();
 		}
 	}
-	function getRowsByUser($id = ""){
-		if(!empty($id)){
-			$query = $this->db->get_where($this->table, array( 'locations.user_id' => $id, $this->status => 'publish' ));
-			return $query->result_array();
-		}else{
-			return array();
-		}
-	}
 	public function insert($data = array()) {
 		$insert = $this->db->insert($this->table, $data);
 		if($insert){
