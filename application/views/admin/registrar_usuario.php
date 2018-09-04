@@ -24,15 +24,15 @@
 		<?php endif ?>
 		<div class="form-group">
 			<label for="inputFirstName">Nombres</label> 
-			<input id="inputFirstName" name="firstName" value="<?= $inputFirstName ?>" type="text" required="required" class="form-control here">
+			<input id="inputFirstName" name="firstName" value="<?= $inputFirstName ?>" type="text" required="required" class="form-control">
 		</div>
 		<div class="form-group">
 			<label for="inputLastName">Apellidos</label> 
-			<input id="inputLastName" name="lastName" value="<?= $inputLastName ?>" type="text" required="required" class="form-control here">
+			<input id="inputLastName" name="lastName" value="<?= $inputLastName ?>" type="text" required="required" class="form-control">
 		</div>
 		<div class="form-group">
 			<label for="inputTelephone">Teléfono</label> 
-			<input id="inputTelephone" name="telephone" value="<?= $inputTelephone ?>" type="text" required="required" class="form-control here">
+			<input id="inputTelephone" name="telephone" value="<?= $inputTelephone ?>" type="text" required="required" class="form-control onlyNumbers">
 		</div>
 		<?php if ( isset( $roles ) && $roles ): ?>
 			<div class="form-group">
@@ -46,11 +46,11 @@
 		<?php endif ?>
 		<div class="form-group">
 			<label for="inputUserName">Correo (usuario)</label> 
-			<input id="inputUserName" name="userName" value="<?= $inputUserName ?>" type="email" class="form-control here" required="required">
+			<input id="inputUserName" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="userName" value="<?= $inputUserName ?>" type="email" class="form-control" required="required">
 		</div>
 		<div class="form-group">
 			<label for="inputPassword">Contraseña</label> 
-			<input id="inputPassword" name="password" value="<?= $inputPassword ?>" type="password" class="form-control here">
+			<input id="inputPassword" name="password" value="<?= $inputPassword ?>" type="password" class="form-control">
 		</div> 
 		<div class="form-group">
 			<input type="hidden" name="is_submitted" value="1">

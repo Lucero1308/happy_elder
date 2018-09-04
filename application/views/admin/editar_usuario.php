@@ -33,7 +33,7 @@
 		</div>
 		<div class="form-group">
 			<label for="inputTelephone">Teléfono</label> 
-			<input id="inputTelephone" name="telephone" value="<?= $inputTelephone ?>" type="text" required="required" class="form-control here">
+			<input id="inputTelephone" name="telephone" value="<?= $inputTelephone ?>" type="text" required="required" class="form-control onlyNumbers">
 		</div>
 		<?php if ( isset( $roles ) && $roles ): ?>
 			<div class="form-group">
@@ -47,7 +47,7 @@
 		<?php endif ?>
 		<div class="form-group">
 			<label for="inputUserName">Correo (usuario)</label> 
-			<input id="inputUserName" name="userName" value="<?= $inputUserName ?>" type="email" class="form-control here" required="required">
+			<input id="inputUserName" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="userName" value="<?= $inputUserName ?>" type="email" class="form-control" required="required">
 		</div>
 		<div class="form-group">
 			<label for="inputPassword">Contraseña</label> 

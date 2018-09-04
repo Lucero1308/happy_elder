@@ -15,7 +15,7 @@ class Ubicaciones extends CI_Controller {
 		}
 	}
 	public function isLoggedin() {
-		if(!empty($this->session->userdata['id']) && $this->session->userdata['rol'] == 1) {
+		if(! empty($this->session->userdata['id']) && $this->session->userdata['rol'] == 1 ) {
 			return true;
 		}
 		else {
@@ -23,7 +23,6 @@ class Ubicaciones extends CI_Controller {
 		}
 	}
 	public function index() {
-		
 		$data = array();
 		$data['list'] = $this->Ubicaciones_model->getRows();
 		$data['title'] = 'Ubicaciones';

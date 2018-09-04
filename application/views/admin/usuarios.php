@@ -18,7 +18,7 @@
 					<?php if ( $row['id'] == $this->session->userdata['id'] ): ?>
 						<td><a href="<?= base_url("/admin/usuarios/editar/" . $row['id'] ) ?>">Editar</a></td>
 					<?php else: ?>
-						<td><a href="<?= base_url("/admin/usuarios/eliminar/" . $row['id']) ?>">Eliminar</a> | <a href="<?= base_url("/admin/usuarios/editar/" . $row['id'] ) ?>">Editar</a></td>
+						<td><a onclick="return confirm('¿Seguro que quiere eliminar este usuario?')" href="<?= base_url("/admin/usuarios/eliminar/" . $row['id']) ?>">Eliminar</a> | <a href="<?= base_url("/admin/usuarios/editar/" . $row['id'] ) ?>">Editar</a></td>
 					<?php endif ?>
 					<td><?= $row['id'] ?></td>
 					<td><?= $row['userName'] ?></td>

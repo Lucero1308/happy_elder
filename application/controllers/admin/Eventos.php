@@ -11,11 +11,11 @@ class Eventos extends CI_Controller {
 	}
 	private function validate_sesion() {
 		if( !$this->isLoggedin() ) { 
-			redirect( base_url().'cuenta/login');
+			redirect( base_url() );
 		}
 	}
 	public function isLoggedin() {
-		if(!empty($this->session->userdata['id'])) {
+		if(! empty($this->session->userdata['id']) && $this->session->userdata['rol'] == 1 ) {
 			return true;
 		}
 		else {
@@ -23,9 +23,6 @@ class Eventos extends CI_Controller {
 		}
 	}
 	public function index() {
-		if ( !empty( $this->session->userdata['id'] ) && $this->session->userdata['rol'] != 1 ) {
-			redirect( base_url());
-		}
 		$data = array();
 		$data['list'] = $this->Eventos_model->getRows();
 		$data['title'] = 'Eventos';
