@@ -74,3 +74,8 @@
 				<?php if ( isset( $title ) && $title ): ?>
 					<h1><?= $title ?></h1>
 				<?php endif ?>
+				<?php if($this->session->flashdata('log_success')){?>
+					<div class="alert alert-success">
+						<?php echo $this->session->flashdata('log_success');?>
+					</div>
+				<?php }?>

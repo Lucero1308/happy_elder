@@ -8,7 +8,7 @@ class Servicios_model extends CI_Model{
 	}
 	function getRows($id = ""){
 		if(!empty($id)){
-			$query = $this->db->get_where($this->table, array( $this->primary_key => $id, $this->status => 'publish' ));
+			$query = $this->db->get_where($this->table, array( $this->primary_key => $id, $this->status . ' !=' => 'trash' ));
 			return $query->row_array();
 		}else{
 			$query = $this->db->get_where($this->table, array( $this->status => 'publish' ));
@@ -25,7 +25,7 @@ class Servicios_model extends CI_Model{
 	}
 	function getRowsByUser($id = ""){
 		if(!empty($id)){
-			$query = $this->db->get_where($this->table, array( 'services.user_id' => $id, $this->status => 'publish' ));
+			$query = $this->db->get_where($this->table, array( 'services.user_id' => $id, $this->status . ' !=' => 'trash' ));
 			return $query->result_array();
 		}else{
 			return array();

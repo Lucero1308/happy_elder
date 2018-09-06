@@ -81,7 +81,7 @@ class Ubicaciones extends CI_Controller {
 						unset( $data_post['submit'] );
 						unset( $data_post['is_submitted'] );
 						$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
-						$data_post['slug'] = url_title($data_post['name'], 'dash', true);
+						$data_post['slug'] =  url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
 						$services_id = $this->Ubicaciones_model->update($data_post,  $idubicacion);
 						if( $services_id ) {
 							$this->session->set_flashdata('log_success','Se actualizó la ubicación correctamente.');
@@ -96,7 +96,7 @@ class Ubicaciones extends CI_Controller {
 					unset( $data_post['submit'] );
 					unset( $data_post['is_submitted'] );
 
-					$data_post['slug'] = url_title($data_post['name'], 'dash', true);
+					$data_post['slug'] =  url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
 					$services_id = $this->Ubicaciones_model->update($data_post,  $idubicacion);
 					if( $services_id ) {
 						$this->session->set_flashdata('log_success','Se actualizó la ubicación correctamente.');
@@ -207,7 +207,7 @@ class Ubicaciones extends CI_Controller {
 						unset( $data_post['submit'] );
 						unset( $data_post['is_submitted'] );
 						$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
-						$data_post['slug'] = url_title($data_post['name'], 'dash', true);
+						$data_post['slug'] =  url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
 						$services_id = $this->Ubicaciones_model->insert($data_post);
 						if( $services_id ) {
 							$this->session->set_flashdata('log_success','Se actualizó la ubicación correctamente.');
@@ -222,7 +222,7 @@ class Ubicaciones extends CI_Controller {
 					unset( $data_post['submit'] );
 					unset( $data_post['is_submitted'] );
 
-					$data_post['slug'] = url_title($data_post['name'], 'dash', true);
+					$data_post['slug'] =  url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
 					$services_id = $this->Ubicaciones_model->insert($data_post);
 					if( $services_id ) {
 						$this->session->set_flashdata('log_success','Se actualizó la ubicación correctamente.');

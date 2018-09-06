@@ -11,6 +11,7 @@
 				<th width="300">Descripción</th>
 				<th>Horario</th>
 				<th>Precio</th>
+				<th>Fecha reserva</th>
 			</tr>
 			<?php if ( isset( $list ) && $list && count( $list ) ): ?>
 				<?php foreach ($list as $key => $row): ?>
@@ -21,6 +22,7 @@
 						<td><?= $row['description'] ?></td>
 						<td><?= $row['schedule'] ?></td>
 						<td><?= $row['price'] ?></td>
+						<td><?= $row['visitanteFecha'] ?></td>
 					</tr>
 				<?php endforeach ?>
 			<?php endif ?>

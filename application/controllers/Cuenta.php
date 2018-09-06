@@ -9,7 +9,6 @@ class Cuenta extends CI_Controller {
 		$this->load->model('Eventos_model');
 		$this->load->model('Usuarios_model');
 		$this->load->library('form_validation');
-		$this->load->library('email');
 	}
 	public function login() {
 		$data = array();
@@ -48,6 +47,7 @@ class Cuenta extends CI_Controller {
 	public function index() {
 		$data = array();
 		$data['title'] = 'Perfil';
+
 		if( $this->isLoggedin() ) { 
 			$usuario_id = $this->session->userdata['id'];
 			if ( isset( $_POST ) && count( $_POST ) ) {
@@ -177,7 +177,7 @@ class Cuenta extends CI_Controller {
 						unset( $data_post['is_submitted'] );
 						$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
 						$data_post['user_id'] = $this->session->userdata['id'];
-						$data_post['slug'] = url_title($data_post['name'], 'dash', true);
+						$data_post['slug'] = url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
 						$services_id = $this->Eventos_model->update($data_post,  $idevento);
 						if( $services_id ) {
 							$this->session->set_flashdata('log_success','Se actualizó el evento correctamente.');
@@ -193,7 +193,7 @@ class Cuenta extends CI_Controller {
 					unset( $data_post['is_submitted'] );
 
 					$data_post['user_id'] = $this->session->userdata['id'];
-					$data_post['slug'] = url_title($data_post['name'], 'dash', true);
+					$data_post['slug'] = url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
 					$services_id = $this->Eventos_model->update($data_post,  $idevento);
 					if( $services_id ) {
 						$this->session->set_flashdata('log_success','Se actualizó el evento correctamente.');
@@ -265,7 +265,7 @@ class Cuenta extends CI_Controller {
 						unset( $data_post['is_submitted'] );
 						$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
 						$data_post['user_id'] = $this->session->userdata['id'];
-						$data_post['slug'] = url_title($data_post['name'], 'dash', true);
+						$data_post['slug'] = url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
 						$services_id = $this->Eventos_model->insert($data_post);
 						if( $services_id ) {
 							$this->session->set_flashdata('log_success','Se creó el evento correctamente.');
@@ -281,7 +281,7 @@ class Cuenta extends CI_Controller {
 					unset( $data_post['is_submitted'] );
 
 					$data_post['user_id'] = $this->session->userdata['id'];
-					$data_post['slug'] = url_title($data_post['name'], 'dash', true);
+					$data_post['slug'] = url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
 					$services_id = $this->Eventos_model->insert($data_post);
 					if( $services_id ) {
 						$this->session->set_flashdata('log_success','Se creó el evento correctamente.');
@@ -358,7 +358,7 @@ class Cuenta extends CI_Controller {
 						unset( $data_post['is_submitted'] );
 						$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
 						$data_post['user_id'] = $this->session->userdata['id'];
-						$data_post['slug'] = url_title($data_post['name'], 'dash', true);
+						$data_post['slug'] = url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
 						$services_id = $this->Servicios_model->update($data_post,  $idservicio);
 						if( $services_id ) {
 							$this->session->set_flashdata('log_success','Se actualizó el servicio correctamente.');
@@ -374,7 +374,7 @@ class Cuenta extends CI_Controller {
 					unset( $data_post['is_submitted'] );
 
 					$data_post['user_id'] = $this->session->userdata['id'];
-					$data_post['slug'] = url_title($data_post['name'], 'dash', true);
+					$data_post['slug'] = url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
 					$services_id = $this->Servicios_model->update($data_post,  $idservicio);
 					if( $services_id ) {
 						$this->session->set_flashdata('log_success','Se actualizó el servicio correctamente.');
@@ -441,7 +441,7 @@ class Cuenta extends CI_Controller {
 						unset( $data_post['is_submitted'] );
 						$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
 						$data_post['user_id'] = $this->session->userdata['id'];
-						$data_post['slug'] = url_title($data_post['name'], 'dash', true); //convertir titulo en slug
+						$data_post['slug'] = url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
 						if( !$this->Servicios_model->getRowBySlug( $data_post['slug'] ) ) {
 							$services_id = $this->Servicios_model->insert($data_post);
 							if( $services_id ) {
@@ -462,7 +462,7 @@ class Cuenta extends CI_Controller {
 					unset( $data_post['is_submitted'] );
 
 					$data_post['user_id'] = $this->session->userdata['id'];
-					$data_post['slug'] = url_title($data_post['name'], 'dash', true);
+					$data_post['slug'] = url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
 					if( !$this->Servicios_model->getRowBySlug( $data_post['slug'] ) ) {
 						$services_id = $this->Servicios_model->insert($data_post);
 						if( $services_id ) {

@@ -89,7 +89,7 @@ class Servicios extends CI_Controller {
 						unset( $data_post['is_submitted'] );
 						$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
 						$data_post['user_id'] = $this->session->userdata['id'];
-						$data_post['slug'] = url_title($data_post['name'], 'dash', true);
+						$data_post['slug'] = url_title ( convert_accented_characters($data_post['name'] ), 'dash', true);
 						$services_id = $this->Servicios_model->update($data_post,  $idservicio);
 						if( $services_id ) {
 							$this->session->set_flashdata('log_success','Se actualizó el servicio correctamente.');
@@ -105,7 +105,7 @@ class Servicios extends CI_Controller {
 					unset( $data_post['is_submitted'] );
 
 					$data_post['user_id'] = $this->session->userdata['id'];
-					$data_post['slug'] = url_title($data_post['name'], 'dash', true);
+					$data_post['slug'] = url_title ( convert_accented_characters($data_post['name'] ), 'dash', true);
 					$services_id = $this->Servicios_model->update($data_post,  $idservicio);
 					if( $services_id ) {
 						$this->session->set_flashdata('log_success','Se actualizó el servicio correctamente.');
@@ -171,7 +171,7 @@ class Servicios extends CI_Controller {
 						unset( $data_post['is_submitted'] );
 						$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
 						$data_post['user_id'] = $this->session->userdata['id'];
-						$data_post['slug'] = url_title($data_post['name'], 'dash', true);
+						$data_post['slug'] = url_title ( convert_accented_characters($data_post['name'] ), 'dash', true);
 						$services_id = $this->Servicios_model->insert($data_post);
 						if( $services_id ) {
 							$this->session->set_flashdata('log_success','Se actualizó el servicio correctamente.');
@@ -187,7 +187,7 @@ class Servicios extends CI_Controller {
 					unset( $data_post['is_submitted'] );
 
 					$data_post['user_id'] = $this->session->userdata['id'];
-					$data_post['slug'] = url_title($data_post['name'], 'dash', true);
+					$data_post['slug'] = url_title ( convert_accented_characters($data_post['name'] ), 'dash', true);
 					$services_id = $this->Servicios_model->insert($data_post);
 					if( $services_id ) {
 						$this->session->set_flashdata('log_success','Se actualizó el servicio correctamente.');

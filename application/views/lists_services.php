@@ -10,7 +10,7 @@
 						<h4 class="card-title mb-0"><a href="<?= base_url( '/servicios/ver/'.$post['slug'] )  ?>"><?= $post['name'] ?></a></h4>
 						<?php if ( $this->session && $this->session->userdata && ! empty( $this->session->userdata['id'] ) ): ?>
 							<?php if ( $this->session->userdata['rol'] == 2 ): ?>
-								<div class="text mt-3"><a class="btn btn-primary" href="<?= base_url( '/servicios/reservar/'.$post['id'] )  ?>">Reservar servicio</a></div>
+								<div class="text mt-3"><a class="btn btn-primary" href="<?= base_url( '/servicios/reservar/'.$post['slug'] )  ?>">Reservar servicio</a></div>
 							<?php endif ?>
 						<?php endif ?>
 					</div>
