@@ -53,4 +53,4 @@ $route['default_controller'] = 'home';
 $route['404_override'] = 'notfound';
 
 $route['ubicaciones/(:any)'] = 'ubicaciones/ver/$1';
-$route['locations/(:any)'] = 'ubicaciones/ver/$1';
+$route['locations/(:any)'] = 'ubicaciones/ver/$1'; //buscar por patron 

@@ -15,6 +15,14 @@ class Servicios_model extends CI_Model{
 			return $query->result_array();
 		}
 	}
+	function exist($slug = ""){
+		if(!empty($slug)){
+			$query = $this->db->get_where($this->table, array( 'services.slug' => $slug ) );
+			return $query->row_array();
+		}else{
+			return array();
+		}
+	}
 	function getRowBySlug($slug = ""){
 		if(!empty($slug)){
 			$query = $this->db->get_where($this->table, array( 'services.slug' => $slug, $this->status => 'publish' ));

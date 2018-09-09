@@ -14,7 +14,6 @@
 	<div class="pt-2">
 		<div class="row">
 			<?=	form_open('servicios/reservar/'.$servicio['slug'],['class'=>'col-12 col-xl-5']) ?>
-				<pre><?php print_r( $servicio ) ?></pre>
 				<div class="form-group">
 					<label for="nombreServicio">Servicio</label> 
 					<input id="nombreServicio" value="<?= $servicio['name'] ?>" type="text" required="required" disabled class="form-control">
