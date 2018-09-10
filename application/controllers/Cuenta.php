@@ -115,6 +115,34 @@ class Cuenta extends CI_Controller {
 		}
 	}
 
+	function sendMail() {
+		$config = Array(
+			'protocol' => 'smtp',
+			'smtp_host' => 'ssl://smtp.googlemail.com',
+			'smtp_port' => 465,
+			'smtp_user' => 'nicanor.quisp@gmail.com', // change it to yours
+			'smtp_pass' => 'Consultora1', // change it to yours
+			'mailtype' => 'html',
+			'charset' => 'iso-8859-1',
+			'wordwrap' => TRUE
+		);
+
+		$message = '';
+		$this->load->library('email', $config);
+		$this->email->set_newline("\r\n");
+		$this->email->from('nico@ebp.pe'); // change it to yours
+		$this->email->to('nico@ebp.pe');// change it to yours
+		$this->email->subject('Resume from JobsBuddy for your Job posting 2');
+		$this->email->message($message);
+		if($this->email->send()) {
+			echo 'Email sent.';
+		}
+		else {
+			show_error($this->email->print_debugger());
+		}
+	}
+
+
 	public function eventos() {
 		$this->validate_sesion();
 		$data = array();
