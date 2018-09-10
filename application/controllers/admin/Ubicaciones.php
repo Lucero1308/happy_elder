@@ -43,6 +43,8 @@ class Ubicaciones extends CI_Controller {
 	}
 	public function editar( $idubicacion = '' ) {
 		$data = array();
+		$data['ubicacion'] = $this->Ubicaciones_model->getRows( $idubicacion );
+		$data['title'] = 'Editar ubicación';
 		if ( isset( $_POST ) && count( $_POST ) ) {
 			$config = array(
 				array(
@@ -82,12 +84,16 @@ class Ubicaciones extends CI_Controller {
 						unset( $data_post['is_submitted'] );
 						$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
 						$data_post['slug'] =  url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
-						$services_id = $this->Ubicaciones_model->update($data_post,  $idubicacion);
-						if( $services_id ) {
-							$this->session->set_flashdata('log_success','Se actualizó la ubicación correctamente.');
-							redirect( base_url().'admin/ubicaciones');
+						if( !$this->Ubicaciones_model->exist( $data_post['slug'], $data['ubicacion']['id'] ) ) {
+							$services_id = $this->Ubicaciones_model->update($data_post,  $idubicacion);
+							if( $services_id ) {
+								$this->session->set_flashdata('log_success','Se actualizó la ubicación correctamente.');
+								redirect( base_url().'admin/ubicaciones');
+							}
+							$data['errors'] = 'Ocurrió un error al actualizar la ubicación.';
+						} else {
+							$data['errors'] = 'Ya existe una ubicación con el mismo nombre.';
 						}
-						$data['errors'] = 'Ocurrió un error al actualizar la ubicación.';
 						$data_post['is_submitted'] = 1;
 						$data_post['submit'] = 1;
 					}
@@ -97,20 +103,22 @@ class Ubicaciones extends CI_Controller {
 					unset( $data_post['is_submitted'] );
 
 					$data_post['slug'] =  url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
-					$services_id = $this->Ubicaciones_model->update($data_post,  $idubicacion);
-					if( $services_id ) {
-						$this->session->set_flashdata('log_success','Se actualizó la ubicación correctamente.');
-						redirect( base_url().'admin/ubicaciones');
+					if( !$this->Ubicaciones_model->exist( $data_post['slug'], $data['ubicacion']['id'] ) ) {
+						$services_id = $this->Ubicaciones_model->update($data_post,  $idubicacion);
+						if( $services_id ) {
+							$this->session->set_flashdata('log_success','Se actualizó la ubicación correctamente.');
+							redirect( base_url().'admin/ubicaciones');
+						}
+						$data['errors'] = 'Ocurrió un error al actualizar la ubicación.';
+					} else {
+						$data['errors'] = 'Ya existe una ubicación con el mismo nombre.';
 					}
-					$data['errors'] = 'Ocurrió un error al actualizar la ubicación.';
 					$data_post['is_submitted'] = 1;
 					$data_post['submit'] = 1;
 				}
 			}
 		}
 
-		$data['ubicacion'] = $this->Ubicaciones_model->getRows( $idubicacion );
-		$data['title'] = 'Editar ubicación';
 		$this->load->view('admin/header', $data);
 		$this->load->view('admin/editar_ubicacion', $data);
 		$this->load->view('admin/footer');
@@ -214,12 +222,12 @@ class Ubicaciones extends CI_Controller {
 								$this->session->set_flashdata('log_success','Se actualizó la ubicación correctamente.');
 								redirect( base_url().'admin/ubicaciones');
 							}
-							$data['errors'] = 'Ocurrió un error al actualizar la ubicación.';
-							$data_post['is_submitted'] = 1;
-							$data_post['submit'] = 1;
+							$data['errors'] = 'Ocurrió un error al registrar la ubicación.';
 						} else {
 							$data['errors'] = 'Ya existe una ubicación con el mismo nombre.';
 						}
+						$data_post['is_submitted'] = 1;
+						$data_post['submit'] = 1;
 					}
 				} else {
 					$data_post = $this->security->xss_clean($_POST);
@@ -233,7 +241,7 @@ class Ubicaciones extends CI_Controller {
 							$this->session->set_flashdata('log_success','Se actualizó la ubicación correctamente.');
 							redirect( base_url().'admin/ubicaciones');
 						}
-						$data['errors'] = 'Ocurrió un error al actualizar la ubicación.';
+						$data['errors'] = 'Ocurrió un error al registrar la ubicación.';
 						$data_post['is_submitted'] = 1;
 						$data_post['submit'] = 1;
 					} else {

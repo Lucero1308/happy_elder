@@ -44,6 +44,8 @@ class Servicios extends CI_Controller {
 
 	public function editar( $idservicio = '' ) {
 		$data = array();
+		$data['servicio'] = $this->Servicios_model->getRows( $idservicio );
+		$data['title'] = 'Editar servicio';
 
 		if ( isset( $_POST ) && count( $_POST ) ) {
 			$config = array(
@@ -90,12 +92,16 @@ class Servicios extends CI_Controller {
 						$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
 						$data_post['user_id'] = $this->session->userdata['id'];
 						$data_post['slug'] = url_title ( convert_accented_characters($data_post['name'] ), 'dash', true);
-						$services_id = $this->Servicios_model->update($data_post,  $idservicio);
-						if( $services_id ) {
-							$this->session->set_flashdata('log_success','Se actualizó el servicio correctamente.');
-							redirect( base_url().'admin/servicios');
+						if( !$this->Servicios_model->exist( $data_post['slug'], $data['servicio']['id'] ) ) {
+							$services_id = $this->Servicios_model->update($data_post,  $idservicio);
+							if( $services_id ) {
+								$this->session->set_flashdata('log_success','Se actualizó el servicio correctamente.');
+								redirect( base_url().'admin/servicios');
+							}
+							$data['errors'] = 'Ocurrió un error al actualizar el servicio.';
+						} else {
+							$data['errors'] = 'Ya existe un servicio con el mismo nombre.';
 						}
-						$data['errors'] = 'Ocurrió un error al actualizar el servicio.';
 						$data_post['is_submitted'] = 1;
 						$data_post['submit'] = 1;
 					}
@@ -106,20 +112,22 @@ class Servicios extends CI_Controller {
 
 					$data_post['user_id'] = $this->session->userdata['id'];
 					$data_post['slug'] = url_title ( convert_accented_characters($data_post['name'] ), 'dash', true);
-					$services_id = $this->Servicios_model->update($data_post,  $idservicio);
-					if( $services_id ) {
-						$this->session->set_flashdata('log_success','Se actualizó el servicio correctamente.');
-						redirect( base_url().'admin/servicios');
+					if( !$this->Servicios_model->exist( $data_post['slug'], $data['servicio']['id'] ) ) {
+						$services_id = $this->Servicios_model->update($data_post,  $idservicio);
+						if( $services_id ) {
+							$this->session->set_flashdata('log_success','Se actualizó el servicio correctamente.');
+							redirect( base_url().'admin/servicios');
+						}
+						$data['errors'] = 'Ocurrió un error al actualizar el servicio.';
+					} else {
+						$data['errors'] = 'Ya existe un servicio con el mismo nombre.';
 					}
-					$data['errors'] = 'Ocurrió un error al actualizar el servicio.';
 					$data_post['is_submitted'] = 1;
 					$data_post['submit'] = 1;
 				}
 			}
 		}
 
-		$data['servicio'] = $this->Servicios_model->getRows( $idservicio );
-		$data['title'] = 'Editar servicio';
 		$this->load->view('admin/header', $data);
 		$this->load->view('admin/editar_servicio', $data);
 		$this->load->view('admin/footer');

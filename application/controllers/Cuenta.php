@@ -114,35 +114,7 @@ class Cuenta extends CI_Controller {
 			redirect( base_url().'cuenta/login');
 		}
 	}
-
-	function sendMail() {
-		$config = Array(
-			'protocol' => 'smtp',
-			'smtp_host' => 'ssl://smtp.googlemail.com',
-			'smtp_port' => 465,
-			'smtp_user' => 'nicanor.quisp@gmail.com', // change it to yours
-			'smtp_pass' => 'Consultora1', // change it to yours
-			'mailtype' => 'html',
-			'charset' => 'iso-8859-1',
-			'wordwrap' => TRUE
-		);
-
-		$message = '';
-		$this->load->library('email', $config);
-		$this->email->set_newline("\r\n");
-		$this->email->from('nico@ebp.pe'); // change it to yours
-		$this->email->to('nico@ebp.pe');// change it to yours
-		$this->email->subject('Resume from JobsBuddy for your Job posting 2');
-		$this->email->message($message);
-		if($this->email->send()) {
-			echo 'Email sent.';
-		}
-		else {
-			show_error($this->email->print_debugger());
-		}
-	}
-
-
+	
 	public function eventos() {
 		$this->validate_sesion();
 		$data = array();
@@ -155,6 +127,8 @@ class Cuenta extends CI_Controller {
 	public function editar_evento( $idevento = '' ) {
 		$this->validate_sesion();
 		$data = array();
+		$data['evento'] = $this->Eventos_model->getRows( $idevento );
+		$data['title'] = 'Editar evento';
 
 		if ( isset( $_POST ) && count( $_POST ) ) {
 			$config = array(
@@ -206,12 +180,16 @@ class Cuenta extends CI_Controller {
 						$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
 						$data_post['user_id'] = $this->session->userdata['id'];
 						$data_post['slug'] = url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
-						$services_id = $this->Eventos_model->update($data_post,  $idevento);
-						if( $services_id ) {
-							$this->session->set_flashdata('log_success','Se actualizó el evento correctamente.');
-							redirect( base_url().'cuenta/eventos');
+						if( !$this->Eventos_model->exist( $data_post['slug'], $data['evento']['id'] ) ) {
+							$services_id = $this->Eventos_model->update($data_post,  $idevento);
+							if( $services_id ) {
+								$this->session->set_flashdata('log_success','Se actualizó el evento correctamente.');
+								redirect( base_url().'cuenta/eventos');
+							}
+							$data['errors'] = 'Ocurrió un error al actualizar el evento.';
+						} else {
+							$data['errors'] = 'Ya existe un evento con ese nombre.';
 						}
-						$data['errors'] = 'Ocurrió un error al actualizar el evento.';
 						$data_post['is_submitted'] = 1;
 						$data_post['submit'] = 1;
 					}
@@ -222,20 +200,22 @@ class Cuenta extends CI_Controller {
 
 					$data_post['user_id'] = $this->session->userdata['id'];
 					$data_post['slug'] = url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
-					$services_id = $this->Eventos_model->update($data_post,  $idevento);
-					if( $services_id ) {
-						$this->session->set_flashdata('log_success','Se actualizó el evento correctamente.');
-						redirect( base_url().'cuenta/eventos');
+					if( !$this->Eventos_model->exist( $data_post['slug'], $data['evento']['id'] ) ) {
+						$services_id = $this->Eventos_model->update($data_post,  $idevento);
+						if( $services_id ) {
+							$this->session->set_flashdata('log_success','Se actualizó el evento correctamente.');
+							redirect( base_url().'cuenta/eventos');
+						}
+						$data['errors'] = 'Ocurrió un error al actualizar el evento.';
+					} else {
+						$data['errors'] = 'Ya existe un evento con ese nombre.';
 					}
-					$data['errors'] = 'Ocurrió un error al actualizar el evento.';
 					$data_post['is_submitted'] = 1;
 					$data_post['submit'] = 1;
 				}
 			}
 		}
 
-		$data['evento'] = $this->Eventos_model->getRows( $idevento );
-		$data['title'] = 'Editar evento';
 		$this->load->view('header', $data);
 		$this->load->view('editar_evento', $data);
 		$this->load->view('footer');
@@ -348,6 +328,8 @@ class Cuenta extends CI_Controller {
 	public function editar_servicio( $idservicio = '' ) {
 		$this->validate_sesion();
 		$data = array();
+		$data['servicio'] = $this->Servicios_model->getRows( $idservicio );
+		$data['title'] = 'Editar servicio';
 
 		if ( isset( $_POST ) && count( $_POST ) ) {
 			$config = array(
@@ -394,12 +376,17 @@ class Cuenta extends CI_Controller {
 						$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
 						$data_post['user_id'] = $this->session->userdata['id'];
 						$data_post['slug'] = url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
-						$services_id = $this->Servicios_model->update($data_post,  $idservicio);
-						if( $services_id ) {
-							$this->session->set_flashdata('log_success','Se actualizó el servicio correctamente.');
-							redirect( base_url().'cuenta/servicios');
+
+						if( !$this->Servicios_model->exist( $data_post['slug'], $data['servicio']['id'] ) ) {
+							$services_id = $this->Servicios_model->update($data_post,  $idservicio);
+							if( $services_id ) {
+								$this->session->set_flashdata('log_success','Se actualizó el servicio correctamente.');
+								redirect( base_url().'cuenta/servicios');
+							}
+							$data['errors'] = 'Ocurrió un error al actualizar el servicio.';
+						} else {
+							$data['errors'] = 'Ya existe un servicio con el mismo nombre.';
 						}
-						$data['errors'] = 'Ocurrió un error al actualizar el servicio.';
 						$data_post['is_submitted'] = 1;
 						$data_post['submit'] = 1;
 					}
@@ -410,20 +397,23 @@ class Cuenta extends CI_Controller {
 
 					$data_post['user_id'] = $this->session->userdata['id'];
 					$data_post['slug'] = url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
-					$services_id = $this->Servicios_model->update($data_post,  $idservicio);
-					if( $services_id ) {
-						$this->session->set_flashdata('log_success','Se actualizó el servicio correctamente.');
-						redirect( base_url().'cuenta/servicios');
+
+					if( !$this->Servicios_model->exist( $data_post['slug'], $data['servicio']['id'] ) ) {
+						$services_id = $this->Servicios_model->update($data_post,  $idservicio);
+						if( $services_id ) {
+							$this->session->set_flashdata('log_success','Se actualizó el servicio correctamente.');
+							redirect( base_url().'cuenta/servicios');
+						}
+						$data['errors'] = 'Ocurrió un error al actualizar el servicio.';
+					} else {
+						$data['errors'] = 'Ya existe un servicio con el mismo nombre.';
 					}
-					$data['errors'] = 'Ocurrió un error al actualizar el servicio.';
 					$data_post['is_submitted'] = 1;
 					$data_post['submit'] = 1;
 				}
 			}
 		}
 
-		$data['servicio'] = $this->Servicios_model->getRows( $idservicio );
-		$data['title'] = 'Editar servicio';
 		$this->load->view('header', $data);
 		$this->load->view('editar_servicio', $data);
 		$this->load->view('footer');

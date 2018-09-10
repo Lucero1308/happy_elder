@@ -44,6 +44,8 @@ class Eventos extends CI_Controller {
 
 	public function editar( $idevento = '' ) {
 		$data = array();
+		$data['evento'] = $this->Eventos_model->getRows( $idevento );
+		$data['title'] = 'Editar evento';
 		if ( isset( $_POST ) && count( $_POST ) ) {
 			$config = array(
 				array(
@@ -94,12 +96,16 @@ class Eventos extends CI_Controller {
 						$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
 						$data_post['user_id'] = $this->session->userdata['id'];
 						$data_post['slug'] = url_title( convert_accented_characters($data_post['name'] ), 'dash', true); //dash-espacios por rayas
-						$services_id = $this->Eventos_model->update($data_post,  $idevento);
-						if( $services_id ) {
-							$this->session->set_flashdata('log_success','Se actualizó el evento correctamente.');
-							redirect( base_url().'admin/eventos');
+						if( !$this->Eventos_model->exist( $data_post['slug'], $data['evento']['id'] ) ) {
+							$services_id = $this->Eventos_model->update($data_post,  $idevento);
+							if( $services_id ) {
+								$this->session->set_flashdata('log_success','Se actualizó el evento correctamente.');
+								redirect( base_url().'admin/eventos');
+							}
+							$data['errors'] = 'Ocurrió un error al actualizar el evento.';
+						} else {
+							$data['errors'] = 'Ya existe un evento con ese nombre.';
 						}
-						$data['errors'] = 'Ocurrió un error al actualizar el evento.';
 						$data_post['is_submitted'] = 1;
 						$data_post['submit'] = 1;
 					}
@@ -110,20 +116,22 @@ class Eventos extends CI_Controller {
 
 					$data_post['user_id'] = $this->session->userdata['id'];
 					$data_post['slug'] = url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
-					$services_id = $this->Eventos_model->update($data_post,  $idevento);
-					if( $services_id ) {
-						$this->session->set_flashdata('log_success','Se actualizó el evento correctamente.');
-						redirect( base_url().'admin/eventos');
+					if( !$this->Eventos_model->exist( $data_post['slug'], $data['evento']['id'] ) ) {
+						$services_id = $this->Eventos_model->update($data_post,  $idevento);
+						if( $services_id ) {
+							$this->session->set_flashdata('log_success','Se actualizó el evento correctamente.');
+							redirect( base_url().'admin/eventos');
+						}
+						$data['errors'] = 'Ocurrió un error al actualizar el evento.';
+					} else {
+						$data['errors'] = 'Ya existe un evento con ese nombre.';
 					}
-					$data['errors'] = 'Ocurrió un error al actualizar el evento.';
 					$data_post['is_submitted'] = 1;
 					$data_post['submit'] = 1;
 				}
 			}
 		}
 
-		$data['evento'] = $this->Eventos_model->getRows( $idevento );
-		$data['title'] = 'Editar evento';
 		$this->load->view('admin/header', $data);
 		$this->load->view('admin/editar_evento', $data);
 		$this->load->view('admin/footer');

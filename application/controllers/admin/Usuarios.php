@@ -86,6 +86,7 @@ class Usuarios extends CI_Controller {
 			} else {
 				$data_user = $this->security->xss_clean($_POST);
 				$inputUseId = $data_user['inputUseId'];
+				$data_user['fullName'] = $data_user['firstName']. ' ' .$data_user['lastName'];
 				unset( $data_user['submit'] );
 				unset( $data_user['is_submitted'] );
 				unset( $data_user['inputUseId'] );
@@ -160,6 +161,7 @@ class Usuarios extends CI_Controller {
 				$this->load->model('Login_model');
 				if ( !$this->Login_model->checkUserName( $data_user['userName'] ) ) {
 					$data_user['status'] = 'approved';
+					$data_user['fullName'] = $data_user['firstName']. ' ' .$data_user['lastName'];
 					$data_user['password'] = sha1(md5($data_user['password']));
 					$data_user['hash'] = sha1(md5($this->session->userdata['session_id']));
 					$user_id = $this->Usuarios_model->insert($data_user);
@@ -173,11 +175,9 @@ class Usuarios extends CI_Controller {
 				$data_user['submit'] = 1;
 			}
 		}
-
 		$data['usuario'] = [];
 		$data['roles'] = $this->Usuarios_model->getRoles();
 		$data['title'] = 'Registrar usuario';
-
 
 		$this->load->view('admin/header', $data);
 		$this->load->view('admin/registrar_usuario', $data);
