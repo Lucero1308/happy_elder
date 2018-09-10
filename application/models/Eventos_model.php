@@ -15,6 +15,14 @@ class Eventos_model extends CI_Model{
 			return $query->result_array();
 		}
 	}
+	function exist($slug = ""){
+		if(!empty($slug)){
+			$query = $this->db->get_where($this->table, array( 'events.slug' => $slug ));
+			return $query->row_array();
+		}else{
+			return array();
+		}
+	}
 	function getRowBySlug($slug = ""){
 		if(!empty($slug)){
 			$query = $this->db->get_where($this->table, array( 'events.slug' => $slug, $this->status => 'publish' ));

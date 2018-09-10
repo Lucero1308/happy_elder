@@ -76,7 +76,7 @@ class Eventos extends CI_Controller {
 			if ($this->form_validation->run() == false) {
 				$data['errors'] = validation_errors();
 			} else {
-				if($_FILES['photo']['name'] != '') {
+				if($_FILES['photo']['name'] != '') { //$_files -- llama archivos
 					$config['upload_path']          = './uploads/';
 					$config['overwrite'] = true; 
 					$config['allowed_types']        = 'gif|jpg|png|jpeg';
@@ -93,7 +93,7 @@ class Eventos extends CI_Controller {
 						unset( $data_post['is_submitted'] );
 						$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
 						$data_post['user_id'] = $this->session->userdata['id'];
-						$data_post['slug'] = url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
+						$data_post['slug'] = url_title( convert_accented_characters($data_post['name'] ), 'dash', true); //dash-espacios por rayas
 						$services_id = $this->Eventos_model->update($data_post,  $idevento);
 						if( $services_id ) {
 							$this->session->set_flashdata('log_success','Se actualizó el evento correctamente.');
@@ -180,14 +180,18 @@ class Eventos extends CI_Controller {
 						$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
 						$data_post['user_id'] = $this->session->userdata['id'];
 						$data_post['slug'] = url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
-						$services_id = $this->Eventos_model->insert($data_post);
-						if( $services_id ) {
-							$this->session->set_flashdata('log_success','Se actualizó el evento correctamente.');
-							redirect( base_url().'admin/eventos');
+						if( !$this->Eventos_model->exist( $data_post['slug'] ) ) {
+							$services_id = $this->Eventos_model->insert($data_post);
+							if( $services_id ) {
+								$this->session->set_flashdata('log_success','Se creó el evento correctamente.');
+								redirect( base_url().'cuenta/eventos');
+							}
+							$data['errors'] = 'Ocurrió un error al registrar el evento.';
+							$data_post['is_submitted'] = 1;
+							$data_post['submit'] = 1;
+						} else {
+							$data['errors'] = 'Ya existe un evento con ese nombre.';
 						}
-						$data['errors'] = 'Ocurrió un error al actualizar el evento.';
-						$data_post['is_submitted'] = 1;
-						$data_post['submit'] = 1;
 					}
 				} else {
 					$data_post = $this->security->xss_clean($_POST);
@@ -196,14 +200,18 @@ class Eventos extends CI_Controller {
 
 					$data_post['user_id'] = $this->session->userdata['id'];
 					$data_post['slug'] = url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
-					$services_id = $this->Eventos_model->insert($data_post);
-					if( $services_id ) {
-						$this->session->set_flashdata('log_success','Se actualizó el evento correctamente.');
-						redirect( base_url().'admin/eventos');
+					if( !$this->Eventos_model->exist( $data_post['slug'] ) ) {
+						$services_id = $this->Eventos_model->insert($data_post);
+						if( $services_id ) {
+							$this->session->set_flashdata('log_success','Se creó el evento correctamente.');
+							redirect( base_url().'cuenta/eventos');
+						}
+						$data['errors'] = 'Ocurrió un error al registrar el evento.';
+						$data_post['is_submitted'] = 1;
+						$data_post['submit'] = 1;
+					} else {
+						$data['errors'] = 'Ya existe un evento con ese nombre.';
 					}
-					$data['errors'] = 'Ocurrió un error al actualizar el evento.';
-					$data_post['is_submitted'] = 1;
-					$data_post['submit'] = 1;
 				}
 			}
 		}

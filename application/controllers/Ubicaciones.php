@@ -27,6 +27,15 @@ class Ubicaciones extends CI_Controller {
 		$this->load->view('ver_ubicacion', $data);
 		$this->load->view('footer');
 	}
+	
+	public function isLoggedin() {
+		if(!empty($this->session->userdata['id'])) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 
 	public function seleccionar( $slug_ubicacion ) {
 		if( $this->isLoggedin() ) { 
@@ -36,7 +45,7 @@ class Ubicaciones extends CI_Controller {
 			if ( $data['ubicacion'] ) {
 				$data['beneficiarios'] = $this->Ubicaciones_model->getBeneficiarios($data['ubicacion']['id']);
 				if( $data['beneficiarios'] ) {
-					$data['beneficiario'] = $data['beneficiarios'][ rand( 0, count( $data['beneficiarios'] ) - 1 ) ];
+					$data['beneficiario'] = $data['beneficiarios'][ rand( 0, count( $data['beneficiarios'] ) - 1 ) ]; //asignacion automatica
 					if ( isset( $_POST ) && count( $_POST ) ) {
 						$config = array(
 							array(

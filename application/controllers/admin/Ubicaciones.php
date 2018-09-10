@@ -208,6 +208,26 @@ class Ubicaciones extends CI_Controller {
 						unset( $data_post['is_submitted'] );
 						$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
 						$data_post['slug'] =  url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
+						if( !$this->Ubicaciones_model->exist( $data_post['slug'] ) ) {
+							$services_id = $this->Ubicaciones_model->insert($data_post);
+							if( $services_id ) {
+								$this->session->set_flashdata('log_success','Se actualizó la ubicación correctamente.');
+								redirect( base_url().'admin/ubicaciones');
+							}
+							$data['errors'] = 'Ocurrió un error al actualizar la ubicación.';
+							$data_post['is_submitted'] = 1;
+							$data_post['submit'] = 1;
+						} else {
+							$data['errors'] = 'Ya existe una ubicación con el mismo nombre.';
+						}
+					}
+				} else {
+					$data_post = $this->security->xss_clean($_POST);
+					unset( $data_post['submit'] );
+					unset( $data_post['is_submitted'] );
+
+					$data_post['slug'] =  url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
+					if( !$this->Ubicaciones_model->exist( $data_post['slug'] ) ) {
 						$services_id = $this->Ubicaciones_model->insert($data_post);
 						if( $services_id ) {
 							$this->session->set_flashdata('log_success','Se actualizó la ubicación correctamente.');
@@ -216,21 +236,9 @@ class Ubicaciones extends CI_Controller {
 						$data['errors'] = 'Ocurrió un error al actualizar la ubicación.';
 						$data_post['is_submitted'] = 1;
 						$data_post['submit'] = 1;
+					} else {
+						$data['errors'] = 'Ya existe una ubicación con el mismo nombre.';
 					}
-				} else {
-					$data_post = $this->security->xss_clean($_POST);
-					unset( $data_post['submit'] );
-					unset( $data_post['is_submitted'] );
-
-					$data_post['slug'] =  url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
-					$services_id = $this->Ubicaciones_model->insert($data_post);
-					if( $services_id ) {
-						$this->session->set_flashdata('log_success','Se actualizó la ubicación correctamente.');
-						redirect( base_url().'admin/ubicaciones');
-					}
-					$data['errors'] = 'Ocurrió un error al actualizar la ubicación.';
-					$data_post['is_submitted'] = 1;
-					$data_post['submit'] = 1;
 				}
 			}
 		}
