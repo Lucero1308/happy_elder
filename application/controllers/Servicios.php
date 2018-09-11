@@ -83,10 +83,10 @@ class Servicios extends CI_Controller {
 							//ENVIAR CORREO AL QUE CREÓ EL SERVICIO
 							$this->load->model('Usuarios_model');
 							$creador_servicio = $this->Usuarios_model->getRows( $data['servicio']['user_id'] );
-							$this->sendMail( 'Reserva de servicio', $this->session->userdata['fullName']. ' reservó el servicio '. $data['servicio']['name']. '\r\n Fecha: '. $data_post['visitanteFecha'], $creador_servicio['userName'] );
+							$this->sendMail( 'Reserva de servicio', $this->session->userdata['fullName']. ' reservó el servicio '. $data['servicio']['name']. ' <br><br>  Fecha: '. $data_post['visitanteFecha'], $creador_servicio['userName'] );
 
 							//ENVIAR CORREO AL VISITANTE
-							$this->sendMail( 'Reserva de servicio', 'Reservaste el servico '. $data['servicio']['name'] .' \r\n Fecha: '. $data_post['visitanteFecha'] .' \r\n', $this->session->userdata['userName'] );
+							$this->sendMail( 'Reserva de servicio', 'Reservaste el servico '. $data['servicio']['name'] .'  <br><br>  Fecha: '. $data_post['visitanteFecha'] .'  <br><br> ', $this->session->userdata['userName'] );
 							$this->session->set_flashdata('log_success','Se reservó correctamente el servicio.');
 							redirect( base_url().'servicios');
 						}
