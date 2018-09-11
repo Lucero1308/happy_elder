@@ -69,7 +69,6 @@ class Ubicaciones extends CI_Controller {
 							$data_post = $this->security->xss_clean($_POST);
 							$beneficiario_id = $data_post['beneficiario_id'];
 							$data['beneficiario'] = $this->Ubicaciones_model->getBeneficiarios($data['ubicacion']['id'], $beneficiario_id);
-							unset( $data_post['submit'] );
 							unset( $data_post['is_submitted'] );
 							unset( $data_post['beneficiario_id'] );
 							$data_post['status'] = 'asignado';
@@ -80,8 +79,6 @@ class Ubicaciones extends CI_Controller {
 								redirect( base_url().'ubicaciones');
 							}
 							$data['errors'] = 'Ocurrió un error al asignar al beneficairio.';
-							$data_post['is_submitted'] = 1;
-							$data_post['submit'] = 1;
 							$data_post['beneficiario_id'] = $beneficiario_id;
 						}
 					}

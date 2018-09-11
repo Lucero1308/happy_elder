@@ -23,6 +23,14 @@ class Usuarios_model extends CI_Model{
 			return $query->result_array();
 		}
 	}
+	function exist($userName = "", $id = ""){
+		if(!empty($userName)){
+			$query = $this->db->get_where($this->table, array( 'users.userName' => $userName, $this->primary_key . ' !=' => $id ));
+			return $query->row_array();
+		}else{
+			return array();
+		}
+	}
 	public function insert($data = array()) {
 		$insert = $this->db->insert($this->table, $data);
 		if($insert){
@@ -34,14 +42,21 @@ class Usuarios_model extends CI_Model{
 	public function update($data, $id) {
 		if(!empty($data) && !empty($id)){
 			$update = $this->db->update($this->table, $data, array( $this->primary_key =>$id));
-			if($update){
-				return true;
-			}else{
-				print_r( $this->db->_error_messag );
-				exit();
-				return $this->db->_error_message(); 
-			}
-		}else{
+			return $update?true:false;
+		} else {
+			return false;
+		}
+	}
+	
+	public function checkUser($data) {
+		$st=$this->db->SELECT('*')->from('users')
+			->WHERE('userName',$data['userName'])
+			->WHERE('password',sha1(md5($data['password'])))
+			->get()->result_array();
+		if(count($st)>0) {
+			return $st[0];
+		}
+		else {
 			return false;
 		}
 	}

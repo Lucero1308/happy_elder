@@ -91,7 +91,6 @@ class Eventos extends CI_Controller {
 					} else {
 						$upload_image = $this->upload->data();
 						$data_post = $this->security->xss_clean($_POST);
-						unset( $data_post['submit'] );
 						unset( $data_post['is_submitted'] );
 						$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
 						$data_post['user_id'] = $this->session->userdata['id'];
@@ -106,12 +105,9 @@ class Eventos extends CI_Controller {
 						} else {
 							$data['errors'] = 'Ya existe un evento con ese nombre.';
 						}
-						$data_post['is_submitted'] = 1;
-						$data_post['submit'] = 1;
 					}
 				} else {
 					$data_post = $this->security->xss_clean($_POST);
-					unset( $data_post['submit'] );
 					unset( $data_post['is_submitted'] );
 
 					$data_post['user_id'] = $this->session->userdata['id'];
@@ -126,8 +122,6 @@ class Eventos extends CI_Controller {
 					} else {
 						$data['errors'] = 'Ya existe un evento con ese nombre.';
 					}
-					$data_post['is_submitted'] = 1;
-					$data_post['submit'] = 1;
 				}
 			}
 		}
@@ -183,7 +177,6 @@ class Eventos extends CI_Controller {
 					} else {
 						$upload_image = $this->upload->data();
 						$data_post = $this->security->xss_clean($_POST);
-						unset( $data_post['submit'] );
 						unset( $data_post['is_submitted'] );
 						$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
 						$data_post['user_id'] = $this->session->userdata['id'];
@@ -195,15 +188,12 @@ class Eventos extends CI_Controller {
 								redirect( base_url().'cuenta/eventos');
 							}
 							$data['errors'] = 'Ocurrió un error al registrar el evento.';
-							$data_post['is_submitted'] = 1;
-							$data_post['submit'] = 1;
 						} else {
 							$data['errors'] = 'Ya existe un evento con ese nombre.';
 						}
 					}
 				} else {
 					$data_post = $this->security->xss_clean($_POST);
-					unset( $data_post['submit'] );
 					unset( $data_post['is_submitted'] );
 
 					$data_post['user_id'] = $this->session->userdata['id'];
@@ -215,8 +205,6 @@ class Eventos extends CI_Controller {
 							redirect( base_url().'cuenta/eventos');
 						}
 						$data['errors'] = 'Ocurrió un error al registrar el evento.';
-						$data_post['is_submitted'] = 1;
-						$data_post['submit'] = 1;
 					} else {
 						$data['errors'] = 'Ya existe un evento con ese nombre.';
 					}

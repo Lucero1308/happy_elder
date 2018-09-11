@@ -50,7 +50,7 @@
 			</div>
 			<div class="form-group">
 				<input type="hidden" name="is_submitted" value="1">
-				<button name="submit" type="submit" class="btn btn-primary">Registrar</button>
+				<button type="submit" class="btn btn-primary">Registrar</button>
 				 <a class="btn btn-cancel" href="<?= base_url( '/admin/eventos' ) ?>">Cancelar</a>
 			</div>
 		</form>

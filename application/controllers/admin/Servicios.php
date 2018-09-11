@@ -87,7 +87,6 @@ class Servicios extends CI_Controller {
 					} else {
 						$upload_image = $this->upload->data();
 						$data_post = $this->security->xss_clean($_POST);
-						unset( $data_post['submit'] );
 						unset( $data_post['is_submitted'] );
 						$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
 						$data_post['user_id'] = $this->session->userdata['id'];
@@ -102,12 +101,9 @@ class Servicios extends CI_Controller {
 						} else {
 							$data['errors'] = 'Ya existe un servicio con el mismo nombre.';
 						}
-						$data_post['is_submitted'] = 1;
-						$data_post['submit'] = 1;
 					}
 				} else {
 					$data_post = $this->security->xss_clean($_POST);
-					unset( $data_post['submit'] );
 					unset( $data_post['is_submitted'] );
 
 					$data_post['user_id'] = $this->session->userdata['id'];
@@ -122,8 +118,6 @@ class Servicios extends CI_Controller {
 					} else {
 						$data['errors'] = 'Ya existe un servicio con el mismo nombre.';
 					}
-					$data_post['is_submitted'] = 1;
-					$data_post['submit'] = 1;
 				}
 			}
 		}
@@ -175,7 +169,6 @@ class Servicios extends CI_Controller {
 					} else {
 						$upload_image = $this->upload->data();
 						$data_post = $this->security->xss_clean($_POST);
-						unset( $data_post['submit'] );
 						unset( $data_post['is_submitted'] );
 						$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
 						$data_post['user_id'] = $this->session->userdata['id'];
@@ -187,15 +180,12 @@ class Servicios extends CI_Controller {
 								redirect( base_url().'cuenta/servicios');
 							}
 							$data['errors'] = 'Ocurrió un error al registrar el servicio.';
-							$data_post['is_submitted'] = 1;
-							$data_post['submit'] = 1;
 						} else {
 							$data['errors'] = 'Ya existe un servicio con el mismo nombre.';
 						}
 					}
 				} else {
 					$data_post = $this->security->xss_clean($_POST);
-					unset( $data_post['submit'] );
 					unset( $data_post['is_submitted'] );
 
 					$data_post['user_id'] = $this->session->userdata['id'];
@@ -207,8 +197,6 @@ class Servicios extends CI_Controller {
 							redirect( base_url().'cuenta/servicios');
 						}
 						$data['errors'] = 'Ocurrió un error al registrar el servicio.';
-						$data_post['is_submitted'] = 1;
-						$data_post['submit'] = 1;
 					} else {
 						$data['errors'] = 'Ya existe un servicio con el mismo nombre.';
 					}

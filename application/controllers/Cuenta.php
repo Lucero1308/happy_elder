@@ -4,45 +4,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Cuenta extends CI_Controller {
 	function __construct() {
 		parent::__construct();
-		$this->load->model('Login_model');
 		$this->load->model('Servicios_model');
 		$this->load->model('Eventos_model');
 		$this->load->model('Usuarios_model');
 		$this->load->library('form_validation');
-	}
-	public function login() {
-		$data = array();
-		if ( isset( $_POST ) && count( $_POST ) ) {
-			$config = array(
-				array(
-					'field' => 'userName',
-					'label' => 'Usuario',
-					'rules' => 'trim|required'
-				),
-				array(
-					'field' => 'password',
-					'label' => 'Contraseña',
-					'rules' => 'trim|required'
-				)
-			);
-			$this->form_validation->set_rules($config);
-			if ($this->form_validation->run() == false) {
-				$data['errors'] = validation_errors();
-			} else {
-				$data_user = $this->security->xss_clean($_POST);
-				$user = $this->Login_model->checkUser($data_user);
-				if ($user) {
-					$this->session->set_userdata($user);
-					$this->session->set_flashdata('log_success','Sesión iniciada correctamente');
-					redirect(base_url() . 'admin/dashboard');
-				} else {
-					$data['errors'] = 'Las credenciales ingresadas no son válidas.';
-				}
-			}
-		}
-		$this->load->view('admin/login_register/header', $data);
-		$this->load->view('admin/login', $data);
-		$this->load->view('admin/login_register/footer');
 	}
 	public function index() {
 		$data = array();
@@ -72,19 +37,22 @@ class Cuenta extends CI_Controller {
 				if ($this->form_validation->run() == false) {
 					$data['errors'] = validation_errors();
 				} else {
-					$data_user = $this->security->xss_clean($_POST);
-					unset( $data_user['submit'] );
-					unset( $data_user['is_submitted'] );
-					if ( isset( $data_user['password'] ) ) {
-						$data_user['password'] = sha1(md5($data_user['password']));
-					} else {
-						unset( $data_user['password'] );
-					}
-					$user_id = $this->Usuarios_model->update($data_user, $usuario_id);
-					if( $user_id ) {
-						$this->session->set_flashdata('log_success','Se actualizó la cuenta correctamente.');
-						$data_user['is_submitted'] = 1;
-						$data_user['submit'] = 1;
+					$data_post = $this->security->xss_clean($_POST);
+					if ( !$this->Usuarios_model->exist( $data_post['userName'], $usuario_id ) ) {
+						unset( $data_post['is_submitted'] );
+						if ( isset( $data_post['password'] ) && $data_post['password'] ) {
+							$data_post['password'] = sha1(md5($data_post['password']));
+						} else {
+							unset( $data_post['password'] );
+						}
+						if( $this->Usuarios_model->update($data_post, $usuario_id) ) {
+							$user = $this->Usuarios_model->getRows($usuario_id);
+							$this->session->set_userdata($user);
+							$this->session->set_flashdata('log_success','Se actualizó la cuenta correctamente.');
+						}
+						$data['errors'] = 'Ocurrió un error al actualizar la cuenta.';
+					}  else {
+						$data['errors'] = 'Ya existe un cuenta con ese correo.';
 					}
 				}
 			}
@@ -96,6 +64,108 @@ class Cuenta extends CI_Controller {
 		} else {
 			redirect( base_url().'cuenta/login');
 		}
+	}
+	public function register() {
+		if( $this->isLoggedin() ) {
+			redirect( base_url().'admin');
+		}
+		$data = array();
+		if ( isset( $_POST ) && count( $_POST ) ) {
+			$config = array(
+				array(
+					'field' => 'firstName',
+					'label' => 'Nombres',
+					'rules' => 'trim|required'
+				),
+				array(
+					'field' => 'lastName',
+					'label' => 'Apellidos',
+					'rules' => 'trim|required'
+				),
+				array(
+					'field' => 'userName',
+					'label' => 'Usuario',
+					'rules' => 'trim|required'
+				),
+				array(
+					'field' => 'telephone',
+					'label' => 'Teléfono',
+					'rules' => 'trim|required'
+				),
+				array(
+					'field' => 'rol',
+					'label' => 'Rol',
+					'rules' => 'trim|required'
+				),
+				array(
+					'field' => 'password',
+					'label' => 'Contraseña',
+					'rules' => 'trim|required'
+				)
+			);
+			$this->form_validation->set_rules($config);
+			if ($this->form_validation->run() == false) {
+				$data['errors'] = validation_errors();
+			} else {
+				$data_post = $this->security->xss_clean($_POST);
+				if ( !$this->Usuarios_model->exist( $data_post['userName'] ) ) {
+					$data_post['status'] = 'approved';
+					$data_post['fullName'] = $data_post['firstName']. ' ' .$data_post['lastName'];
+					$data_post['password'] = sha1(md5($data_post['password']));
+					$user_id = $this->Usuarios_model->insert($data_post);
+					if( $user_id ) {
+						$user = $this->Usuarios_model->getRows($user_id);
+						$this->session->set_userdata($user);
+						$this->session->set_flashdata('log_success','Se creó la cuenta correctamente.');
+						redirect( base_url().'admin/dashboard');
+					}
+					$data['errors'] = 'Ocurrió un error al registrar la cuenta.';
+				} else {
+					$data['errors'] = 'Ya existe un cuenta con ese correo.';
+				}
+			}
+		}
+		$data['roles'] = $this->Usuarios_model->getRoles();
+		$this->load->view('admin/login_register/header', $data);
+		$this->load->view('admin/register');
+		$this->load->view('admin/login_register/footer');
+	}
+	public function login() {
+		if( $this->isLoggedin() ) {
+			redirect( base_url().'admin');
+		}
+		$data = array();
+		if ( isset( $_POST ) && count( $_POST ) ) {
+			$config = array(
+				array(
+					'field' => 'userName',
+					'label' => 'Usuario',
+					'rules' => 'trim|required'
+				),
+				array(
+					'field' => 'password',
+					'label' => 'Contraseña',
+					'rules' => 'trim|required'
+				)
+			);
+			$this->form_validation->set_rules($config);
+			if ($this->form_validation->run() == false) {
+				$data['errors'] = validation_errors();
+			} else {
+				$data_post = $this->security->xss_clean($_POST);
+				$user = $this->Usuarios_model->checkUser($data_post);
+				if ($user) {
+					$this->session->set_userdata($user);
+					$this->session->set_flashdata('log_success','Sesión iniciada correctamente');
+					redirect(base_url() . 'admin/dashboard');
+				} else {
+					$data['errors'] = 'Las credenciales ingresadas no son válidas.';
+				}
+			}
+		}
+		$this->load->view('admin/login_register/header', $data);
+		$this->load->view('admin/login', $data);
+		$this->load->view('admin/login_register/footer');
 	}
 	public function isLoggedin() {
 		if(!empty($this->session->userdata['id'])) {
@@ -175,7 +245,6 @@ class Cuenta extends CI_Controller {
 					} else {
 						$upload_image = $this->upload->data();
 						$data_post = $this->security->xss_clean($_POST);
-						unset( $data_post['submit'] );
 						unset( $data_post['is_submitted'] );
 						$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
 						$data_post['user_id'] = $this->session->userdata['id'];
@@ -190,12 +259,9 @@ class Cuenta extends CI_Controller {
 						} else {
 							$data['errors'] = 'Ya existe un evento con ese nombre.';
 						}
-						$data_post['is_submitted'] = 1;
-						$data_post['submit'] = 1;
 					}
 				} else {
 					$data_post = $this->security->xss_clean($_POST);
-					unset( $data_post['submit'] );
 					unset( $data_post['is_submitted'] );
 
 					$data_post['user_id'] = $this->session->userdata['id'];
@@ -210,8 +276,6 @@ class Cuenta extends CI_Controller {
 					} else {
 						$data['errors'] = 'Ya existe un evento con ese nombre.';
 					}
-					$data_post['is_submitted'] = 1;
-					$data_post['submit'] = 1;
 				}
 			}
 		}
@@ -269,7 +333,6 @@ class Cuenta extends CI_Controller {
 					} else {
 						$upload_image = $this->upload->data();
 						$data_post = $this->security->xss_clean($_POST);
-						unset( $data_post['submit'] );
 						unset( $data_post['is_submitted'] );
 						$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
 						$data_post['user_id'] = $this->session->userdata['id'];
@@ -281,15 +344,12 @@ class Cuenta extends CI_Controller {
 								redirect( base_url().'cuenta/eventos');
 							}
 							$data['errors'] = 'Ocurrió un error al registrar el evento.';
-							$data_post['is_submitted'] = 1;
-							$data_post['submit'] = 1;
 						} else {
 							$data['errors'] = 'Ya existe un evento con ese nombre.';
 						}
 					}
 				} else {
 					$data_post = $this->security->xss_clean($_POST);
-					unset( $data_post['submit'] );
 					unset( $data_post['is_submitted'] );
 
 					$data_post['user_id'] = $this->session->userdata['id'];
@@ -301,8 +361,6 @@ class Cuenta extends CI_Controller {
 							redirect( base_url().'cuenta/eventos');
 						}
 						$data['errors'] = 'Ocurrió un error al registrar el evento.';
-						$data_post['is_submitted'] = 1;
-						$data_post['submit'] = 1;
 					} else {
 						$data['errors'] = 'Ya existe un evento con ese nombre.';
 					}
@@ -371,7 +429,6 @@ class Cuenta extends CI_Controller {
 					} else {
 						$upload_image = $this->upload->data();
 						$data_post = $this->security->xss_clean($_POST);
-						unset( $data_post['submit'] );
 						unset( $data_post['is_submitted'] );
 						$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
 						$data_post['user_id'] = $this->session->userdata['id'];
@@ -387,12 +444,9 @@ class Cuenta extends CI_Controller {
 						} else {
 							$data['errors'] = 'Ya existe un servicio con el mismo nombre.';
 						}
-						$data_post['is_submitted'] = 1;
-						$data_post['submit'] = 1;
 					}
 				} else {
 					$data_post = $this->security->xss_clean($_POST);
-					unset( $data_post['submit'] );
 					unset( $data_post['is_submitted'] );
 
 					$data_post['user_id'] = $this->session->userdata['id'];
@@ -408,8 +462,6 @@ class Cuenta extends CI_Controller {
 					} else {
 						$data['errors'] = 'Ya existe un servicio con el mismo nombre.';
 					}
-					$data_post['is_submitted'] = 1;
-					$data_post['submit'] = 1;
 				}
 			}
 		}
@@ -462,7 +514,6 @@ class Cuenta extends CI_Controller {
 					} else {
 						$upload_image = $this->upload->data();
 						$data_post = $this->security->xss_clean($_POST);
-						unset( $data_post['submit'] );
 						unset( $data_post['is_submitted'] );
 						$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
 						$data_post['user_id'] = $this->session->userdata['id'];
@@ -474,8 +525,6 @@ class Cuenta extends CI_Controller {
 								redirect( base_url().'cuenta/servicios');
 							}
 							$data['errors'] = 'Ocurrió un error al registrar el servicio.';
-							$data_post['is_submitted'] = 1;
-							$data_post['submit'] = 1;
 						} else {
 							$data['errors'] = 'Ya existe un servicio con el mismo nombre.';
 						}
@@ -483,7 +532,6 @@ class Cuenta extends CI_Controller {
 					}
 				} else {
 					$data_post = $this->security->xss_clean($_POST); //eliminar datos maliciosos enviados - SQL INJECTION
-					unset( $data_post['submit'] );
 					unset( $data_post['is_submitted'] );
 
 					$data_post['user_id'] = $this->session->userdata['id'];
@@ -495,8 +543,6 @@ class Cuenta extends CI_Controller {
 							redirect( base_url().'cuenta/servicios');
 						}
 						$data['errors'] = 'Ocurrió un error al registrar el servicio.';
-						$data_post['is_submitted'] = 1;
-						$data_post['submit'] = 1;
 					} else {
 						$data['errors'] = 'Ya existe un servicio con el mismo nombre.';
 					}

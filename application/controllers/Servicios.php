@@ -91,7 +91,6 @@ class Servicios extends CI_Controller {
 							redirect( base_url().'servicios');
 						}
 						$data['errors'] = 'Ocurrió un error al reservar el servicio.';
-						$data_post['is_submitted'] = 1;
 					}
 				}
 			} else {

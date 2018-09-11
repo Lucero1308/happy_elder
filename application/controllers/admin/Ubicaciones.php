@@ -80,7 +80,6 @@ class Ubicaciones extends CI_Controller {
 					} else {
 						$upload_image = $this->upload->data();
 						$data_post = $this->security->xss_clean($_POST);
-						unset( $data_post['submit'] );
 						unset( $data_post['is_submitted'] );
 						$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
 						$data_post['slug'] =  url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
@@ -94,12 +93,9 @@ class Ubicaciones extends CI_Controller {
 						} else {
 							$data['errors'] = 'Ya existe una ubicación con el mismo nombre.';
 						}
-						$data_post['is_submitted'] = 1;
-						$data_post['submit'] = 1;
 					}
 				} else {
 					$data_post = $this->security->xss_clean($_POST);
-					unset( $data_post['submit'] );
 					unset( $data_post['is_submitted'] );
 
 					$data_post['slug'] =  url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
@@ -113,8 +109,6 @@ class Ubicaciones extends CI_Controller {
 					} else {
 						$data['errors'] = 'Ya existe una ubicación con el mismo nombre.';
 					}
-					$data_post['is_submitted'] = 1;
-					$data_post['submit'] = 1;
 				}
 			}
 		}
@@ -153,7 +147,6 @@ class Ubicaciones extends CI_Controller {
 				$data['errors'] = validation_errors();
 			} else {
 				$data_post = $this->security->xss_clean($_POST);
-				unset( $data_post['submit'] ); //unset=borrar de un arreglo
 				unset( $data_post['is_submitted'] );
 				$data_post['status'] = 'libre';
 				$data_post['location_id'] = $id_ubicacion;
@@ -164,8 +157,6 @@ class Ubicaciones extends CI_Controller {
 					redirect( base_url().'admin/ubicaciones');
 				}
 				$data['errors'] = 'Ocurrió un error al registrar el beneficiario.';
-				$data_post['is_submitted'] = 1;
-				$data_post['submit'] = 1;
 			}
 		}
 
@@ -212,7 +203,6 @@ class Ubicaciones extends CI_Controller {
 					} else {
 						$upload_image = $this->upload->data();
 						$data_post = $this->security->xss_clean($_POST);
-						unset( $data_post['submit'] );
 						unset( $data_post['is_submitted'] );
 						$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
 						$data_post['slug'] =  url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
@@ -226,12 +216,9 @@ class Ubicaciones extends CI_Controller {
 						} else {
 							$data['errors'] = 'Ya existe una ubicación con el mismo nombre.';
 						}
-						$data_post['is_submitted'] = 1;
-						$data_post['submit'] = 1;
 					}
 				} else {
 					$data_post = $this->security->xss_clean($_POST);
-					unset( $data_post['submit'] );
 					unset( $data_post['is_submitted'] );
 
 					$data_post['slug'] =  url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
@@ -242,8 +229,6 @@ class Ubicaciones extends CI_Controller {
 							redirect( base_url().'admin/ubicaciones');
 						}
 						$data['errors'] = 'Ocurrió un error al registrar la ubicación.';
-						$data_post['is_submitted'] = 1;
-						$data_post['submit'] = 1;
 					} else {
 						$data['errors'] = 'Ya existe una ubicación con el mismo nombre.';
 					}

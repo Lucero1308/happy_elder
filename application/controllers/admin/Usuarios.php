@@ -79,29 +79,23 @@ class Usuarios extends CI_Controller {
 			$this->form_validation->set_rules($config);
 			if ($this->form_validation->run() == false) {
 				$data['errors'] = validation_errors();
-				$data['csrf'] = array(
-					'name' => $this->security->get_csrf_token_name(),
-					'hash' => $this->security->get_csrf_hash()
-				);
 			} else {
-				$data_user = $this->security->xss_clean($_POST);
-				$inputUseId = $data_user['inputUseId'];
-				$data_user['fullName'] = $data_user['firstName']. ' ' .$data_user['lastName'];
-				unset( $data_user['submit'] );
-				unset( $data_user['is_submitted'] );
-				unset( $data_user['inputUseId'] );
-				if ( isset( $data_user['password'] ) ) {
-					$data_user['password'] = sha1(md5($data_user['password']));
-				} else {
-					unset( $data_user['password'] );
+				$data_post = $this->security->xss_clean($_POST);
+				if ( !$this->Usuarios_model->exist( $data_post['userName'], $usuario_id ) ) {
+					unset( $data_post['is_submitted'] );
+					if ( isset( $data_post['password'] ) && $data_post['password'] ) {
+						$data_post['password'] = sha1(md5($data_post['password']));
+					} else {
+						unset( $data_post['password'] );
+					}
+					if( $this->Usuarios_model->update($data_post, $usuario_id) ) {
+						$this->session->set_flashdata('log_success','Se actualizó la cuenta correctamente.');
+						redirect( base_url().'admin/usuarios');
+					}
+					$data['errors'] = 'Ocurrió un error al actualizar la cuenta.';
+				}  else {
+					$data['errors'] = 'Ya existe un cuenta con ese correo.';
 				}
-				$user_id = $this->Usuarios_model->update($data_user, $inputUseId);
-				if( $user_id ) {
-					$this->session->set_flashdata('log_success','Se actualizó la cuenta correctamente.');
-					redirect( base_url().'admin/usuarios');
-				}
-				$data_user['is_submitted'] = 1;
-				$data_user['submit'] = 1;
 			}
 		}
 		$data['usuario'] = $this->Usuarios_model->getRows( $usuario_id );
@@ -149,30 +143,23 @@ class Usuarios extends CI_Controller {
 			$this->form_validation->set_rules($config);
 			if ($this->form_validation->run() == false) {
 				$data['errors'] = validation_errors();
-				$data['csrf'] = array(
-					'name' => $this->security->get_csrf_token_name(),
-					'hash' => $this->security->get_csrf_hash()
-				);
 			} else {
-				$data_user = $this->security->xss_clean($_POST);
-				unset( $data_user['submit'] );
-				unset( $data_user['is_submitted'] );
-
-				$this->load->model('Login_model');
-				if ( !$this->Login_model->checkUserName( $data_user['userName'] ) ) {
-					$data_user['status'] = 'approved';
-					$data_user['fullName'] = $data_user['firstName']. ' ' .$data_user['lastName'];
-					$data_user['password'] = sha1(md5($data_user['password']));
-					$data_user['hash'] = sha1(md5($this->session->userdata['session_id']));
-					$user_id = $this->Usuarios_model->insert($data_user);
+				$data_post = $this->security->xss_clean($_POST);
+				unset( $data_post['is_submitted'] );
+				if ( !$this->Usuarios_model->exist( $data_post['userName'] ) ) {
+					$data_post['status'] = 'approved';
+					$data_post['fullName'] = $data_post['firstName']. ' ' .$data_post['lastName'];
+					$data_post['password'] = sha1(md5($data_post['password']));
+					$data_post['hash'] = sha1(md5($this->session->userdata['session_id']));
+					$user_id = $this->Usuarios_model->insert($data_post);
 					if( $user_id ) {
 						$this->session->set_flashdata('log_success','Se creó la cuenta correctamente.');
 						redirect( base_url().'admin/usuarios');
 					}
+					$data['errors'] = 'Ocurrió un error al registrar la cuenta.';
+				} else {
+					$data['errors'] = 'Ya existe un cuenta con ese correo.';
 				}
-				$data['errors'] = 'Ya existe un cuenta con ese mismo correo.';
-				$data_user['is_submitted'] = 1;
-				$data_user['submit'] = 1;
 			}
 		}
 		$data['usuario'] = [];
