@@ -41,15 +41,15 @@ class Servicios extends CI_Controller {
 			'protocol' 		=> 'smtp',
 			'smtp_host' 	=> 'ssl://smtp.googlemail.com',
 			'smtp_port' 	=> 465,
-			'smtp_user' 	=> '',
-			'smtp_pass' 	=> '',
+			'smtp_user' 	=> 'lolivaresv13@gmail.com',
+			'smtp_pass' 	=> 'Lucki1012',
 			'mailtype' 		=> 'html',
 			'charset' 		=> 'iso-8859-1',
 			'wordwrap' 		=> TRUE
 		);
 		$this->load->library('email', $config);
 		$this->email->set_newline("\r\n");
-		$this->email->from( 'contacto@happyelder.pe' );// change it to yours
+		$this->email->from( 'Happy Elderl <olivaresv13@gmail.com>' );// change it to yours
 		$this->email->to( $para );// change it to yours
 		$this->email->subject( $asunto );
 		$this->email->message( $contenido );
@@ -83,10 +83,10 @@ class Servicios extends CI_Controller {
 							//ENVIAR CORREO AL QUE CREÓ EL SERVICIO
 							$this->load->model('Usuarios_model');
 							$creador_servicio = $this->Usuarios_model->getRows( $data['servicio']['user_id'] );
-							$this->sendMail( 'Reserva de servicio', $this->session->userdata['fullName']. ' reservó el servicio '. $data['servicio']['name']. '\r\n Fecha: '. $data['servicio']['visitanteFecha'], $creador_servicio['userName'] );
+							$this->sendMail( 'Reserva de servicio', $this->session->userdata['fullName']. ' reservó el servicio '. $data['servicio']['name']. '\r\n Fecha: '. $data_post['visitanteFecha'], $creador_servicio['userName'] );
 
 							//ENVIAR CORREO AL VISITANTE
-							$this->sendMail( 'Reserva de servicio', 'Reservaste el servico '. $data['servicio']['name'] .' \r\n Fecha: '. $data['servicio']['visitanteFecha'] .' \r\n', $this->session->userdata['userName'] );
+							$this->sendMail( 'Reserva de servicio', 'Reservaste el servico '. $data['servicio']['name'] .' \r\n Fecha: '. $data_post['visitanteFecha'] .' \r\n', $this->session->userdata['userName'] );
 							$this->session->set_flashdata('log_success','Se reservó correctamente el servicio.');
 							redirect( base_url().'servicios');
 						}
