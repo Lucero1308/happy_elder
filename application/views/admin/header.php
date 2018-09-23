@@ -25,6 +25,7 @@
 					</ul>
 				</nav>
 				<div class="justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+					<h1 class="h2"><?= $title ?></h1>
 					<?php if($this->session->flashdata('log_success')){?>
 						<div class="alert alert-success">
 							<?php echo $this->session->flashdata('log_success');?>
@@ -35,5 +36,4 @@
 							<?php echo $this->session->flashdata('log_error');?>
 						</div>
 					<?php }?>
-					<h1 class="h2"><?= $title ?></h1>
 				</div>
