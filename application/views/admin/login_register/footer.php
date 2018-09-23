@@ -3,5 +3,6 @@
 	<script src="<?php echo base_url('assets/js/bootstrap.min.js') ?>"></script>
 	<script src="<?php echo base_url('assets/js/bootstrap-datepicker.js') ?>"></script>
 	<script src="<?php echo base_url('assets/js/front.js') ?>"></script>
+	<script src="<?php echo base_url('assets/js/validator.min.js') ?>"></script>
 </body>
 </html>

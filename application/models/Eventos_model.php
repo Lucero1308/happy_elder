@@ -47,7 +47,7 @@ class Eventos_model extends CI_Model{
 			return false;
 		}
 	}
-	public function update($data, $id) {
+	public function update($data, $id) { //eliminar
 		if(!empty($data) && !empty($id)){
 			$update = $this->db->update($this->table, $data, array( $this->primary_key =>$id));
 			return $update?true:false;

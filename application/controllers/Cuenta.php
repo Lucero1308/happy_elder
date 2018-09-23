@@ -49,8 +49,9 @@ class Cuenta extends CI_Controller {
 							$user = $this->Usuarios_model->getRows($usuario_id);
 							$this->session->set_userdata($user);
 							$this->session->set_flashdata('log_success','Se actualizó la cuenta correctamente.');
-						}
+						} else {
 						$data['errors'] = 'Ocurrió un error al actualizar la cuenta.';
+					}
 					}  else {
 						$data['errors'] = 'Ya existe un cuenta con ese correo.';
 					}

@@ -41,7 +41,7 @@ class Ubicaciones extends CI_Controller {
 		if( $this->isLoggedin() ) { 
 			$data['ubicacion'] = $this->Ubicaciones_model->getRowBySlug($slug_ubicacion);
 			
-			$data['title'] = 'Seleccionar beneficiario';
+			$data['title'] = 'Seleccionar beneficiario'; // se pasa el titulo
 			if ( $data['ubicacion'] ) {
 				$data['beneficiarios'] = $this->Ubicaciones_model->getBeneficiarios($data['ubicacion']['id']);
 				if( $data['beneficiarios'] ) {

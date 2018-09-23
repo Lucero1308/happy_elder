@@ -9,11 +9,15 @@ class Home extends CI_Controller {
 	}
 	public function index() {
 		$data['title'] = 'Inicio';
+		
 		$this->load->view('header', $data);
+
 		$data['posts'] = $this->Servicios_model->getRows();
 		$this->load->view('lists_services', $data);
+
 		$data['posts'] = $this->Eventos_model->getRows();
 		$this->load->view('lists_events', $data);
+
 		$this->load->view('footer');
 	}
 }

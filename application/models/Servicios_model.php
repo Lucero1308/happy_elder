@@ -6,7 +6,7 @@ class Servicios_model extends CI_Model{
 	function __construct(){
 		parent::__construct();
 	}
-	function getRows($id = ""){
+	function getRows($id = ""){ // filas
 		if(!empty($id)){
 			$query = $this->db->get_where($this->table, array( $this->primary_key => $id, $this->status . ' !=' => 'trash' ));
 			return $query->row_array();
@@ -18,7 +18,7 @@ class Servicios_model extends CI_Model{
 	function exist($slug = "", $id = ""){
 		if(!empty($slug)){
 			$query = $this->db->get_where($this->table, array( 'services.slug' => $slug, $this->primary_key . ' !=' => $id ) );
-			return $query->row_array();
+			return $query->row_array(); // retorna todos los datos
 		}else{
 			return array();
 		}

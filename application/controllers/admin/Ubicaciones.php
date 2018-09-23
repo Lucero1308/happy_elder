@@ -99,7 +99,7 @@ class Ubicaciones extends CI_Controller {
 					unset( $data_post['is_submitted'] );
 
 					$data_post['slug'] =  url_title( convert_accented_characters($data_post['name'] ), 'dash', true);
-					if( !$this->Ubicaciones_model->exist( $data_post['slug'], $data['ubicacion']['id'] ) ) {
+					if( !$this->Ubicaciones_model->exist( $data_post['slug'], $data['ubicacion']['id'] ) ) { //validar si ya existe
 						$services_id = $this->Ubicaciones_model->update($data_post,  $idubicacion);
 						if( $services_id ) {
 							$this->session->set_flashdata('log_success','Se actualizó la ubicación correctamente.');

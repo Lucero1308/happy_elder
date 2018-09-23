@@ -38,6 +38,7 @@
 					</ul>
 				</div>
 				<ul class="navbar-nav ml-md-auto d-md-flex">
+					
 					<?php if ( $this->session && $this->session->userdata && ! empty( $this->session->userdata['id'] ) ): ?>
 						<?php if ( $this->session->userdata['rol'] == 3 || $this->session->userdata['rol'] == 4 ): ?>
 							<li class="nav-item">
@@ -71,7 +72,7 @@
 	<main class="main py-5">
 		<div class="container shadow-sm bg-white">
 			<div class="py-4">
-				<?php if ( isset( $title ) && $title ): ?>
+				<?php if ( isset( $title ) && $title ): //titulo ?> 
 					<h1><?= $title ?></h1>
 				<?php endif ?>
 				<?php if($this->session->flashdata('log_success')){?>

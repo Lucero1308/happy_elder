@@ -77,17 +77,18 @@ class Usuarios extends CI_Controller {
 				)
 			);
 			$this->form_validation->set_rules($config);
-			if ($this->form_validation->run() == false) {
+			if ($this->form_validation->run() == false) { //validacion del servidor
 				$data['errors'] = validation_errors();
 			} else {
-				$data_post = $this->security->xss_clean($_POST);
+				$data_post = $this->security->xss_clean($_POST); //limpiar codigos maliciosos antes de guardar en la bd
 				if ( !$this->Usuarios_model->exist( $data_post['userName'], $usuario_id ) ) {
 					unset( $data_post['is_submitted'] );
 					if ( isset( $data_post['password'] ) && $data_post['password'] ) {
-						$data_post['password'] = sha1(md5($data_post['password']));
+						$data_post['password'] = sha1(md5($data_post['password'])); //doble encriptacion
 					} else {
 						unset( $data_post['password'] );
 					}
+					$data_post['fullName'] = $data_post['firstName']. ' ' .$data_post['lastName'];
 					if( $this->Usuarios_model->update($data_post, $usuario_id) ) {
 						$this->session->set_flashdata('log_success','Se actualizó la cuenta correctamente.');
 						redirect( base_url().'admin/usuarios');

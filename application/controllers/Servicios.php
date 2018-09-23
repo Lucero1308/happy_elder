@@ -1,6 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class Servicios extends CI_Controller {
 	function __construct() {
 			parent::__construct();
@@ -16,7 +15,6 @@ class Servicios extends CI_Controller {
 		$this->load->view('lists_services', $data);
 		$this->load->view('footer');
 	}
-
 	public function ver( $slug ) {
 		$data['servicio'] = $this->Servicios_model->getRowBySlug($slug);
 		$data['title'] = '';
@@ -35,21 +33,20 @@ class Servicios extends CI_Controller {
 			return false;
 		}
 	}
-
 	private function sendMail( $asunto, $contenido, $para ) {
 		$config = Array(
 			'protocol' 		=> 'smtp',
 			'smtp_host' 	=> 'ssl://smtp.googlemail.com',
-			'smtp_port' 	=> 465,
-			'smtp_user' 	=> '',
-			'smtp_pass' 	=> '',
+			'smtp_port' 	=> 465, //465 o 587
+			'smtp_user' 	=> 'lolivaresv13@gmail.com', //para que no llega spam
+			'smtp_pass' 	=> 'Lucki1012',
 			'mailtype' 		=> 'html',
 			'charset' 		=> 'iso-8859-1',
 			'wordwrap' 		=> TRUE
 		);
 		$this->load->library('email', $config);
 		$this->email->set_newline("\r\n");
-		$this->email->from( 'contacto@happyelder.pe' );// change it to yours
+		$this->email->from( 'Happy Elder <lolivaresv13@gmail.com>' );// change it to yours
 		$this->email->to( $para );// change it to yours
 		$this->email->subject( $asunto );
 		$this->email->message( $contenido );
@@ -79,14 +76,12 @@ class Servicios extends CI_Controller {
 						$data_post['status'] = 'reservado';
 						$servicio_id = $this->Servicios_model->update($data_post, $data['servicio']['id'] );
 						if( $servicio_id ) {
-
 							//ENVIAR CORREO AL QUE CREÓ EL SERVICIO
 							$this->load->model('Usuarios_model');
 							$creador_servicio = $this->Usuarios_model->getRows( $data['servicio']['user_id'] );
-							$this->sendMail( 'Reserva de servicio', $this->session->userdata['fullName']. ' reservó el servicio '. $data['servicio']['name']. '\r\n Fecha: '. $data['servicio']['visitanteFecha'], $creador_servicio['userName'] );
-
+							$this->sendMail( 'Reserva de servicio', $this->session->userdata['fullName']. ' reservo el servicio: '. $data['servicio']['name']. '<br/> Fecha: '. $data_post['visitanteFecha'], $creador_servicio['userName'] ); //jala id de la persona que creo el servicio
 							//ENVIAR CORREO AL VISITANTE
-							$this->sendMail( 'Reserva de servicio', 'Reservaste el servico '. $data['servicio']['name'] .' \r\n Fecha: '. $data['servicio']['visitanteFecha'] .' \r\n', $this->session->userdata['userName'] );
+							$this->sendMail( 'Reserva de servicio', 'Reservaste el servicio '. $data['servicio']['name'] .' <br/> Fecha: '. $data_post['visitanteFecha'] .' <br/>', $this->session->userdata['userName'] );
 							$this->session->set_flashdata('log_success','Se reservó correctamente el servicio.');
 							redirect( base_url().'servicios');
 						}
