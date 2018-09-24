@@ -12,19 +12,19 @@
 
 	<div class="form-group">
 		<label for="firstName" >Nombres</label> 
-		<input id="firstName" name="firstName" type="text" class="form-control" placeholder="Ingresa tu nombre" required>
-        <div class="help-block with-errors"></div>
+		<input id="firstName" name="firstName" type="text" data-required-error="CAMBIAR TEXTO" class="form-control" placeholder="Ingresa tu nombre" required>
+		<div class="help-block with-errors"></div>
 	</div>
 
 	<div class="form-group">
 		<label for="lastName">Apellidos</label> 
-		<input id="lastName" name="lastName" type="text" class="form-control" placeholder="Ingresa tu apellido" required>
-        <div class="help-block with-errors"></div>
+		<input id="lastName" name="lastName" type="text" data-required-error="CAMBIAR TEXTO" class="form-control" placeholder="Ingresa tu apellido" required>
+		<div class="help-block with-errors"></div>
 	</div>
 	<div class="form-group">
 		<label for="telephone">Teléfono</label> 
-		<input id="telephone" name="telephone" type="text" class="form-control onlyNumbers" placeholder="Ingresa tu móvil" required>
-        <div class="help-block with-errors"></div>
+		<input id="telephone" name="telephone" data-minlength="7" data-required-error="CAMBIAR TEXTO" data-minlength-error="CAMBIAR TEXTO" type="text" class="form-control onlyNumbers" placeholder="Ingresa tu móvil" required>
+		<div class="help-block with-errors"></div>
 	</div>
 	<?php if ( isset( $roles ) && $roles ): ?>
 		<div class="form-group">
@@ -43,23 +43,20 @@
 		<label for="userName">Correo (usuario)</label> 
 		<div class="input-group">
 			<span class="input-group-addon"><i class="fa fa-user-circle-o"></i></span>
-            <input id="userName" name="userName" type="email" class="form-control" required>
-			</div> 
-			 <div class="help-block with-errors"></div>
-		</div>
-
-
+			<input id="userName" data-pattern-error="CAMBIAR TEXTO" data-required-error="CAMBIAR TEXTO" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="userName" type="email" class="form-control" required>
+		</div> 
+		<div class="help-block with-errors"></div>
+	</div>
 	<div class="form-group">
 		<label for="password">Contraseña</label> 
 		<div class="input-group">
 			<span class="input-group-addon"><i class="fa fa-key"></i></span>
-			<input id="password" name="password" type="password" class="form-control" required="required">
+			<input id="password" data-required-error="CAMBIAR TEXTO" data-minlength-error="CAMBIAR TEXTO" data-minlength="6" name="password" type="password" class="form-control" required="required">
 		</div>
-             <div class="help-block with-errors"></div>
+		<div class="help-block with-errors"></div>
 	</div> 
-
 	<div class="form-group">
-		<button class="btn btn-lg btn-primary btn-block">Registrar</button>
+		<button type="submit" class="btn btn-lg btn-primary btn-block">Registrar</button>
 	</div>
 	<p class="text-center mt-3"><a href="<?= base_url("/cuenta/login") ?>">Iniciar sesión</a></p>
 </form>

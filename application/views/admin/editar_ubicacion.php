@@ -12,7 +12,7 @@
 		}
 	?>
 	<div class="row">
-		<?=	form_open_multipart('admin/ubicaciones/editar/'.$ubicacion_id,['class'=>'col-12 col-xl-5']) ?>
+		<?=	form_open_multipart('admin/ubicaciones/editar/'.$ubicacion_id,['data-toggle'=>"validator",'class'=>'col-12 col-xl-5']) ?>
 			<?php if( isset($errors) ): ?>
 				<div class="alert alert-danger text-left">
 					<?php print_r($errors); ?>
@@ -20,15 +20,18 @@
 			<?php endif ?>
 			<div class="form-group">
 				<label for="name">Título</label> 
-				<input id="name" name="name" value="<?= $name ?>" type="text" required="required" class="form-control">
+				<input id="name" name="name" value="<?= $name ?>" type="text" data-required-error="CAMBIAR TEXTO" required="required" class="form-control">
+				<div class="help-block with-errors"	></div>
 			</div>
 			<div class="form-group">
 				<label for="description">Descripción</label> 
-				<textarea name="description" required="required" class="form-control" id="description" cols="30" rows="5"><?= $description ?></textarea>
+				<textarea name="description" data-required-error="CAMBIAR TEXTO" required="required" class="form-control" id="description" cols="30" rows="5"><?= $description ?></textarea>
+				<div class="help-block with-errors"	></div>
 			</div>
 			<div class="form-group">
 				<label for="address">Dirección</label> 
-				<input id="address" name="address" value="<?= $address ?>" type="text" required="required" class="form-control">
+				<input id="address" name="address" value="<?= $address ?>" type="text" data-required-error="CAMBIAR TEXTO" required="required" class="form-control">
+				<div class="help-block with-errors"	></div>
 			</div>
 			<div class="form-group">
 				<div class="input-group">

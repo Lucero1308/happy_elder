@@ -15,7 +15,7 @@
 		}
 	?>
 	<div class="row">
-		<?=	form_open_multipart('cuenta/registrar_evento/',['class'=>'col-12 col-xl-5']) ?>
+		<?=	form_open_multipart('cuenta/registrar_evento/',['data-toggle'=>"validator",'class'=>'col-12 col-xl-5']) ?>
 			<?php if( isset($errors) ): ?>
 				<div class="alert alert-danger text-left">
 					<?php print_r($errors); ?>
@@ -23,23 +23,28 @@
 			<?php endif ?>
 			<div class="form-group">
 				<label for="name">Título</label> 
-				<input id="name" name="name" value="<?= $name ?>" type="text" required="required" class="form-control">
+				<input id="name" name="name" value="<?= $name ?>" type="text" data-required-error="CAMBIAR TEXTO" required="required" class="form-control">
+				<div class="help-block with-errors"	></div>
 			</div>
 			<div class="form-group">
 				<label for="description">Descripción</label> 
-				<textarea name="description" required="required" class="form-control" id="description" cols="30" rows="5"><?= $description ?></textarea>
+				<textarea name="description" data-required-error="CAMBIAR TEXTO" required="required" class="form-control" id="description" cols="30" rows="5"><?= $description ?></textarea>
+				<div class="help-block with-errors"	></div>
 			</div>
 			<div class="form-group">
 				<label for="organizer">Organizador</label> 
-				<input id="organizer" name="organizer" value="<?= $organizer ?>" type="text" required="required" class="form-control">
+				<input id="organizer" name="organizer" value="<?= $organizer ?>" type="text" data-required-error="CAMBIAR TEXTO" required="required" class="form-control">
+				<div class="help-block with-errors"	></div>
 			</div>
 			<div class="form-group">
 				<label for="location">Ubicación</label> 
-				<input id="location" name="location" value="<?= $location ?>" type="text" required="required" class="form-control">
+				<input id="location" name="location" value="<?= $location ?>" type="text" data-required-error="CAMBIAR TEXTO" required="required" class="form-control">
+				<div class="help-block with-errors"	></div>
 			</div>
 			<div class="form-group">
 				<label for="dateEvent">Fecha</label> 
-				<input id="dateEvent" name="dateEvent" value="<?= $dateEvent ?>" type="text" required="required" class="form-control">
+				<input id="dateEvent" name="dateEvent" value="<?= $dateEvent ?>" type="text" data-required-error="CAMBIAR TEXTO" required="required" class="form-control">
+				<div class="help-block with-errors"	></div>
 			</div>
 			<div class="form-group">
 				<div class="input-group">
