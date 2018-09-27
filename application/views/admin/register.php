@@ -59,4 +59,5 @@
 		<button type="submit" class="btn btn-lg btn-primary btn-block">Registrar</button>
 	</div>
 	<p class="text-center mt-3"><a href="<?= base_url("/cuenta/login") ?>">Iniciar sesión</a></p>
+	<p class="text-center mt-3"><a href="<?= base_url("/cuenta/restablecer") ?>">¿Olvisdaste tu contraseña?</a></p>
 </form>

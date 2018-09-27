@@ -23,4 +23,5 @@
 	</div>
 	<button class="btn btn-lg btn-primary btn-block" type="submit">Iniciar</button>
 	<p class="text-center mt-3"><a href="<?= base_url("/cuenta/register") ?>">Registrarse</a></p>
+	<p class="text-center mt-3"><a href="<?= base_url("/cuenta/restablecer") ?>">¿Olvisdaste tu contraseña?</a></p>
 </form>

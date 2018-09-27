@@ -31,6 +31,14 @@ class Usuarios_model extends CI_Model{
 			return array();
 		}
 	}
+	function existbyHash($userName = ""){
+		if(!empty($userName)){
+			$query = $this->db->get_where($this->table, array( 'users.hash' => $userName ) );
+			return $query->row_array();
+		}else{
+			return array();
+		}
+	}
 	public function insert($data = array()) {
 		$insert = $this->db->insert($this->table, $data);
 		if($insert){

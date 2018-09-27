@@ -50,8 +50,8 @@ class Cuenta extends CI_Controller {
 							$this->session->set_userdata($user);
 							$this->session->set_flashdata('log_success','Se actualizó la cuenta correctamente.');
 						} else {
-						$data['errors'] = 'Ocurrió un error al actualizar la cuenta.';
-					}
+							$data['errors'] = 'Ocurrió un error al actualizar la cuenta.';
+						}
 					}  else {
 						$data['errors'] = 'Ya existe un cuenta con ese correo.';
 					}
@@ -65,6 +65,119 @@ class Cuenta extends CI_Controller {
 		} else {
 			redirect( base_url().'cuenta/login');
 		}
+	}
+
+	private function sendMail( $asunto, $contenido, $para ) {
+		$config = Array(
+			'protocol' 		=> 'smtp',
+			'smtp_host' 	=> 'ssl://smtp.googlemail.com',
+			'smtp_port' 	=> 465, //465 o 587
+			'smtp_user' 	=> 'lolivaresv13@gmail.com', //para que no llega spam
+			'smtp_pass' 	=> 'Lucki1012',
+			'mailtype' 		=> 'html',
+			'charset' 		=> 'UTF-8',
+			'wordwrap' 		=> TRUE
+		);
+		$this->load->library('email', $config);
+		$this->email->set_newline("\r\n");
+		$this->email->from( 'Happy Elder <lolivaresv13@gmail.com>' );
+		$this->email->to( $para );
+		$this->email->subject( mb_convert_encoding( $asunto, "UTF-8" ) );
+		$this->email->message( mb_convert_encoding( $contenido, "UTF-8" ) );
+		return $this->email->send();
+	}
+	
+	public function cambiar_contrasena( $hash ) {
+		if( $this->isLoggedin() ) {
+			redirect( base_url() );
+		}
+		$data['title'] = 'Enviar_Correo';
+		if ( $usuario = $this->Usuarios_model->existbyHash( $hash ) ) {
+			if ( isset( $_POST ) && count( $_POST ) ) {
+				$config = array(
+					array(
+						'field' => 'password',
+						'label' => 'Contraeña',
+						'rules' => 'trim|required'
+					),
+					array(
+						'field' => 'changepassword',
+						'label' => 'Repetir contraseña',
+						'rules' => 'trim|required'
+					),
+				);
+				$this->form_validation->set_rules($config);
+				if ($this->form_validation->run() == false) {
+					$data['errors'] = validation_errors();
+				} else {
+					$data_post = $this->security->xss_clean($_POST);
+					unset( $data_post['changepassword'] );
+					$data_post['password'] = sha1(md5($data_post['password']));
+					$data_post['hash'] = sha1( time() );
+					if( $this->Usuarios_model->update($data_post, $usuario['id']) ) {
+						$user = $this->Usuarios_model->getRows($usuario['id']);
+						$this->session->set_userdata($user);
+						$this->session->set_flashdata('log_success','Se actualizó la contraseña correctamente.');
+						redirect( base_url() );
+					} else {
+						$data['errors'] = 'Ocurrió un error al actualizar la contraseña.';
+					}
+				}
+			}
+			$this->load->view('admin/login_register/header', $data);
+			$this->load->view('admin/cambio_contrasena',$data);
+			$this->load->view('admin/login_register/footer');
+		}
+		else {
+			$this->session->set_flashdata('log_error','No existe el usuario al que quiere restablecer la contraseña.');
+			redirect( base_url() );
+		}
+	}
+	public function restablecer() {
+		if( $this->isLoggedin() ) {
+			redirect( base_url() );
+		}
+		$data['title'] = 'Enviar_Correo';
+
+		if ( isset( $_POST ) && count( $_POST ) ) {
+			$config = array(
+				array(
+					'field' => 'userName',
+					'label' => 'Usuario',
+					'rules' => 'trim|required'
+				),
+			);
+			$this->form_validation->set_rules($config);
+			if ($this->form_validation->run() == false) {
+				$data['errors'] = validation_errors();
+			} else {
+				$data_post = $this->security->xss_clean($_POST);
+				if ( $usuario =  $this->Usuarios_model->exist( $data_post['userName'] ) ) {
+					if ( $usuario['hash'] ) {
+						$contenido = '<p style="color: rgb(61, 133, 198);">Restablecer contraseña de HAPPYELDER!</p>
+						<p style="color: rgb(61, 133, 198);">
+							Hola '. $usuario['fullName'] .' </br>
+							Para restablecer tu contraseña - por favor visita http://happyelder.pe/cuenta/cambiar_contrasena/'. $usuario['hash'] . '
+						</p>';
+						ob_start();
+						$this->load->view('admin/plantilla_correo', array( 'contenido' => $contenido ) );
+						$html = ob_get_contents();
+						ob_end_clean();
+						$this->sendMail( "Restablecer contraseña de HAPPYELDER", $html, $usuario['userName'] );
+						$this->session->set_flashdata('log_success','Se le envió un correo con un enlace para restablecer su contraseña.');
+						redirect( base_url() );
+
+					} else {
+						$data['errors'] = 'No existe la cuenta.';
+					}
+				} else {
+					$data['errors'] = 'No existe la cuenta.';
+				}
+			}
+		}
+		$this->load->view('admin/login_register/header', $data);
+		$this->load->view('admin/enviar_contrasena',$data);
+		$this->load->view('admin/login_register/footer');
 	}
 	public function register() {
 		if( $this->isLoggedin() ) {

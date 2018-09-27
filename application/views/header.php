@@ -80,3 +80,8 @@
 						<?php echo $this->session->flashdata('log_success');?>
 					</div>
 				<?php }?>
+				<?php if($this->session->flashdata('log_error')){?>
+					<div class="alert alert-danger">
+						<?php echo $this->session->flashdata('log_error');?>
+					</div>
+				<?php }?>
