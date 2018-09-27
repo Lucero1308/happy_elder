@@ -9,7 +9,7 @@
 	<div class="form-group">
 		<div class="input-group" >
 			<span class="input-group-addon"><i class="fa fa-user-circle-o"></i></span>
-			<input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" id="userName" name="userName" class="form-control" placeholder="Usuario" data-pattern-error="CAMBIAR TEXTO" data-required-error="CAMBIAR TEXTO" required>
+			<input type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" id="userName" name="userName" class="form-control" placeholder="Usuario" data-pattern-error="Ingresa un  correo valido" data-required-error="Por favor ingresa tu correo" required>
 		</div>
 		<div class="help-block with-errors"></div>
 	</div>
@@ -17,7 +17,7 @@
 		<div class="input-group">
 			<div class="input-group-addon"><i class="fa fa-key"></i></div> 
 			<label for="inputPassword" class="sr-only" >Contraseña</label>
-			<input id="inputPassword" data-required-error="CAMBIAR TEXTO" data-minlength-error="CAMBIAR TEXTO" data-minlength="4" name="password" type="password" class="form-control" placeholder="Contraseña" required >
+			<input id="inputPassword" data-required-error="Por favor ingresa tu contraseña" data-minlength-error="El campo minimo debe ser de 4 caracteres" data-minlength="4" name="password" type="password" class="form-control" placeholder="Contraseña" required >
 		</div>
 		<div class="help-block with-errors"	></div>
 	</div>

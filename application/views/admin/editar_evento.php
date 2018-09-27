@@ -24,28 +24,28 @@
 			<?php endif ?>
 			<div class="form-group">
 				<label for="name">Título</label> 
-				<input id="name" name="name" data-required-error="CAMBIAR TEXTO" value="<?= $name ?>" type="text" required="required" class="form-control">
+				<input id="name" name="name" data-required-error="Por favor ingresa un titulo para el evento" value="<?= $name ?>" type="text" required="required" class="form-control">
 				<div class="help-block with-errors"	></div>
 			</div>
 			<div class="form-group">
 				<label for="description">Descripción</label> 
-				<textarea name="description" data-required-error="CAMBIAR TEXTO" required="required" class="form-control" id="description" cols="30" rows="5"><?= $description ?></textarea>
+				<textarea name="description" data-required-error="Por favor ingresa una descripción para el evento" required="required" class="form-control" id="description" cols="30" rows="5"><?= $description ?></textarea>
 				<div class="help-block with-errors"	></div>
 			</div>
 			<div class="form-group">
 				<label for="organizer">Organizador</label> 
-				<input id="organizer" data-required-error="CAMBIAR TEXTO" name="organizer" value="<?= $organizer ?>" type="text" required="required" class="form-control">
+				<input id="organizer" data-required-error="¿Quién sera el organizador del evento?" name="organizer" value="<?= $organizer ?>" type="text" required="required" class="form-control">
 				<div class="help-block with-errors"	></div>
 			</div>
 			<div class="form-group">
 				<label for="location">Ubicación</label> 
-				<input id="location" data-required-error="CAMBIAR TEXTO" name="location" value="<?= $location ?>" type="text" required="required" class="form-control">
+				<input id="location" data-required-error="¿Donde será el evento?" name="location" value="<?= $location ?>" type="text" required="required" class="form-control">
 				<div class="help-block with-errors"	></div>
 			</div>
 			<div class="form-group">
 				<label for="dateEvent">Fecha</label> 
 				<div class="input-group date">
-					<input id="dateEvent" data-required-error="CAMBIAR TEXTO" value="<?= $dateEvent ?>" name="dateEvent" type="text" required="required" class="form-control"><span class="input-group-addon" style="display: none;"></span>
+					<input id="dateEvent" data-required-error="¿Cuándo será el evento?" value="<?= $dateEvent ?>" name="dateEvent" type="text" required="required" class="form-control"><span class="input-group-addon" style="display: none;"></span>
 				</div>
 				<div class="help-block with-errors"	></div>
 			</div>

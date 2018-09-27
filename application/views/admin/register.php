@@ -12,18 +12,18 @@
 
 	<div class="form-group">
 		<label for="firstName" >Nombres</label> 
-		<input id="firstName" name="firstName" type="text" data-required-error="CAMBIAR TEXTO" class="form-control" placeholder="Ingresa tu nombre" required>
+		<input id="firstName" name="firstName" type="text" data-required-error="Por favor ingresa tu nombre" class="form-control" placeholder="Ingresa tu nombre" required>
 		<div class="help-block with-errors"></div>
 	</div>
 
 	<div class="form-group">
 		<label for="lastName">Apellidos</label> 
-		<input id="lastName" name="lastName" type="text" data-required-error="CAMBIAR TEXTO" class="form-control" placeholder="Ingresa tu apellido" required>
+		<input id="lastName" name="lastName" type="text" data-required-error="Por favor ingresa tu apellido" class="form-control" placeholder="Ingresa tu apellido" required>
 		<div class="help-block with-errors"></div>
 	</div>
 	<div class="form-group">
 		<label for="telephone">Teléfono</label> 
-		<input id="telephone" name="telephone" data-minlength="7" data-required-error="CAMBIAR TEXTO" data-minlength-error="CAMBIAR TEXTO" type="text" class="form-control onlyNumbers" placeholder="Ingresa tu móvil" required>
+		<input id="telephone" name="telephone" input pattern=".{7,9}" data-required-error="Por favor tu número de contacto" data-pattern-error="La cantidad mínima es de 7 dígitos , y la máxima 9" type="text" class="form-control onlyNumbers" placeholder="Ingresa tu móvil" required>
 		<div class="help-block with-errors"></div>
 	</div>
 	<?php if ( isset( $roles ) && $roles ): ?>
@@ -43,7 +43,7 @@
 		<label for="userName">Correo (usuario)</label> 
 		<div class="input-group">
 			<span class="input-group-addon"><i class="fa fa-user-circle-o"></i></span>
-			<input id="userName" data-pattern-error="CAMBIAR TEXTO" data-required-error="CAMBIAR TEXTO" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="userName" type="email" class="form-control" required>
+			<input id="userName" data-pattern-error="Ingresa un  correo válido" data-required-error="Por favor ingresa tu correo" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="userName" type="text" class="form-control" required>
 		</div> 
 		<div class="help-block with-errors"></div>
 	</div>
@@ -51,7 +51,7 @@
 		<label for="password">Contraseña</label> 
 		<div class="input-group">
 			<span class="input-group-addon"><i class="fa fa-key"></i></span>
-			<input id="password" data-required-error="CAMBIAR TEXTO" data-minlength-error="CAMBIAR TEXTO" data-minlength="6" name="password" type="password" class="form-control" required="required">
+			<input id="password" data-required-error="Por favor ingresa una contraseña" data-minlength-error="OJO:La cantidad minima de caracteres es de 6 digitos" data-minlength="6" name="password" type="password" class="form-control" required="required">
 		</div>
 		<div class="help-block with-errors"></div>
 	</div> 
