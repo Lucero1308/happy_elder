@@ -226,6 +226,7 @@ class Cuenta extends CI_Controller {
 					$data_post['status'] = 'approved';
 					$data_post['fullName'] = $data_post['firstName']. ' ' .$data_post['lastName'];
 					$data_post['password'] = sha1(md5($data_post['password']));
+					$data_post['hash'] = sha1( time() );
 					$user_id = $this->Usuarios_model->insert($data_post);
 					if( $user_id ) {
 						$user = $this->Usuarios_model->getRows($user_id);

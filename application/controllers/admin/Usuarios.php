@@ -151,7 +151,7 @@ class Usuarios extends CI_Controller {
 					$data_post['status'] = 'approved';
 					$data_post['fullName'] = $data_post['firstName']. ' ' .$data_post['lastName'];
 					$data_post['password'] = sha1(md5($data_post['password']));
-					$data_post['hash'] = sha1(md5($this->session->userdata['session_id']));
+					$data_post['hash'] = sha1( time() );
 					$user_id = $this->Usuarios_model->insert($data_post);
 					if( $user_id ) {
 						$this->session->set_flashdata('log_success','Se creó la cuenta correctamente.');
