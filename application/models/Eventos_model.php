@@ -3,9 +3,7 @@ class Eventos_model extends CI_Model{
 	public $table = 'events';
 	public $primary_key = 'events.id';
 	public $status = 'events.status';
-	function __construct(){
-		parent::__construct();
-	}
+
 	function getRows($id = ""){
 		if(!empty($id)){
 			$query = $this->db->get_where($this->table, array( $this->primary_key => $id, $this->status => 'publish' ));

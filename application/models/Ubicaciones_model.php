@@ -1,11 +1,10 @@
 <?php
 class Ubicaciones_model extends CI_Model{
+
 	public $table = 'locations';
 	public $primary_key = 'locations.id';
 	public $status = 'locations.status';
-	function __construct(){
-		parent::__construct();
-	}
+
 	function getRows($id = ""){
 		if(!empty($id)){
 			$query = $this->db->get_where($this->table, array( $this->primary_key => $id, $this->status => 'publish' ));

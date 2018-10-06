@@ -68,6 +68,7 @@ class Cuenta extends CI_Controller {
 	}
 
 	private function sendMail( $asunto, $contenido, $para ) {
+		
 		$config = Array(
 			'protocol' 		=> 'smtp',
 			'smtp_host' 	=> 'ssl://smtp.googlemail.com',
@@ -159,9 +160,9 @@ class Cuenta extends CI_Controller {
 							Hola '. $usuario['fullName'] .' </br>
 							Para restablecer tu contraseña - por favor visita http://happyelder.pe/cuenta/cambiar_contrasena/'. $usuario['hash'] . '
 						</p>';
-						ob_start();
+						 ob_start();// activa una opcion para cargar la vista pero almacena en algún lugar de la memoria
 						$this->load->view('admin/plantilla_correo', array( 'contenido' => $contenido ) );
-						$html = ob_get_contents();
+						$html = ob_get_contents(); //ALMACENAR - contenido
 						ob_end_clean();
 						$this->sendMail( "Restablecer contraseña de HAPPYELDER", $html, $usuario['userName'] );
 						$this->session->set_flashdata('log_success','Se le envió un correo con un enlace para restablecer su contraseña.');

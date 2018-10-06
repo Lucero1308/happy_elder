@@ -3,22 +3,20 @@ class Servicios_model extends CI_Model{
 	public $table = 'services';
 	public $primary_key = 'services.id';
 	public $status = 'services.status';
-	function __construct(){
-		parent::__construct();
-	}
+
 	function getRows($id = ""){ // filas
 		if(!empty($id)){
 			$query = $this->db->get_where($this->table, array( $this->primary_key => $id, $this->status . ' !=' => 'trash' ));
 			return $query->row_array();
 		}else{
 			$query = $this->db->get_where($this->table, array( $this->status => 'publish' ));
-			return $query->result_array();
+			return $query->result_array(); // retorna un array de cada fila o de la consulta
 		}
 	}
 	function exist($slug = "", $id = ""){
-		if(!empty($slug)){
+		if(!empty($slug)){// para ver si existe 
 			$query = $this->db->get_where($this->table, array( 'services.slug' => $slug, $this->primary_key . ' !=' => $id ) );
-			return $query->row_array(); // retorna todos los datos
+			return $query->row_array(); // retorna todos los datos - retorna una fila
 		}else{
 			return array();
 		}

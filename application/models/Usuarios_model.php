@@ -3,9 +3,7 @@ class Usuarios_model extends CI_Model{
 	public $table = 'users';
 	public $primary_key = 'users.id';
 	public $status = 'users.status';
-	function __construct(){
-		parent::__construct();
-	}
+
 	function getRoles(){
 		$query = $this->db->get('roles');
 		return $query->result_array();

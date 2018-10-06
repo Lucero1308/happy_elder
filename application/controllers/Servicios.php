@@ -47,7 +47,7 @@ class Servicios extends CI_Controller {
 		$this->load->library('email', $config);
 		$this->email->set_newline("\r\n");
 		$this->email->from( 'Happy Elder <lolivaresv13@gmail.com>' );
-		$this->email->to( $para );
+		$this->email->to( $para ); //captura el correo que inicio sesion
 		$this->email->subject( mb_convert_encoding( $asunto, "UTF-8" ) );
 		$this->email->message( mb_convert_encoding( $contenido, "UTF-8" ) );
 		return $this->email->send();

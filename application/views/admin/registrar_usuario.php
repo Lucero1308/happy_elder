@@ -34,7 +34,7 @@
 		</div>
 		<div class="form-group">
 			<label for="inputTelephone">Teléfono</label> 
-			<input id="inputTelephone" name="telephone" data-pattern-error="OJO:La cantidad mínima es de 7 dígitos , y la máxima 9" data-required-error="Ingresa un número de contacto" value="<?= $inputTelephone ?>" type="text" required="required" input pattern=".{7,9}" class="form-control onlyNumbers">
+			<input id="inputTelephone" name="telephone" data-pattern-error="OJO:La cantidad mínima es de 7 dígitos , y la máxima 9" data-required-error="Ingresa un número de contacto" value="<?= $inputTelephone ?>" type="text" required="required" input pattern=".{7,9}" maxlength="9" class="form-control onlyNumbers">
 			<div class="help-block with-errors"	></div>
 		</div>
 		<?php if ( isset( $roles ) && $roles ): ?>

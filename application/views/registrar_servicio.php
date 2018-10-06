@@ -21,22 +21,22 @@
 			<?php endif ?>
 			<div class="form-group">
 				<label for="name">Título</label> 
-				<input id="name" name="name" value="<?= $name ?>" type="text" data-required-error="CAMBIAR TEXTO" required="required" class="form-control">
+				<input id="name" name="name" value="<?= $name ?>" type="text" data-required-error="Es necesario que coloques un título" required="required" class="form-control">
 				<div class="help-block with-errors"	></div>
 			</div>
 			<div class="form-group">
 				<label for="description">Descripción</label> 
-				<textarea name="description" data-required-error="CAMBIAR TEXTO" required="required" class="form-control" id="description" cols="30" rows="5"><?= $description ?></textarea>
+				<textarea name="description" data-required-error="Es necesario que coloques una descripción" required="required" class="form-control" id="description" cols="30" rows="5"><?= $description ?></textarea>
 				<div class="help-block with-errors"	></div>
 			</div>
 			<div class="form-group">
 				<label for="schedule">Horario</label> 
-				<input id="schedule" name="schedule" value="<?= $schedule ?>" type="text" data-required-error="CAMBIAR TEXTO" required="required" class="form-control">
+				<input id="schedule" name="schedule" value="<?= $schedule ?>" type="text" data-required-error="Por favor ingresa tu disponibilidad" required="required" class="form-control">
 				<div class="help-block with-errors"	></div>
 			</div>
 			<div class="form-group">
 				<label for="price">Precio</label> 
-				<input id="price" name="price" value="<?= $price ?>" type="number" data-required-error="CAMBIAR TEXTO" required="required" class="form-control">
+				<input id="price" name="price" value="<?= $price ?>" type="number" data-required-error="Por favor ingresa tu precio" required="required" class="form-control">
 				<div class="help-block with-errors"	></div>
 			</div>
 			<div class="form-group">

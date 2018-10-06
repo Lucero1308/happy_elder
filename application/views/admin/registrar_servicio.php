@@ -36,7 +36,7 @@
 			</div>
 			<div class="form-group">
 				<label for="price">Precio</label> 
-				<input id="price" name="price" value="<?= $price ?>" type="number" data-required-error="Por favor ingresa tu precio required="required" class="form-control">
+				<input id="price" name="price" value="<?= $price ?>" type="number" data-required-error="Por favor ingresa tu precio" required="required" class="form-control">
 				<div class="help-block with-errors"	></div>
 			</div>
 			<div class="form-group">
