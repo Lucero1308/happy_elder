@@ -1,8 +1,8 @@
 <?php
 class Usuarios_model extends CI_Model{
-	public $table = 'users';
-	public $primary_key = 'users.id';
-	public $status = 'users.status';
+	public $table = 'usuarios';
+	public $primary_key = 'usuarios.id';
+	public $status = 'usuarios.status';
 
 	function getRoles(){
 		$query = $this->db->get('roles');
@@ -10,20 +10,20 @@ class Usuarios_model extends CI_Model{
 	}
 	function getRows($id = ""){
 		if(!empty($id)){
-			$this->db->select('users.*, roles.name as rolName');
-			$this->db->join('roles', 'roles.role_id = users.rol', 'LEFT');
+			$this->db->select('usuarios.*, roles.name as rolName');
+			$this->db->join('roles', 'roles.role_id = usuarios.rol', 'LEFT');
 			$query = $this->db->get_where($this->table, array( $this->primary_key => $id, $this->status => 'approved' ));
 			return $query->row_array();
 		}else{
-			$this->db->select('users.*, roles.name as rolName');
-			$this->db->join('roles', 'roles.role_id = users.rol', 'LEFT');
+			$this->db->select('usuarios.*, roles.name as rolName');
+			$this->db->join('roles', 'roles.role_id = usuarios.rol', 'LEFT');
 			$query = $this->db->get_where($this->table, array(  $this->status => 'approved' ));
 			return $query->result_array();
 		}
 	}
 	function exist($userName = "", $id = ""){
 		if(!empty($userName)){
-			$query = $this->db->get_where($this->table, array( 'users.userName' => $userName, $this->primary_key . ' !=' => $id ));
+			$query = $this->db->get_where($this->table, array( 'usuarios.userName' => $userName, $this->primary_key . ' !=' => $id ));
 			return $query->row_array();
 		}else{
 			return array();
@@ -31,7 +31,7 @@ class Usuarios_model extends CI_Model{
 	}
 	function existbyHash($userName = ""){
 		if(!empty($userName)){
-			$query = $this->db->get_where($this->table, array( 'users.hash' => $userName ) );
+			$query = $this->db->get_where($this->table, array( 'usuarios.hash' => $userName ) );
 			return $query->row_array();
 		}else{
 			return array();
@@ -55,7 +55,7 @@ class Usuarios_model extends CI_Model{
 	}
 	
 	public function checkUser($data) {
-		$st=$this->db->SELECT('*')->from('users')
+		$st=$this->db->SELECT('*')->from('usuarios')
 			->WHERE('userName',$data['userName'])
 			->WHERE('password',sha1(md5($data['password'])))
 			->get()->result_array();

@@ -1,8 +1,8 @@
 <?php
 class Eventos_model extends CI_Model{
-	public $table = 'events';
-	public $primary_key = 'events.id';
-	public $status = 'events.status';
+	public $table = 'eventos';
+	public $primary_key = 'eventos.id';
+	public $status = 'eventos.status';
 
 	function getRows($id = ""){
 		if(!empty($id)){
@@ -15,7 +15,7 @@ class Eventos_model extends CI_Model{
 	}
 	function exist($slug = "", $id = ""){
 		if(!empty($slug)){
-			$query = $this->db->get_where($this->table, array( 'events.slug' => $slug, $this->primary_key . ' !=' => $id ));
+			$query = $this->db->get_where($this->table, array( 'eventos.slug' => $slug, $this->primary_key . ' !=' => $id ));
 			return $query->row_array();
 		}else{
 			return array();
@@ -23,7 +23,7 @@ class Eventos_model extends CI_Model{
 	}
 	function getRowBySlug($slug = ""){
 		if(!empty($slug)){
-			$query = $this->db->get_where($this->table, array( 'events.slug' => $slug, $this->status => 'publish' ));
+			$query = $this->db->get_where($this->table, array( 'eventos.slug' => $slug, $this->status => 'publish' ));
 			return $query->row_array();
 		}else{
 			return array();
@@ -31,7 +31,7 @@ class Eventos_model extends CI_Model{
 	}
 	function getRowsByUser($id = ""){
 		if(!empty($id)){
-			$query = $this->db->get_where($this->table, array( 'events.user_id' => $id, $this->status => 'publish' ));
+			$query = $this->db->get_where($this->table, array( 'eventos.user_id' => $id, $this->status => 'publish' ));
 			return $query->result_array();
 		}else{
 			return array();

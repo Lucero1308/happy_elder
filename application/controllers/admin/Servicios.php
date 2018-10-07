@@ -89,7 +89,7 @@ class Servicios extends CI_Controller {
 						$data_post = $this->security->xss_clean($_POST);
 						unset( $data_post['is_submitted'] );
 						$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
-						$data_post['user_id'] = $this->session->userdata['id'];
+						//$data_post['user_id'] = $this->session->userdata['id'];
 						$data_post['slug'] = url_title ( convert_accented_characters($data_post['name'] ), 'dash', true);
 						if( !$this->Servicios_model->exist( $data_post['slug'], $data['servicio']['id'] ) ) {
 							$services_id = $this->Servicios_model->update($data_post,  $idservicio);
@@ -106,7 +106,7 @@ class Servicios extends CI_Controller {
 					$data_post = $this->security->xss_clean($_POST);
 					unset( $data_post['is_submitted'] );
 
-					$data_post['user_id'] = $this->session->userdata['id'];
+					//$data_post['user_id'] = $this->session->userdata['id'];
 					$data_post['slug'] = url_title ( convert_accented_characters($data_post['name'] ), 'dash', true);
 					if( !$this->Servicios_model->exist( $data_post['slug'], $data['servicio']['id'] ) ) {
 						$services_id = $this->Servicios_model->update($data_post,  $idservicio);

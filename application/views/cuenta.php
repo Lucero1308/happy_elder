@@ -1,17 +1,20 @@
 <div class="pt-2">
 	<?php 
+		$photo = '';
 		if( $this->input->post('is_submitted') ) {
 			$inputFirstName			= $usuario['firstName'];
 			$inputLastName			= $usuario['lastName'];
 			$inputTelephone			= set_value('telephone');
 			$inputUserName			= set_value('userName');
 			$inputPassword			= set_value('password');
+			$photo		= $usuario['photo'];
 		} else {
 			$inputFirstName			= $usuario['firstName'];
 			$inputLastName			= $usuario['lastName'];
 			$inputTelephone			= $usuario['telephone'];
 			$inputUserName			= $usuario['userName'];
 			$inputPassword			= '';
+			$photo		= $usuario['photo'];
 		}
 	?>
 	<div class="row">
@@ -30,6 +33,12 @@
 				<label for="inputLastName">Apellidos</label> 
 				<input id="inputLastName" disabled value="<?= $inputLastName ?>" type="text" class="form-control" data-required-error="Por favor ingresa un apellido" required="required">
 				<div class="help-block with-errors"	></div>
+			</div>
+			<div class="form-group">
+				<label for="dateEvent">Foto</label> 
+				<?php if ( $photo ): ?>
+					<img src="<?= $photo ?>" class="img-fluid mb-4 img-thumbnail rounded mx-auto d-block" width="350">
+				<?php endif ?>
 			</div>
 			<div class="form-group">
 				<label for="inputTelephone">Teléfono</label> 

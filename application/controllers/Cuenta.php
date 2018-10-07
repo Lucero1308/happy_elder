@@ -222,22 +222,41 @@ class Cuenta extends CI_Controller {
 			if ($this->form_validation->run() == false) {
 				$data['errors'] = validation_errors();
 			} else {
-				$data_post = $this->security->xss_clean($_POST);
-				if ( !$this->Usuarios_model->exist( $data_post['userName'] ) ) {
-					$data_post['status'] = 'approved';
-					$data_post['fullName'] = $data_post['firstName']. ' ' .$data_post['lastName'];
-					$data_post['password'] = sha1(md5($data_post['password']));
-					$data_post['hash'] = sha1( time() );
-					$user_id = $this->Usuarios_model->insert($data_post);
-					if( $user_id ) {
-						$user = $this->Usuarios_model->getRows($user_id);
-						$this->session->set_userdata($user);
-						$this->session->set_flashdata('log_success','Se creó la cuenta correctamente.');
-						redirect( base_url().'admin/dashboard');
+				if($_FILES['photo']['name'] != '') {
+						
+					$data_post = $this->security->xss_clean($_POST);
+					if ( !$this->Usuarios_model->exist( $data_post['userName'] ) ) {
+						$config['upload_path']          = './uploads/';
+						$config['overwrite'] = true; 
+						$config['allowed_types']        = 'gif|jpg|png|jpeg';
+						$config['max_size']             = 2000;// = MB
+						$config['max_width']            = 2000;
+						$config['max_height']           = 2000;
+						$this->load->library('upload', $config);
+						if ( ! $this->upload->do_upload('photo')) {
+							$data['errors'] =  $this->upload->display_errors();
+						} else {
+							$upload_image = $this->upload->data();
+							$data_post['status'] = 'approved';
+							$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
+							$data_post['fullName'] = $data_post['firstName']. ' ' .$data_post['lastName'];
+							$data_post['password'] = sha1(md5($data_post['password']));
+							$data_post['hash'] = sha1( time() );
+							$user_id = $this->Usuarios_model->insert($data_post);
+							if( $user_id ) {
+								$user = $this->Usuarios_model->getRows($user_id);
+								$this->session->set_userdata($user);
+								$this->session->set_flashdata('log_success','Se creó la cuenta correctamente.');
+								redirect( base_url().'admin/dashboard');
+							}
+							$data['errors'] = 'Ocurrió un error al registrar la cuenta.';
+						}
+					} else {
+						$data['errors'] = 'Ya existe un cuenta con ese correo.';
 					}
-					$data['errors'] = 'Ocurrió un error al registrar la cuenta.';
+
 				} else {
-					$data['errors'] = 'Ya existe un cuenta con ese correo.';
+					$data['errors'] = 'Debes seleccionar una foto.';
 				}
 			}
 		}

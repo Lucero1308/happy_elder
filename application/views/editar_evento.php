@@ -1,18 +1,21 @@
 <div class="pt-2">
 	 <?php 
 		$evento_id 			= $evento['id'];
+		$photo = '';
 		if( $this->input->post('is_submitted') ) {
 			$name			= set_value('name');
 			$description	= set_value('description');
 			$organizer		= set_value('organizer');
 			$location		= set_value('location');
 			$dateEvent		= set_value('dateEvent');
+			$photo		= $evento['photo'];
 		} else {
 			$name			= $evento['name'];
 			$description	= $evento['description'];
 			$organizer		= $evento['organizer'];
 			$location		= $evento['location'];
 			$dateEvent		= $evento['dateEvent'];
+			$photo		= $evento['photo'];
 		}
 	?>
 	<div class="row">
@@ -48,6 +51,10 @@
 				<div class="help-block with-errors"	></div>
 			</div>
 			<div class="form-group">
+				<label for="dateEvent">Foto</label> 
+				<?php if ( $photo ): ?>
+					<img src="<?= $photo ?>" class="img-fluid mb-4 img-thumbnail rounded mx-auto d-block" width="350">
+				<?php endif ?>
 				<div class="input-group">
 					<input type="file" class="form-control-file" name="photo">
 				</div>

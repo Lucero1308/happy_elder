@@ -1,21 +1,25 @@
 <?php
 class Servicios_model extends CI_Model{
-	public $table = 'services';
-	public $primary_key = 'services.id';
-	public $status = 'services.status';
+	public $table = 'servicios';
+	public $primary_key = 'servicios.id';
+	public $status = 'servicios.status';
 
 	function getRows($id = ""){ // filas
 		if(!empty($id)){
+			$this->db->select('servicios.*, usuarios.fullName as usuario');
+			$this->db->join('usuarios', 'usuarios.id = servicios.user_id', 'LEFT');
 			$query = $this->db->get_where($this->table, array( $this->primary_key => $id, $this->status . ' !=' => 'trash' ));
 			return $query->row_array();
 		}else{
+			$this->db->select('servicios.*, usuarios.fullName as usuario');
+			$this->db->join('usuarios', 'usuarios.id = servicios.user_id', 'LEFT');
 			$query = $this->db->get_where($this->table, array( $this->status => 'publish' ));
 			return $query->result_array(); // retorna un array de cada fila o de la consulta
 		}
 	}
 	function exist($slug = "", $id = ""){
 		if(!empty($slug)){// para ver si existe 
-			$query = $this->db->get_where($this->table, array( 'services.slug' => $slug, $this->primary_key . ' !=' => $id ) );
+			$query = $this->db->get_where($this->table, array( 'servicios.slug' => $slug, $this->primary_key . ' !=' => $id ) );
 			return $query->row_array(); // retorna todos los datos - retorna una fila
 		}else{
 			return array();
@@ -23,7 +27,9 @@ class Servicios_model extends CI_Model{
 	}
 	function getRowBySlug($slug = ""){
 		if(!empty($slug)){
-			$query = $this->db->get_where($this->table, array( 'services.slug' => $slug, $this->status => 'publish' ));
+			$this->db->select('servicios.*, usuarios.fullName as usuario');
+			$this->db->join('usuarios', 'usuarios.id = servicios.user_id', 'LEFT');
+			$query = $this->db->get_where($this->table, array( 'servicios.slug' => $slug, $this->status => 'publish' ));
 			return $query->row_array();
 		}else{
 			return array();
@@ -31,7 +37,7 @@ class Servicios_model extends CI_Model{
 	}
 	function getRowsByUser($id = ""){
 		if(!empty($id)){
-			$query = $this->db->get_where($this->table, array( 'services.user_id' => $id, $this->status . ' !=' => 'trash' ));
+			$query = $this->db->get_where($this->table, array( 'servicios.user_id' => $id, $this->status . ' !=' => 'trash' ));
 			return $query->result_array();
 		}else{
 			return array();

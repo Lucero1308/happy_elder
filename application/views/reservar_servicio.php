@@ -19,6 +19,10 @@
 					<input id="nombreServicio" value="<?= $servicio['name'] ?>" type="text" required="required" disabled class="form-control">
 				</div>
 				<div class="form-group">
+					<label for="usuarioServicio">Usuario</label> 
+					<input id="usuarioServicio" value="<?= $servicio['usuario'] ?>" type="text" required="required" disabled class="form-control">
+				</div>
+				<div class="form-group">
 					<label for="horarioServicio">Horario</label> 
 					<input id="horarioServicio" value="<?= $servicio['schedule'] ?>" type="text" required="required" disabled class="form-control">
 				</div>
@@ -30,7 +34,7 @@
 					<label for="visitanteFecha">Fecha de servicio</label> 
 					<div class="input-group date">
 						<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-						<input value="<?= $visitanteFecha ?>" name="visitanteFecha" type="text" required="required" class="form-control">
+						<input value="<?= $visitanteFecha ?>" name="visitanteFecha" type="text" readonly required="required" class="form-control">
 					</div>
 				</div>
 				<div class="form-group">

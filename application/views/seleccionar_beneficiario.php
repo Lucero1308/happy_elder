@@ -30,7 +30,7 @@
 					<label for="fechaVisita">Fecha de visita</label> 
 					<div class="input-group date">
 						<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-						<input value="<?= $fechaVisita ?>" name="fechaVisita" type="text" required="required" class="form-control">
+						<input value="<?= $fechaVisita ?>" name="fechaVisita" readonly type="text" required="required" class="form-control">
 					</div>
 				</div>
 				<div class="form-group">

@@ -1,9 +1,9 @@
 <?php
 class Ubicaciones_model extends CI_Model{
 
-	public $table = 'locations';
-	public $primary_key = 'locations.id';
-	public $status = 'locations.status';
+	public $table = 'ubicaciones';
+	public $primary_key = 'ubicaciones.id';
+	public $status = 'ubicaciones.status';
 
 	function getRows($id = ""){
 		if(!empty($id)){
@@ -16,7 +16,7 @@ class Ubicaciones_model extends CI_Model{
 	}
 	function exist($slug = "", $id = ""){
 		if(!empty($slug)){
-			$query = $this->db->get_where($this->table, array( 'locations.slug' => $slug, $this->primary_key . ' !=' => $id ));
+			$query = $this->db->get_where($this->table, array( 'ubicaciones.slug' => $slug, $this->primary_key . ' !=' => $id ));
 			return $query->row_array();
 		}else{
 			return array();
@@ -24,7 +24,7 @@ class Ubicaciones_model extends CI_Model{
 	}
 	function getRowBySlug($slug = ""){
 		if(!empty($slug)){
-			$query = $this->db->get_where($this->table, array( 'locations.slug' => $slug, $this->status => 'publish' ));
+			$query = $this->db->get_where($this->table, array( 'ubicaciones.slug' => $slug, $this->status => 'publish' ));
 			return $query->row_array();
 		}else{
 			return array();
