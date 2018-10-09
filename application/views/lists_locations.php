@@ -1,13 +1,3 @@
-<?php if($this->session->flashdata('log_success')){?>
-	<div class="alert alert-success">
-		<?php echo $this->session->flashdata('log_success');?>
-	</div>
-<?php }?>
-<?php if($this->session->flashdata('log_error')){?>
-	<div class="alert alert-danger">
-		<?php echo $this->session->flashdata('log_error');?>
-	</div>
-<?php }?>
 <?php if ( $posts && count( $posts ) ): ?>
 	<div class="pt-2 row">
 		<?php foreach ($posts as $key => $post): ?>

@@ -60,7 +60,7 @@
 							</li>
 						<?php endif ?>
 						<li class="dropdown">
-							<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Hola <?= $this->session->userdata['fullName'] ?> </a>
+							<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Hola <?= $this->session->userdata['firstName'] ?> </a>
 							<div class="dropdown-menu">
 								<?php if ( $this->session->userdata['rol'] == 1 ): ?>
 									<a class="dropdown-item" href="<?= base_url("/admin/dashboard") ?>" >Dashboard</a>

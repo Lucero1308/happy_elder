@@ -3,7 +3,6 @@
 		<table class="table-hover table table-bordered">
 			<tr>
 				<th width="300">Nombre</th>
-
 			</tr>
 			<?php if ( isset( $list ) && $list && count( $list ) ): ?>
 				<?php foreach ($list as $key => $row): ?>

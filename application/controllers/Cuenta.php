@@ -541,12 +541,14 @@ class Cuenta extends CI_Controller {
 					'label' => 'Horario',
 					'rules' => 'trim|required'
 				),
-				array(
+			);
+			if ( $this->session->userdata['rol'] != 3 ) {
+				$config[] = array(
 					'field' => 'price',
 					'label' => 'Precio',
 					'rules' => 'trim|required'
-				),
-			);
+				);
+			}
 			$this->form_validation->set_rules($config);
 			if ($this->form_validation->run() == false) {
 				$data['errors'] = validation_errors();
@@ -626,12 +628,14 @@ class Cuenta extends CI_Controller {
 					'label' => 'Horario',
 					'rules' => 'trim|required'
 				),
-				array(
+			);
+			if ( $this->session->userdata['rol'] != 3 ) {
+				$config[] = array(
 					'field' => 'price',
 					'label' => 'Precio',
 					'rules' => 'trim|required'
-				),
-			);
+				);
+			}
 			$this->form_validation->set_rules($config);
 			if ($this->form_validation->run() == false) {
 				$data['errors'] = validation_errors();
@@ -694,6 +698,7 @@ class Cuenta extends CI_Controller {
 
 	public function beneficiarios() {
 		$this->validate_sesion();
+		$this->load->model('Ubicaciones_model');
 		$data = array();
 		$data['list'] = $this->Ubicaciones_model->getRowsByUser( $this->session->userdata['id'] );
 		$data['title'] = 'Mis asignaciones';

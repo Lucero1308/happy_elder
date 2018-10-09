@@ -35,11 +35,15 @@
 				<input id="schedule" name="schedule" value="<?= $schedule ?>" type="text" data-required-error="Es necesario que establezca un horario" required="required" class="form-control">
 				<div class="help-block with-errors"	></div>
 			</div>
-			<div class="form-group">
-				<label for="price">Precio</label> 
-				<input id="price" name="price" value="<?= $price ?>" type="number" data-required-error="¿Cuál es el precio que se cobrará?" required="required" class="form-control">
-				<div class="help-block with-errors"	></div>
-			</div>
+			<?php if ( $this->session && $this->session->userdata && ! empty( $this->session->userdata['id'] ) ): ?>
+				<?php if ( $this->session->userdata['rol'] != 3 ): ?>
+					<div class="form-group">
+						<label for="price">Precio</label> 
+						<input id="price" name="price" value="<?= $price ?>" type="number" data-required-error="¿Cuál es el precio que se cobrará?" required="required" class="form-control">
+						<div class="help-block with-errors"	></div>
+					</div>
+				<?php endif ?>
+			<?php endif ?>
 			<div class="form-group">
 				<div class="input-group">
 					<input type="file" class="form-control-file" name="photo">
