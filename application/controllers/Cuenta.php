@@ -38,22 +38,92 @@ class Cuenta extends CI_Controller {
 					$data['errors'] = validation_errors();
 				} else {
 					$data_post = $this->security->xss_clean($_POST);
-					if ( !$this->Usuarios_model->exist( $data_post['userName'], $usuario_id ) ) {
-						unset( $data_post['is_submitted'] );
-						if ( isset( $data_post['password'] ) && $data_post['password'] ) {
-							$data_post['password'] = sha1(md5($data_post['password']));
-						} else {
-							unset( $data_post['password'] );
+					if ( $this->session->userdata['photo'] ) {
+						if($_FILES['photo']['name'] != '') {
+							if ( !$this->Usuarios_model->exist( $data_post['userName'], $usuario_id ) ) {
+								$config['upload_path']          = './uploads/';
+								$config['overwrite'] = true; 
+								$config['allowed_types']        = 'gif|jpg|png|jpeg';
+								$config['max_size']             = 2000;// = MB
+								$config['max_width']            = 2000;
+								$config['max_height']           = 2000;
+								$this->load->library('upload', $config);
+								if ( ! $this->upload->do_upload('photo')) {
+									$data['errors'] =  $this->upload->display_errors();
+								} else {
+									$upload_image = $this->upload->data();
+									$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
+									unset( $data_post['is_submitted'] );
+									if ( isset( $data_post['password'] ) && $data_post['password'] ) {
+										$data_post['password'] = sha1(md5($data_post['password']));
+									} else {
+										unset( $data_post['password'] );
+									}
+									if( $this->Usuarios_model->update($data_post, $usuario_id) ) {
+										$user = $this->Usuarios_model->getRows($usuario_id);
+										$this->session->set_userdata($user);
+										$this->session->set_flashdata('log_success','Se actualizó la cuenta correctamente.');
+									} else {
+										$data['errors'] = 'Ocurrió un error al actualizar la cuenta.';
+									}
+								}
+							}  else {
+								$data['errors'] = 'Ya existe un cuenta con ese correo.';
+							}
+						} else{
+							if ( !$this->Usuarios_model->exist( $data_post['userName'], $usuario_id ) ) {
+								unset( $data_post['is_submitted'] );
+								if ( isset( $data_post['password'] ) && $data_post['password'] ) {
+									$data_post['password'] = sha1(md5($data_post['password']));
+								} else {
+									unset( $data_post['password'] );
+								}
+								if( $this->Usuarios_model->update($data_post, $usuario_id) ) {
+									$user = $this->Usuarios_model->getRows($usuario_id);
+									$this->session->set_userdata($user);
+									$this->session->set_flashdata('log_success','Se actualizó la cuenta correctamente.');
+								} else {
+									$data['errors'] = 'Ocurrió un error al actualizar la cuenta.';
+								}
+							}  else {
+								$data['errors'] = 'Ya existe un cuenta con ese correo.';
+							}
 						}
-						if( $this->Usuarios_model->update($data_post, $usuario_id) ) {
-							$user = $this->Usuarios_model->getRows($usuario_id);
-							$this->session->set_userdata($user);
-							$this->session->set_flashdata('log_success','Se actualizó la cuenta correctamente.');
+					} else {
+						if($_FILES['photo']['name'] != '') {
+							if ( !$this->Usuarios_model->exist( $data_post['userName'], $usuario_id ) ) {
+								$config['upload_path']          = './uploads/';
+								$config['overwrite'] = true; 
+								$config['allowed_types']        = 'gif|jpg|png|jpeg';
+								$config['max_size']             = 2000;// = MB
+								$config['max_width']            = 2000;
+								$config['max_height']           = 2000;
+								$this->load->library('upload', $config);
+								if ( ! $this->upload->do_upload('photo')) {
+									$data['errors'] =  $this->upload->display_errors();
+								} else {
+									$upload_image = $this->upload->data();
+									$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
+									unset( $data_post['is_submitted'] );
+									if ( isset( $data_post['password'] ) && $data_post['password'] ) {
+										$data_post['password'] = sha1(md5($data_post['password']));
+									} else {
+										unset( $data_post['password'] );
+									}
+									if( $this->Usuarios_model->update($data_post, $usuario_id) ) {
+										$user = $this->Usuarios_model->getRows($usuario_id);
+										$this->session->set_userdata($user);
+										$this->session->set_flashdata('log_success','Se actualizó la cuenta correctamente.');
+									} else {
+										$data['errors'] = 'Ocurrió un error al actualizar la cuenta.';
+									}
+								}
+							}  else {
+								$data['errors'] = 'Ya existe un cuenta con ese correo.';
+							}
 						} else {
-							$data['errors'] = 'Ocurrió un error al actualizar la cuenta.';
+							$data['errors'] = 'Debes seleccionar una foto.';
 						}
-					}  else {
-						$data['errors'] = 'Ya existe un cuenta con ese correo.';
 					}
 				}
 			}
@@ -223,7 +293,6 @@ class Cuenta extends CI_Controller {
 				$data['errors'] = validation_errors();
 			} else {
 				if($_FILES['photo']['name'] != '') {
-						
 					$data_post = $this->security->xss_clean($_POST);
 					if ( !$this->Usuarios_model->exist( $data_post['userName'] ) ) {
 						$config['upload_path']          = './uploads/';

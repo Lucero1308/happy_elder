@@ -18,7 +18,7 @@
 		}
 	?>
 	<div class="row">
-		<form class="col-12 col-xl-5" action="" method="post" data-toggle="validator" >
+		<form class="col-12 col-xl-5" enctype="multipart/form-data" action="" method="post" data-toggle="validator" >
 			<?php if( isset($errors) ): ?>
 				<div class="alert alert-danger text-left">
 					<?php print_r($errors); ?>
@@ -39,6 +39,10 @@
 				<?php if ( $photo ): ?>
 					<img src="<?= $photo ?>" class="img-fluid mb-4 img-thumbnail rounded mx-auto d-block" width="350">
 				<?php endif ?>
+				<div class="input-group">
+					<input type="file" class="form-control-file" <?= $photo ? '' : 'required=""'; ?>  name="photo">
+				</div>
+				<div class="help-block with-errors"></div>
 			</div>
 			<div class="form-group">
 				<label for="inputTelephone">Teléfono</label> 
