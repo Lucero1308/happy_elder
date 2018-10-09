@@ -19,6 +19,7 @@
 					<div class="card-body">
 						<h4 class="card-title mb-0"><a href="<?= base_url( '/ubicaciones/ver/'.$post['slug'] )  ?>"><?= $post['name'] ?></a></h4>
 						<?php if ( $this->session && $this->session->userdata && ! empty( $this->session->userdata['id'] ) ): ?>
+							
 							<?php if ( $this->session->userdata['rol'] == 4 ): ?>
 								<div class="text mt-3"><a class="btn btn-primary" href="<?= base_url( '/ubicaciones/seleccionar/'.$post['slug'] )  ?>">Seleccionar beneficiario</a></div>
 							<?php endif ?>

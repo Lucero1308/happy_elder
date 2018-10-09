@@ -96,4 +96,6 @@ class Ubicaciones extends CI_Controller {
 			redirect( base_url() );
 		}
 	}
+
+
 }

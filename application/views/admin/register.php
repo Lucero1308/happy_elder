@@ -66,6 +66,7 @@
 	<p class="text-center mt-3"><a href="<?= base_url("/cuenta/login") ?>">Iniciar sesión</a></p>
 	<p class="text-center mt-3"><a href="<?= base_url("/cuenta/restablecer") ?>">¿Olvisdaste tu contraseña?</a></p>
 </form>
+<!-- Aqui comienzan las preguntas -->
 <div id="preguntas_enfermera"  style="display: none;">
 	<div class="form-group">
 		<label >¿Conoce usted que tipo de enfermedades puede tener un adulto mayor?</label> 

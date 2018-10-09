@@ -77,3 +77,5 @@ class Ubicaciones_model extends CI_Model{
 		}
 	}
 }
+
+

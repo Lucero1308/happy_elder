@@ -18,13 +18,13 @@ class Eventos extends CI_Controller {
 	}
 	
 	public function ver( $slug ) {
-		$data['servicio'] = $this->Eventos_model->getRowBySlug($slug);
+		$data['evento'] = $this->Eventos_model->getRowBySlug($slug);
 		$data['title'] = '';
-		if ( $data['servicio'] ) {
-			$data['title'] = $data['servicio']['name'];
+		if ( $data['evento'] ) {
+			$data['title'] = $data['evento']['name'];
 		}
 		$this->load->view('header', $data);
-		$this->load->view('ver_servicio', $data);
+		$this->load->view('ver_evento', $data);
 		$this->load->view('footer');
 	}
 }
