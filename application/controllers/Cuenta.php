@@ -691,4 +691,14 @@ class Cuenta extends CI_Controller {
 		$this->load->view('registrar_servicio', $data);
 		$this->load->view('footer');
 	}
+
+	public function beneficiarios() {
+		$this->validate_sesion();
+		$data = array();
+		$data['list'] = $this->Ubicaciones_model->getRowsByUser( $this->session->userdata['id'] );
+		$data['title'] = 'Mis asignaciones';
+		$this->load->view('header', $data);
+		$this->load->view('ubicaciones_beneficiarios', $data);
+		$this->load->view('footer');
+	}
 }

@@ -76,6 +76,19 @@ class Ubicaciones_model extends CI_Model{
 			return false;
 		}
 	}
+
+	function getRowsByUser($id = "", $beneficiario_id = ''){
+
+			if(!empty($beneficiario_id) && !empty($id)){
+				$query = $this->db->get_where('beneficiarios', array( 'usuarios.user_id' => $id,'id' => $beneficiario_id,  'status' => 'asignado' ));
+				return $query->result_array();
+			}else{
+				return array();
+			}
+	
+
+
+
 }
 
 

@@ -53,6 +53,12 @@
 								<a class="nav-link" href="<?= base_url("/cuenta/eventos") ?>" >Mis eventos</a>
 							</li>
 						<?php endif ?>
+						
+						<?php if ( $this->session->userdata['rol'] == 4 ): ?>
+							<li class="nav-item">
+								<a class="nav-link" href="<?= base_url("/cuenta/beneficiarios") ?>" >Mis asignaciones</a>
+							</li>
+						<?php endif ?>
 						<li class="dropdown">
 							<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Hola <?= $this->session->userdata['fullName'] ?> </a>
 							<div class="dropdown-menu">
