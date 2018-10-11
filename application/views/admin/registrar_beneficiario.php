@@ -30,12 +30,12 @@
 		</div>
 		<div class="form-group">
 			<label for="telephone">Teléfono</label> 
-			<input id="telephone" name="telephone" input pattern=".{7,9}" data-pattern-error="La cantidad mínima es de 7 dígitos , y la máxima 9" data-required-error="Por favor ingresa un número de contacto" value="<?= $telephone ?>" type="text" required="required" class="form-control onlyNumbers">
+			<input id="telephone" name="telephone" input pattern=".{7,9}" data-pattern-error="La cantidad mínima es de 7 dígitos , y la máxima 9" data-required-error="Por favor ingresa un número de contacto" maxlength="9"  value="<?= $telephone ?>" type="text" required="required" class="form-control onlyNumbers">
 			<div class="help-block with-errors"	></div>
 		</div>
 		<div class="form-group">
 			<label for="dni">DNI</label> 
-			<input id="dni" name="dni" value="<?= $dni ?>" data-maxlength="9" data-maxlength-error="El DNI tiene 8 números" data-minlength="8" data-minlength-error="El DNI tiene 8 números" data-required-error="Por favor ingresa un DNI" type="text" required="required" class="form-control onlyNumbers">
+			<input id="dni" name="dni" value="<?= $dni ?>" input pattern=".{7,8}" maxlength="8" data-pattern-error="La cantidad mínima es de 7 dígitos , y la máxima 8 - OJO: El DNI solo tiene 8 dígitos"  data-required-error="Por favor ingresa un DNI" type="text" required="required" class="form-control onlyNumbers">
 			<div class="help-block with-errors"	></div>
 		</div>
 		<div class="form-group">

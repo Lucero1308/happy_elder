@@ -184,7 +184,7 @@ class Cuenta extends CI_Controller {
 					$data_post = $this->security->xss_clean($_POST);
 					unset( $data_post['changepassword'] );
 					$data_post['password'] = sha1(md5($data_post['password']));
-					$data_post['hash'] = sha1( time() );
+					$data_post['hash'] = sha1( time() ); // time - obtiene tiempo actual y lo encripta
 					if( $this->Usuarios_model->update($data_post, $usuario['id']) ) {
 						$user = $this->Usuarios_model->getRows($usuario['id']);
 						$this->session->set_userdata($user);

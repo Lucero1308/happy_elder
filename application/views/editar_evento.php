@@ -45,9 +45,11 @@
 				<input id="location" name="location" value="<?= $location ?>" type="text" data-required-error="¿Donde será el evento?" required="required" class="form-control">
 				<div class="help-block with-errors"	></div>
 			</div>
-			<div class="form-group">
+		<div class="form-group" id="formdateEvent">
 				<label for="dateEvent">Fecha</label> 
-				<input id="dateEvent" name="dateEvent" value="<?= $dateEvent ?>" type="text" data-required-error="¿Cuándo será el evento?" required="required" class="form-control">
+				<div class="input-group date">
+					<input id="dateEvent" value="<?= $dateEvent ?>" readonly name="dateEvent" type="text" data-required-error="¿Cuándo será el evento?" required="required" class="form-control"><span class="input-group-addon" style="display: none;"></span>
+				</div>
 				<div class="help-block with-errors"	></div>
 			</div>
 			<div class="form-group">

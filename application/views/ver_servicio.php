@@ -8,6 +8,9 @@
 	<hr>
 	<h6 class="font-italic btn btn-outline-warning">Beneficiario:</h6><div class="cart-text" align="center"><?= $servicio['usuario'] ?></div>
 	<hr>
+	<h6 class="font-italic btn btn-outline-warning">Precio:</h6><div class="cart-text" align="center">S/. <?= $servicio['price'] ?></div>
+	<hr>
+
 	<?php if ( $this->session && $this->session->userdata && ! empty( $this->session->userdata['id'] ) ): ?>
 		<?php if ( $this->session->userdata['rol'] == 2 ): ?> 
 			<!-- CONDICIONAL -->

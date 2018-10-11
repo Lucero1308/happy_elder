@@ -3,7 +3,8 @@
 		<a href="<?= base_url( '/cuenta/registrar_servicio' ) ?>" class="btn btn-primary">Registrar nuevo</a>
 	</div>
 	<div class="table-responsive">
-		<table class="table-hover table table-bordered">
+		<table id="list" class="table-hover table table-bordered">
+			<thead>
 			<tr>
 				<th width="50">Acciones</th>
 				<th width="150">Foto</th>
@@ -13,6 +14,7 @@
 				<th>Precio</th>
 				<th>Fecha reserva</th>
 			</tr>
+		</thead>
 			<?php if ( isset( $list ) && $list && count( $list ) ): ?>
 				<?php foreach ($list as $key => $row): ?>
 					<tr>
