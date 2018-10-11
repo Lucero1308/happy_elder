@@ -30,6 +30,13 @@ class Ubicaciones_model extends CI_Model{
 			return array();
 		}
 	}
+	function getCountTypes(){
+		$this->db->select('COUNT(status) as count, status as rolName');
+		$this->db->distinct();
+		$this->db->group_by('status');
+		$query = $this->db->get( $this->table );
+		return $query->result_array(); 
+	}
 	function getBeneficiarios($location_id, $beneficiario_id = ''){
 		if(!empty($location_id)){
 			if(!empty($beneficiario_id)){

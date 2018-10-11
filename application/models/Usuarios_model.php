@@ -21,6 +21,14 @@ class Usuarios_model extends CI_Model{
 			return $query->result_array();
 		}
 	}
+	function getCountTypes(){
+		$this->db->select('COUNT(id) as count, roles.name as rolName');
+		$this->db->join('roles', 'roles.role_id = usuarios.rol', 'LEFT');
+		$this->db->distinct();
+		$this->db->group_by('rol');
+		$query = $this->db->get('usuarios');
+		return $query->result_array(); 
+	}
 	function exist($userName = "", $id = ""){
 		if(!empty($userName)){
 			$query = $this->db->get_where($this->table, array( 'usuarios.userName' => $userName, $this->primary_key . ' !=' => $id ));

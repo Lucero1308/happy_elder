@@ -9,10 +9,23 @@ class Dashboard extends CI_Controller {
 		$this->validate_sesion();
 	}
 	public function index() {
+		$this->load->model('Eventos_model');
+		$this->load->model('Usuarios_model');
+		$this->load->model('Servicios_model');
+		$this->load->model('Ubicaciones_model');
+		
+
 		$data = array();
+		$data['usuarios'] = $this->Usuarios_model->getCountTypes();
+		$data['servicios'] = $this->Servicios_model->getCountTypes();
+		$data['eventos'] = $this->Eventos_model->getCountTypes();
+		$data['ubicaciones'] = $this->Ubicaciones_model->getCountTypes();
 		$data['title'] = 'Dashboard';
+
 		$this->load->view('admin/header', $data);
+		$this->load->view('admin/dashboard', $data);
 		$this->load->view('admin/footer');
+		
 	}
 	private function validate_sesion() {
 		if( !$this->isLoggedin() ) { 

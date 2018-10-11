@@ -25,6 +25,13 @@ class Eventos_model extends CI_Model{
 			return array();
 		}
 	}
+	function getCountTypes(){
+		$this->db->select('COUNT(status) as count, status as rolName');
+		$this->db->distinct();
+		$this->db->group_by('status');
+		$query = $this->db->get( $this->table );
+		return $query->result_array(); 
+	}
 	function getRowBySlug($slug = ""){
 		if(!empty($slug)){
 			$this->db->select('eventos.*, usuarios.fullName as usuario');
