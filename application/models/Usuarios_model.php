@@ -21,6 +21,19 @@ class Usuarios_model extends CI_Model{
 			return $query->result_array();
 		}
 	}
+	function getRowsAdmin($id = ""){
+		if(!empty($id)){
+			$this->db->select('usuarios.*, roles.name as rolName');
+			$this->db->join('roles', 'roles.role_id = usuarios.rol', 'LEFT');
+			$query = $this->db->get_where($this->table, array( $this->primary_key => $id, $this->status . ' != ' => 'trash' ));
+			return $query->row_array();
+		}else{
+			$this->db->select('usuarios.*, roles.name as rolName');
+			$this->db->join('roles', 'roles.role_id = usuarios.rol', 'LEFT');
+			$query = $this->db->get_where($this->table, array(  $this->status . ' != ' => 'trash' ));
+			return $query->result_array();
+		}
+	}
 	function getCountTypes(){
 		$this->db->select('COUNT(id) as count, roles.name as rolName');
 		$this->db->join('roles', 'roles.role_id = usuarios.rol', 'LEFT');

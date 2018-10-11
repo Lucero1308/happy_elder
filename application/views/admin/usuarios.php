@@ -11,6 +11,7 @@
 				<th>Apellidos</th>
 				<th>Teléfono</th>
 				<th>Rol</th>
+				<th>Estado</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -18,17 +19,23 @@
 				<?php foreach ($list as $key => $row): ?>
 					<tr>
 						<!-- Condicional para solo mostrar editar con el usuario activo -->
-						<?php if ( $row['id'] == $this->session->userdata['id'] ): ?>
-							<td><a href="<?= base_url("/admin/usuarios/editar/" . $row['id'] ) ?>">Editar</a></td>
-						<?php else: ?>
-							<td><a onclick="return confirm('¿Seguro que quiere eliminar este usuario?')" href="<?= base_url("/admin/usuarios/eliminar/" . $row['id']) ?>">Eliminar</a> | <a href="<?= base_url("/admin/usuarios/editar/" . $row['id'] ) ?>">Editar</a></td>
-						<?php endif ?>
+						<td>
+							<?php if ( $row['id'] == $this->session->userdata['id'] ): ?>
+								<a href="<?= base_url("/admin/usuarios/editar/" . $row['id'] ) ?>">Editar</a>
+							<?php else: ?>
+								<a onclick="return confirm('¿Seguro que quiere eliminar este usuario?')" href="<?= base_url("/admin/usuarios/eliminar/" . $row['id']) ?>">Eliminar</a> | <a href="<?= base_url("/admin/usuarios/editar/" . $row['id'] ) ?>">Editar</a>
+							<?php endif ?>
+							<?php if ( $row['status'] == 'pending' ): ?>
+								 | <a href="<?= base_url("/admin/usuarios/aprobar/" . $row['id'] ) ?>">Aprobar</a>
+							<?php endif ?>
+						</td>
 						<td><?= $row['id'] ?></td>
 						<td><?= $row['userName'] ?></td>
 						<td><?= $row['firstName'] ?></td>
 						<td><?= $row['lastName'] ?></td>
 						<td><?= $row['telephone'] ?></td>
 						<td><?= $row['rolName'] ?></td>
+						<td><?= $row['status'] ?></td>
 					</tr>
 				<?php endforeach ?>
 			<?php endif ?>

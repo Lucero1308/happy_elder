@@ -24,7 +24,7 @@ class Usuarios extends CI_Controller {
 	}
 	public function index() {
 		$data = array();
-		$data['list'] = $this->Usuarios_model->getRows();
+		$data['list'] = $this->Usuarios_model->getRowsAdmin();
 		$data['title'] = 'Usuarios';
 		$this->load->view('admin/header', $data);
 		$this->load->view('admin/usuarios', $data);
@@ -106,6 +106,53 @@ class Usuarios extends CI_Controller {
 		$this->load->view('admin/editar_usuario', $data);
 		$this->load->view('admin/footer');
 	}
+	public function aprobar( $usuario_id ) {
+		$data = array();
+		$data['usuario'] = $this->Usuarios_model->getRowsAdmin( $usuario_id );
+		if ( $data['usuario'] ) {
+			$data_post = array();
+			$data_post['status'] = 'approved';
+			if( $this->Usuarios_model->update($data_post, $usuario_id) ) {
+				$contenido = '<p style="color: rgb(61, 133, 198);">Cuenta aprobada en HAPPYELDER!</p>
+				<p style="color: rgb(61, 133, 198);">
+					Hola '. $data['usuario']['fullName'] .' </br>
+					Ya puedes iniciar sesión en http://happyelder.pe/
+				</p>';
+				ob_start();// activa una opcion para cargar la vista pero almacena en algún lugar de la memoria
+				$this->load->view('admin/plantilla_correo', array( 'contenido' => $contenido ) );
+				$html = ob_get_contents(); //ALMACENAR - contenido
+				ob_end_clean();
+				$this->sendMail( "Cuenta aprobada en HAPPYELDER", $html, $data['usuario']['userName'] );
+				$this->session->set_flashdata('log_success','Se aprobó correctamente la cuenta correctamente.');
+			} else {
+				$this->session->set_flashdata('log_error','Ocurrió un error al aprobar la cuenta.');
+			}
+		} else {
+			$this->session->set_flashdata('log_error','No existe el cliente.');
+		}
+		//redirect( base_url() .'admin/usuarios' );
+	}
+
+	private function sendMail( $asunto, $contenido, $para ) {
+		
+		$config = Array(
+			'protocol' 		=> 'smtp',
+			'smtp_host' 	=> 'ssl://smtp.googlemail.com',
+			'smtp_port' 	=> 465, //465 o 587
+			'smtp_user' 	=> 'lolivaresv13@gmail.com', //para que no llega spam
+			'smtp_pass' 	=> 'Lucki1012',
+			'mailtype' 		=> 'html',
+			'charset' 		=> 'UTF-8',
+			'wordwrap' 		=> TRUE
+		);
+		$this->load->library('email', $config);
+		$this->email->set_newline("\r\n");
+		$this->email->from( 'Happy Elder <lolivaresv13@gmail.com>' );
+		$this->email->to( $para );
+		$this->email->subject( mb_convert_encoding( $asunto, "UTF-8" ) );
+		$this->email->message( mb_convert_encoding( $contenido, "UTF-8" ) );
+		return $this->email->send();
+	}
 	public function registrar( ) {
 		$data = array();
 		if ( isset( $_POST ) && count( $_POST ) ) {
@@ -148,7 +195,7 @@ class Usuarios extends CI_Controller {
 				$data_post = $this->security->xss_clean($_POST);
 				unset( $data_post['is_submitted'] );
 				if ( !$this->Usuarios_model->exist( $data_post['userName'] ) ) {
-					$data_post['status'] = 'approved';
+					$data_post['status'] = 'pending';
 					$data_post['fullName'] = $data_post['firstName']. ' ' .$data_post['lastName'];
 					$data_post['password'] = sha1(md5($data_post['password']));
 					$data_post['hash'] = sha1( time() );
