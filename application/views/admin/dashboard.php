@@ -4,7 +4,7 @@
 		<div class="col-12">
 			<canvas class="my-4 w-100" id="myChart" width="1740" height="733"></canvas>
 		</div>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script> <!-- javascript del grafico, del bootstrap -->
 		<script>
 			var usuarios = <?= json_encode( $usuarios ); ?>;
 			var data_chart = {
@@ -36,8 +36,10 @@
 			if( usuarios ) {
 				usuarios.forEach( function( type_user, index ) { 
 					console.log( type_user, index );
-					data_chart.data.labels.push( type_user.rolName );
-					data_chart.data.datasets[0].data.push( type_user.count );
+					data_chart.data.labels.push( type_user.rolName ); 
+					// para el nombre de abajo
+					data_chart.data.datasets[0].data.push( type_user.count ); 
+					// datos,cantidad
 				});
 			}
 			console.log( usuarios );
