@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Informacion extends CI_Controller {
+class Calificaciones_beneficiarios extends CI_Controller {
 	public function index() {
-		$data['title'] = 'Información';
+		$data['title'] = 'Beneficiarios';
 		$this->load->view('header', $data);
-		$this->load->view('informacion', $data);
+		$this->load->view('calificaciones_beneficiarios', $data);
 		$this->load->view('footer');
 	}
 }

@@ -37,7 +37,7 @@
 							<a class="nav-link" href="<?= base_url("/informacion") ?>" >Información</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="<?= base_url("/cuidadores") ?>" >Nuestros cuidadores</a>
+							<a class="nav-link" href="<?= base_url("/calificaciones_beneficiarios") ?>" >Nuestros cuidadores</a>
 						</li>
 					</ul>
 				</div>
