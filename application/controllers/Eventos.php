@@ -18,6 +18,9 @@ class Eventos extends CI_Controller {
 	}
 	
 	public function ver( $slug ) {
+		if ( isset( $_GET['action'] ) && $_GET['action'] == 'complete' ) {
+			$this->session->set_flashdata('log_success','Gracias por hacer una donación.');
+		}
 		$data['evento'] = $this->Eventos_model->getRowBySlug($slug);
 		$data['title'] = '';
 		if ( $data['evento'] ) {

@@ -14,7 +14,6 @@ class Dashboard extends CI_Controller {
 		$this->load->model('Servicios_model');
 		$this->load->model('Ubicaciones_model');
 		
-
 		$data = array();
 		$data['usuarios'] = $this->Usuarios_model->getCountTypes();
 		$data['servicios'] = $this->Servicios_model->getCountTypes();

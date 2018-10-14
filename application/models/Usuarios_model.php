@@ -34,6 +34,18 @@ class Usuarios_model extends CI_Model{
 			return $query->result_array();
 		}
 	}
+	function get_enfermeras(){
+		$this->db->select('usuarios.*, roles.name as rolName');
+		$this->db->join('roles', 'roles.role_id = usuarios.rol', 'LEFT');
+		$query = $this->db->get_where($this->table, array(  $this->status => 'approved', 'rol' => 4 ));
+		return $query->result_array();
+	}
+	function get_voluntarios(){
+		$this->db->select('usuarios.*, roles.name as rolName');
+		$this->db->join('roles', 'roles.role_id = usuarios.rol', 'LEFT');
+		$query = $this->db->get_where($this->table, array(  $this->status => 'approved', 'rol' => 3 ));
+		return $query->result_array(); 
+	}
 	function getCountTypes(){
 		$this->db->select('COUNT(id) as count, roles.name as rolName');
 		$this->db->join('roles', 'roles.role_id = usuarios.rol', 'LEFT');
