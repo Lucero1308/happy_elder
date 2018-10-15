@@ -1,6 +1,23 @@
 	<?php if ( $this->session->userdata('id') ): ?>
 		<form action="<?=  base_url()?>calificaciones_beneficiarios/comentar/<?= $usuario['hash'] ?>" method="post">
 			<div class="form-group">
+				<label>Valoración</label>
+				<nav class="navbar navbar-expand-lg p-0">
+					<p class="clasificacion navbar-nav">
+						<input id="radio1" type="radio" name="estrellas" value="5">
+						<label for="radio1">★</label>
+						<input id="radio2" type="radio" name="estrellas" value="4">
+						<label for="radio2">★</label>
+						<input id="radio3" type="radio" name="estrellas" value="3">
+						<label for="radio3">★</label>
+						<input id="radio4" type="radio" name="estrellas" value="2">
+						<label for="radio4">★</label>
+						<input id="radio5" type="radio" name="estrellas" value="1">
+						<label for="radio5">★</label>
+					</p>
+				</nav>
+			</div>
+			<div class="form-group">
 				<label>Comentario</label>
 				<textarea class="form-control" data-required-error="Ingresa un comentario" required="" rows="4" cols="100" name="comment" rows="3"></textarea>
 				<div class="help-block with-errors"></div>
@@ -26,6 +43,15 @@
 									<h6 class="comment-name <?= $usuario['id'] == $comment['user_id'] ? 'by-author' : '' ?>"><?= $comment['fullName'] ?></h6>
 									<?php $now = date(''); ?>
 									<span>hace <?= timespan(strtotime( $comment['date_added'] ), $now) . ''; ?></span>
+									<?php if ( $comment['val'] ): ?>
+										<nav class="navbar navbar-expand-lg p-0">
+											<p class="clasificacion_single navbar-nav">
+												<?php for ($i=1; $i < 6; $i++) : ?>
+													<label for="" style="<?= $comment['val'] >= $i ? "color: orange" : ''; ?>">★</label>
+												<?php endfor ?>
+											</p>
+										</nav>
+									<?php endif ?>
 								</div>
 								<div class="comment-content">
 									<p><?= $comment['comment'] ?></p>

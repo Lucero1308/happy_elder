@@ -44,6 +44,7 @@ class Calificaciones_beneficiarios extends CI_Controller {
 				'post_id' => $usuario['id'],
 				'user_id' => $this->session->userdata('id'),
 				'comment' => $this->input->post('comment'),
+				'val' => $this->input->post('estrellas') | 0,
 			);
 			$this->model_comments->add_comment($data);
 			$this->session->set_flashdata('log_success','Se registró el comentario correctamente');

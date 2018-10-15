@@ -113,16 +113,26 @@ label {
 }
 
 .clasificacion {
-  direction: rtl;
-  unicode-bidi: bidi-override;
+	direction: rtl;
+	unicode-bidi: bidi-override;
+	font-size: 1.5em;
+	line-height: 1;
 }
 
-label:hover,
-label:hover ~ label {
+.clasificacion_single {
+	font-size: 1.5em;
+	line-height: 1;
+}
+.clasificacion_single small {
+	line-height: 1.3;
+}
+
+.clasificacion label:hover,
+.clasificacionlabel:hover ~ label {
   color: orange;
 }
 
-input[type="radio"]:checked ~ label {
+.clasificacion input[type="radio"]:checked ~ label {
   color: orange;
 }
 
