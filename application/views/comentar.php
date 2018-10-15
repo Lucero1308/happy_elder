@@ -1,48 +1,39 @@
-<br/>
-	<div class="form-group">
-			<center>
-				<textarea name="description" class="form-control" id="description" rows="3" style="width:850px " maxlength="250"></textarea>
-				<br/>
-       <a href="" class="btn btn-primary" >Publicar comentario</a></center>
-          </div>
- 
+	<?php if ( $this->session->userdata('id') ): ?>
+		<form action="<?=  base_url()?>calificaciones_beneficiarios/comentar/<?= $usuario['hash'] ?>" method="post">
+			<div class="form-group">
+				<label>Comentario</label>
+				<textarea class="form-control" data-required-error="Ingresa un comentario" required="" rows="4" cols="100" name="comment" rows="3"></textarea>
+				<div class="help-block with-errors"></div>
+			</div>
+			<div class="form-group text-center">
+				<button type="submit" class="btn btn-primary">Comentar</button>
+			</div>
+		</form>
+	<?php else: ?>
+		<a href="<?=  base_url()?>cuenta/login">Inicia sesión para comentar.</a>
+	<?php endif ?>
 	<div class="comments-container">
-			<ul id="comments-list" class="comments-list">
-			<li>
-				<div class="comment-main-level">
-					<!-- Avatar -->
-					<div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt=""></div>
-					<!-- Contenedor del Comentario -->
-					<div class="comment-box">
-						<div class="comment-head">
-							<h6 class="comment-name by-author"><a>Agustin Ortiz</a></h6>
-							<span>hace 20 minutos</span>
-							<i class="fa fa-reply"></i>
+		<?php if ( $comments && count( $comments ) ): ?>
+			<ul id="comments-list" class="comments-list list-unstyled">
+				<?php foreach ($comments as $key => $comment): ?>
+					<li>
+						<div class="comment-main-level">
+							<div class="comment-avatar">
+								<img class="img-thumbnail" width="200" height="200" src="<?= $comment['photo'] ?>" alt="Card image cap">
+							</div>
+							<div class="comment-box">
+								<div class="comment-head">
+									<h6 class="comment-name <?= $usuario['id'] == $comment['user_id'] ? 'by-author' : '' ?>"><?= $comment['fullName'] ?></h6>
+									<?php $now = date(''); ?>
+									<span>hace <?= timespan(strtotime( $comment['date_added'] ), $now) . ''; ?></span>
+								</div>
+								<div class="comment-content">
+									<p><?= $comment['comment'] ?></p>
+								</div>
+							</div>
 						</div>
-						<div class="comment-content">
-							Hola
-						</div>
-					</div>
-				</div>
-
-			</li>
-
-			<li>
-				<div class="comment-main-level">
-					<!-- Avatar -->
-					<div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_2_zps7de12f8b.jpg" alt=""></div>
-					<!-- Contenedor del Comentario -->
-					<div class="comment-box">
-						<div class="comment-head">
-							<h6 class="comment-name"><a>Lorena Rojero</a></h6>
-							<span>hace 10 minutos</span>
-							<i class="fa fa-reply"></i>
-						</div>
-						<div class="comment-content">
-							Hola
-						</div>
-					</div>
-				</div>
-			</li>
-		</ul>
+					</li>
+				<?php endforeach ?>
+			</ul>
+		<?php endif ?>
 	</div>

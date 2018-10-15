@@ -1,5 +1,4 @@
 <p><a class="btn btn-primary" href="<?= base_url("/admin/usuarios/registrar/" ) ?>">Crear nuevo</a></p>
-
 <div class="table-responsive">
 	<table id="list" class="table-hover table table-bordered">
 		<thead>
@@ -27,6 +26,10 @@
 							<?php endif ?>
 							<?php if ( $row['status'] == 'pending' ): ?>
 								 | <a href="<?= base_url("/admin/usuarios/aprobar/" . $row['id'] ) ?>">Aprobar</a>
+								 | <a href="<?= base_url("/admin/usuarios/desaprobar/" . $row['id'] ) ?>">Desprobar</a>
+								<?php if ( in_array( $row['rol'], array( 3, 4 ) ) ): ?> 
+								 | <a href="<?= base_url("/admin/usuarios/respuestas/" . $row['id'] ) ?>">Ver respuestas</a>
+								<?php endif ?>
 							<?php endif ?>
 						</td>
 						<td><?= $row['id'] ?></td>

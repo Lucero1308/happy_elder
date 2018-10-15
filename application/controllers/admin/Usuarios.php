@@ -130,7 +130,44 @@ class Usuarios extends CI_Controller {
 		} else {
 			$this->session->set_flashdata('log_error','No existe el cliente.');
 		}
-		//redirect( base_url() .'admin/usuarios' );
+		redirect( base_url() .'admin/usuarios' );
+	}
+	public function desaprobar( $usuario_id ) {
+		$data = array();
+		$data['usuario'] = $this->Usuarios_model->getRowsAdmin( $usuario_id );
+		if ( $data['usuario'] ) {
+			$data_post = array();
+			$data_post['status'] = 'canceled';
+			if( $this->Usuarios_model->update($data_post, $usuario_id) ) {
+				$contenido = '<p style="color: rgb(61, 133, 198);">Cuenta desaprobada en HAPPYELDER!</p>
+				<p style="color: rgb(61, 133, 198);">
+					Hola '. $data['usuario']['fullName'] .' </br>
+					Su cuenta no ha sido aprobada...</p>';
+				ob_start();// activa una opcion para cargar la vista pero almacena en algún lugar de la memoria
+				$this->load->view('admin/plantilla_correo', array( 'contenido' => $contenido ) );
+				$html = ob_get_contents(); //ALMACENAR - contenido
+				ob_end_clean();
+				$this->sendMail( "Cuenta desaprobada en HAPPYELDER", $html, $data['usuario']['userName'] );
+				$this->session->set_flashdata('log_success','Se desaprobó correctamente la cuenta correctamente.');
+			} else {
+				$this->session->set_flashdata('log_error','Ocurrió un error al desaprobar la cuenta.');
+			}
+		} else {
+			$this->session->set_flashdata('log_error','No existe el cliente.');
+		}
+		redirect( base_url() .'admin/usuarios' );
+	}
+	public function respuestas( $usuario_id ) {
+		$data = array();
+		$data['title'] = 'Respuestas';
+		$data['usuario'] = $this->Usuarios_model->getRowsAdmin( $usuario_id );
+		if ( !$data['usuario'] ) {
+			$this->session->set_flashdata('log_error','No existe el cliente.');
+			redirect( base_url().'admin/usuarios');
+		}
+		$this->load->view('admin/header', $data);
+		$this->load->view('admin/validar', $data);
+		$this->load->view('admin/footer');
 	}
 
 	private function sendMail( $asunto, $contenido, $para ) {
