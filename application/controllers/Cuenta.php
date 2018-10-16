@@ -306,14 +306,24 @@ class Cuenta extends CI_Controller {
 							$data['errors'] =  $this->upload->display_errors();
 						} else {
 							$upload_image = $this->upload->data();
-							$data_post['status'] = 'pending';
+							if ( $data_post['rol'] == 2 ) {
+								$data_post['status'] = 'approved';
+							} else {
+								$data_post['status'] = 'pending';
+							}
 							$data_post['photo'] = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
 							$data_post['fullName'] = $data_post['firstName']. ' ' .$data_post['lastName'];
 							$data_post['password'] = sha1(md5($data_post['password']));
 							$data_post['hash'] = sha1( time() );
 							$user_id = $this->Usuarios_model->insert($data_post);
 							if( $user_id ) {
-								$this->session->set_flashdata('log_success', 'Tu cuenta está en pendiente de aprobación, se te notificará cuando se apruebe.');
+								if ( $data_post['rol'] == 2 ) {
+									$user = $this->Usuarios_model->getRows($user_id);
+									$this->session->set_userdata($user);
+									$this->session->set_flashdata('log_success', 'Sesión iniciada correctamente.');
+								} else {
+									$this->session->set_flashdata('log_success', 'Tu cuenta está en pendiente de aprobación, se te notificará cuando se apruebe.');
+								}
 								redirect( base_url() );
 							}
 							$data['errors'] = 'Ocurrió un error al registrar la cuenta.';
@@ -386,7 +396,6 @@ class Cuenta extends CI_Controller {
 			redirect( base_url().'cuenta/login');
 		}
 	}
-	
 	public function eventos() {
 		$this->validate_sesion();
 		$data = array();
@@ -762,7 +771,6 @@ class Cuenta extends CI_Controller {
 		$this->load->view('registrar_servicio', $data);
 		$this->load->view('footer');
 	}
-
 	public function beneficiarios() {
 		$this->validate_sesion();
 		$this->load->model('Ubicaciones_model');

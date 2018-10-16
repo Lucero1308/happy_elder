@@ -24,7 +24,7 @@ class Servicios extends CI_Controller {
 	}
 	public function index() {
 		$data = array();
-		$data['list'] = $this->Servicios_model->getRows();
+		$data['list'] = $this->Servicios_model->getRowsAdmin();
 		$data['title'] = 'Servicios';
 		$this->load->view('admin/header', $data);
 		$this->load->view('admin/servicios', $data);

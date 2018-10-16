@@ -17,6 +17,19 @@ class Servicios_model extends CI_Model{
 			return $query->result_array(); // retorna un array de cada fila o de la consulta
 		}
 	}
+	function getRowsAdmin($id = ""){ // filas
+		if(!empty($id)){
+			$this->db->select('servicios.*, usuarios.fullName as usuario');
+			$this->db->join('usuarios', 'usuarios.id = servicios.user_id', 'LEFT');
+			$query = $this->db->get_where($this->table, array( $this->primary_key => $id, $this->status . ' !=' => 'trash' ));
+			return $query->row_array();
+		}else{
+			$this->db->select('servicios.*, usuarios.fullName as usuario');
+			$this->db->join('usuarios', 'usuarios.id = servicios.user_id', 'LEFT');
+			$query = $this->db->get_where($this->table, array( $this->status . ' !=' => 'trash' ));
+			return $query->result_array(); // retorna un array de cada fila o de la consulta
+		}
+	}
 	function exist($slug = "", $id = ""){
 		if(!empty($slug)){// para ver si existe 
 			$query = $this->db->get_where($this->table, array( 'servicios.slug' => $slug, $this->primary_key . ' !=' => $id ) );
