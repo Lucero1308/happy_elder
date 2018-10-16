@@ -1,7 +1,9 @@
+
 <?php if ( $voluntarios && count( $voluntarios ) ): ?>
 	<h4>Voluntarios</h4>
 	<?php foreach ($voluntarios as $key => $voluntario): ?>
-		<div class="card shadow-sm h-md-250">
+		<div class="card shadow-sm h-md-250" >
+		
 			<div class="card-body">
 				<div class="row">
 					<div class="col-auto">

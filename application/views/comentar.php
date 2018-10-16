@@ -22,6 +22,12 @@
 				<textarea class="form-control" data-required-error="Ingresa un comentario" required="" rows="4" cols="100" name="comment" rows="3"></textarea>
 				<div class="help-block with-errors"></div>
 			</div>
+			<div class="form-group">
+				<label>Subir con foto:</label>
+			</div>
+			<div class="form-group text-center">
+				<input type="file" class="form-control-file" required="" name="photo">
+			</div>
 			<div class="form-group text-center">
 				<button type="submit" class="btn btn-primary">Comentar</button>
 			</div>
