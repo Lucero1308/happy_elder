@@ -47,6 +47,7 @@
 			var ctx = document.getElementById("myChart");
 			var myChart = new Chart(ctx, data_chart);
 		</script>
+
 		<div class="col-12 col-lg-4">
 			<h3>Usuarios</h3>
 			<div class="table-responsive">

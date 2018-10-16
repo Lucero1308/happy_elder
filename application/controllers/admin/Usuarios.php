@@ -113,7 +113,7 @@ class Usuarios extends CI_Controller {
 			$data_post = array();
 			$data_post['status'] = 'approved';
 			if( $this->Usuarios_model->update($data_post, $usuario_id) ) {
-				$contenido = '<p style="color: rgb(61, 133, 198);">Cuenta aprobada en HAPPYELDER!</p>
+				$contenido = '<p style="color: rgb(61, 133, 198);">¡FELICIDADES!Su cuenta ha sido aprobada en HAPPYELDER!</p>
 				<p style="color: rgb(61, 133, 198);">
 					Hola '. $data['usuario']['fullName'] .' </br>
 					Ya puedes iniciar sesión en http://happyelder.pe/
@@ -142,7 +142,7 @@ class Usuarios extends CI_Controller {
 				$contenido = '<p style="color: rgb(61, 133, 198);">Cuenta desaprobada en HAPPYELDER!</p>
 				<p style="color: rgb(61, 133, 198);">
 					Hola '. $data['usuario']['fullName'] .' </br>
-					Su cuenta no ha sido aprobada...</p>';
+					Su cuenta no ha sido aprobada, ya que no cumple los requisitos necesarios para brindar atención a personas mayores..</p>';
 				ob_start();// activa una opcion para cargar la vista pero almacena en algún lugar de la memoria
 				$this->load->view('admin/plantilla_correo', array( 'contenido' => $contenido ) );
 				$html = ob_get_contents(); //ALMACENAR - contenido
