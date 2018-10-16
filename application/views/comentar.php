@@ -1,5 +1,5 @@
 	<?php if ( $this->session->userdata('id') ): ?>
-		<form action="<?=  base_url()?>calificaciones_beneficiarios/comentar/<?= $usuario['hash'] ?>" method="post">
+		<form enctype="multipart/form-data" action="<?=  base_url()?>calificaciones_beneficiarios/comentar/<?= $usuario['hash'] ?>" method="post">
 			<div class="form-group">
 				<label>Valoración</label>
 				<nav class="navbar navbar-expand-lg p-0">
@@ -42,7 +42,7 @@
 					<li>
 						<div class="comment-main-level">
 							<div class="comment-avatar">
-								<img class="img-thumbnail" width="200" height="200" src="<?= $comment['photo'] ?>" alt="Card image cap">
+								<img class="img-thumbnail" width="200" height="200" src="<?= $comment['photoUser'] ?>" alt="Card image cap">
 							</div>
 							<div class="comment-box">
 								<div class="comment-head">
@@ -61,6 +61,9 @@
 								</div>
 								<div class="comment-content">
 									<p><?= $comment['comment'] ?></p>
+									<?php if ( $comment['photo'] ): ?>
+										<img class="img-thumbnail" width="200" height="200" src="<?= $comment['photo'] ?>" alt="Card image cap">
+									<?php endif ?>
 								</div>
 							</div>
 						</div>
