@@ -18,10 +18,13 @@ class Eventos extends CI_Controller {
 	}
 	
 	public function ver( $slug ) {
-		if ( isset( $_GET['action'] ) && $_GET['action'] == 'complete' ) {
-			$this->session->set_flashdata('log_success','Gracias por hacer una donación.');
-		}
 		$data['evento'] = $this->Eventos_model->getRowBySlug($slug);
+		if ( isset( $_GET['action'] ) && $_GET['action'] == 'complete' ) {
+			if( $data['evento'] ) {
+				$this->session->set_flashdata('log_success','Gracias por hacer una donación.');
+				$services_id = $this->Eventos_model->update( array( 'donaciones' => ++$data['evento']['donaciones'] ),  $data['evento']['id'] );
+			}
+		}
 		$data['title'] = '';
 		if ( $data['evento'] ) {
 			$data['title'] = $data['evento']['name'];

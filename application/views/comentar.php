@@ -24,9 +24,11 @@
 			</div>
 			<div class="form-group">
 				<label>Subir con foto:</label>
-			</div>
-			<div class="form-group text-center">
 				<input type="file" class="form-control-file" name="photo">
+			</div>
+			<div class="form-group">
+				<label>Subir con video:</label>
+				<input type="file" class="form-control-file" name="video">
 			</div>
 			<div class="form-group text-center">
 				<button type="submit" class="btn btn-primary">Comentar</button>
@@ -49,6 +51,11 @@
 									<h6 class="comment-name <?= $usuario['id'] == $comment['user_id'] ? 'by-author' : '' ?>"><?= $comment['fullName'] ?></h6>
 									<?php $now = date(''); ?>
 									<span>hace <?= timespan(strtotime( $comment['date_added'] ), $now) . ''; ?></span>
+									<?php if ( $this->session->userdata('rol') == 1 || $comment['user_id'] == $this->session->userdata('id') ): ?>
+										<p style="clear: both; " >
+											<a onclick="return confirm('¿Seguro que quiere eliminar este comentario?')"  href="<?=  base_url()?>calificaciones_beneficiarios/eliminar/<?= $usuario['hash'] ?>/<?= $comment['comment_id'] ?>">Eliminar</a>
+										</p>
+									<?php endif ?>
 									<?php if ( $comment['val'] ): ?>
 										<nav class="navbar navbar-expand-lg p-0">
 											<p class="clasificacion_single navbar-nav">
@@ -62,7 +69,14 @@
 								<div class="comment-content">
 									<p><?= $comment['comment'] ?></p>
 									<?php if ( $comment['photo'] ): ?>
-										<img class="img-thumbnail" width="200" height="200" src="<?= $comment['photo'] ?>" alt="Card image cap">
+										<p>
+											<img class="img-thumbnail" style="max-width: 250px" src="<?= $comment['photo'] ?>" alt="Card image cap">
+										</p>
+									<?php endif ?>
+									<?php if ( $comment['video'] ): ?>
+										<p>
+											<video src="<?= $comment['video'] ?>" controls ></video>
+										</p>
 									<?php endif ?>
 								</div>
 							</div>

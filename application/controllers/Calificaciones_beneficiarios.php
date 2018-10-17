@@ -30,6 +30,16 @@ class Calificaciones_beneficiarios extends CI_Controller {
 		$this->load->view('comentar', $data);
 		$this->load->view('footer');
 	}
+	public function eliminar( $hash, $commnet_id ) {
+		if( !$this->isLoggedin() ) { 
+			redirect( base_url() );
+		}
+		if ( $usuario = $this->Usuarios_model->existbyHash( $hash ) ) {
+			$this->load->model('model_comments');
+			$this->model_comments->update_coment( array( 'status' => 'trash' ), $commnet_id);
+		}
+		redirect(base_url().'calificaciones_beneficiarios/comentarios/'.$hash);
+	}
 	public function comentar( $hash ) {
 		if( !$this->isLoggedin() ) { 
 			redirect( base_url() );
@@ -40,6 +50,9 @@ class Calificaciones_beneficiarios extends CI_Controller {
 		if ( $usuario = $this->Usuarios_model->existbyHash( $hash ) ) {
 			$usr_id = $this->session->userdata('id');
 			$this->load->model('model_comments');
+			$photo = '';
+			$video = '';
+			$upload_exist = true;
 			if ( $_FILES['photo']['name'] ) {
 				$config['upload_path']          = './uploads/';
 				$config['overwrite'] = true; 
@@ -48,27 +61,45 @@ class Calificaciones_beneficiarios extends CI_Controller {
 				$config['max_width']            = 2000;
 				$config['max_height']           = 2000;
 				$this->load->library('upload', $config);
+				$this->upload->initialize($config);
 				if ( ! $this->upload->do_upload('photo')) {
-					$data['errors'] =  $this->upload->display_errors();
+					$this->session->set_flashdata('log_error', $this->upload->display_errors() );
+					$upload_exist = false;
 				} else {
 					$upload_image = $this->upload->data();
-					$data = array(
-						'photo' => 'http://happyelder.pe/uploads/'.$upload_image['file_name'],
-						'post_id' => $usuario['id'],
-						'user_id' => $this->session->userdata('id'),
-						'comment' => $this->input->post('comment'),
-						'val' => $this->input->post('estrellas') | 0,
-					);
-					$this->model_comments->add_comment($data);
-					$this->session->set_flashdata('log_success','Se registró el comentario correctamente');
-				}		
-			} else {
+					$photo = 'http://happyelder.pe/uploads/'.$upload_image['file_name'];
+				}
+			}
+			if ( $_FILES['video']['name'] ) {
+				$configVideo['upload_path']          = './uploads/';
+				$configVideo['overwrite'] = true; 
+				$configVideo['allowed_types']        = 'mp4';
+				$configVideo['max_size']             = 8000;// = MB
+				$configVideo['max_width']            = 2000;
+				$configVideo['max_height']           = 1999;
+				$this->load->library('upload', $configVideo);
+				$this->upload->initialize($configVideo);
+				if ( ! $this->upload->do_upload('video')) {
+					$upload_exist = false;
+					$this->session->set_flashdata('log_error', $this->upload->display_errors() );
+				} else {
+					$upload_video = $this->upload->data();
+					$video = 'http://happyelder.pe/uploads/'.$upload_video['file_name'];
+				}
+			}
+			if ( $upload_exist ) {
 				$data = array(
 					'post_id' => $usuario['id'],
 					'user_id' => $this->session->userdata('id'),
 					'comment' => $this->input->post('comment'),
 					'val' => $this->input->post('estrellas') | 0,
 				);
+				if ( $photo ) {
+					$data['photo'] = $photo;
+				}
+				if ( $video ) {
+					$data['video'] = $video;
+				}
 				$this->model_comments->add_comment($data);
 				$this->session->set_flashdata('log_success','Se registró el comentario correctamente');
 			}
