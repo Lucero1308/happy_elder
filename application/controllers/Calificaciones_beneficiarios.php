@@ -40,7 +40,7 @@ class Calificaciones_beneficiarios extends CI_Controller {
 		if ( $usuario = $this->Usuarios_model->existbyHash( $hash ) ) {
 			$usr_id = $this->session->userdata('id');
 			$this->load->model('model_comments');
-			if ( $this->session->userdata['photo'] ) {
+			if ( $_FILES['photo']['name'] ) {
 				$config['upload_path']          = './uploads/';
 				$config['overwrite'] = true; 
 				$config['allowed_types']        = 'gif|jpg|png|jpeg';

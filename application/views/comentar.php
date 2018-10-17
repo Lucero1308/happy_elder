@@ -26,7 +26,7 @@
 				<label>Subir con foto:</label>
 			</div>
 			<div class="form-group text-center">
-				<input type="file" class="form-control-file" required="" name="photo">
+				<input type="file" class="form-control-file" name="photo">
 			</div>
 			<div class="form-group text-center">
 				<button type="submit" class="btn btn-primary">Comentar</button>
