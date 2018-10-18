@@ -116,4 +116,14 @@ class Calificaciones_beneficiarios extends CI_Controller {
 			return false;
 		}
 	}
+
+	public function buscar(){
+		$texto=$this->input->GET('s');
+		$data['title']='Resultados para"'. $texto .'"';
+		$data['enfermeras']=$this->Usuarios_model->get_enfermeras_busca($texto);
+		$data['voluntarios']=$this->Usuarios_model->get_voluntarios_busca($texto);
+		$this->load->view('header', $data);
+		$this->load->view('calificaciones_beneficiarios',$data);
+		$this->load->view('footer');
+	}
 }
