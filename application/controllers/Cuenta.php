@@ -9,7 +9,7 @@ class Cuenta extends CI_Controller {
 		$this->load->model('Usuarios_model');
 		$this->load->library('form_validation');
 	}
-	public function index() {
+	public function index() { //actualizar cuenta
 		$data = array();
 		$data['title'] = 'Perfil';
 
@@ -48,7 +48,6 @@ class Cuenta extends CI_Controller {
 								$config['max_width']            = 2000;
 								$config['max_height']           = 2000;
 								$this->load->library('upload', $config);
-								$this->upload->initialize($config);
 								if ( ! $this->upload->do_upload('photo')) {
 									$data['errors'] =  $this->upload->display_errors();
 								} else {
@@ -100,7 +99,6 @@ class Cuenta extends CI_Controller {
 								$config['max_width']            = 2000;
 								$config['max_height']           = 2000;
 								$this->load->library('upload', $config);
-								$this->upload->initialize($config);
 								if ( ! $this->upload->do_upload('photo')) {
 									$data['errors'] =  $this->upload->display_errors();
 								} else {
@@ -139,7 +137,7 @@ class Cuenta extends CI_Controller {
 		}
 	}
 
-	private function sendMail( $asunto, $contenido, $para ) {
+	private function sendMail( $asunto, $contenido, $para ) { //cambio de contraseña
 		
 		$config = Array(
 			'protocol' 		=> 'smtp',
@@ -304,7 +302,6 @@ class Cuenta extends CI_Controller {
 						$config['max_width']            = 2000;
 						$config['max_height']           = 2000;
 						$this->load->library('upload', $config);
-						$this->upload->initialize($config);
 						if ( ! $this->upload->do_upload('photo')) {
 							$data['errors'] =  $this->upload->display_errors();
 						} else {
@@ -320,7 +317,7 @@ class Cuenta extends CI_Controller {
 							$data_post['hash'] = sha1( time() );
 							$user_id = $this->Usuarios_model->insert($data_post);
 							if( $user_id ) {
-								if ( $data_post['rol'] == 2 ) {
+								if ( $data_post['rol'] == 2 ) { //condicion
 									$user = $this->Usuarios_model->getRows($user_id);
 									$this->session->set_userdata($user);
 									$this->session->set_flashdata('log_success', 'Sesión iniciada correctamente.');
@@ -399,7 +396,7 @@ class Cuenta extends CI_Controller {
 			redirect( base_url().'cuenta/login');
 		}
 	}
-	public function eventos() {
+	public function eventos() { //listar
 		$this->validate_sesion();
 		$data = array();
 		$data['list'] = $this->Eventos_model->getRowsByUser( $this->session->userdata['id'] );
@@ -454,7 +451,6 @@ class Cuenta extends CI_Controller {
 					$config['max_width']            = 2000;
 					$config['max_height']           = 2000;
 					$this->load->library('upload', $config);
-					$this->upload->initialize($config);
 					if ( ! $this->upload->do_upload('photo')) {
 						$data['errors'] =  $this->upload->display_errors();
 					} else {
@@ -543,7 +539,6 @@ class Cuenta extends CI_Controller {
 					$config['max_width']            = 2000;
 					$config['max_height']           = 2000;
 					$this->load->library('upload', $config);
-					$this->upload->initialize($config);
 					if ( ! $this->upload->do_upload('photo')) {
 						$data['errors'] =  $this->upload->display_errors();
 					} else {
@@ -642,7 +637,6 @@ class Cuenta extends CI_Controller {
 					$config['max_width']            = 2000;
 					$config['max_height']           = 2000;
 					$this->load->library('upload', $config);
-					$this->upload->initialize($config);
 					if ( ! $this->upload->do_upload('photo')) {
 						$data['errors'] =  $this->upload->display_errors();
 					} else {
@@ -730,7 +724,6 @@ class Cuenta extends CI_Controller {
 					$config['max_width']            = 2000;
 					$config['max_height']           = 2000;
 					$this->load->library('upload', $config);
-					$this->upload->initialize($config);
 					if ( ! $this->upload->do_upload('photo')) {
 						$data['errors'] =  $this->upload->display_errors();
 					} else {
