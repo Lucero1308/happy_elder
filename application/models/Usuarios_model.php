@@ -39,17 +39,55 @@ class Usuarios_model extends CI_Model{
 		$this->db->join('roles', 'roles.role_id = usuarios.rol', 'LEFT');
 		$this->db->join('comments', 'comments.post_id = usuarios.id', 'LEFT');
 		$this->db->group_by('usuarios.id');
+		$this->db->where('comments.status', 'publish' );
 		$query = $this->db->get_where($this->table, array(  $this->status => 'approved', 'rol' => 4 ));
 		return $query->result_array();
 	}
+
+
+	function get_enfermeras_busca($texto=''){
+		$this->db->select('usuarios.*, roles.name as rolName, COUNT(comments.comment_id) as count, SUM(CASE WHEN comments.val != 0 THEN 1 ELSE 0 END) as total_cal, avg(CASE WHEN comments.val != 0 THEN comments.val ELSE null END) as avg_comment');
+		$this->db->join('roles', 'roles.role_id = usuarios.rol', 'LEFT');
+		$this->db->join('comments', 'comments.post_id = usuarios.id', 'LEFT');
+		$this->db->group_by('usuarios.id');
+		$this->db->where('comments.status', 'publish' );
+		$query = $this->db->get_where($this->table, array(  $this->status => 'approved', 'rol' => 4 , "firstName like " => $texto ));
+		if ($query->num_rows()>0) {
+			return $query->result_array();
+		}else{
+			return false;
+		}
+		
+	}
+
+
 	function get_voluntarios(){
 		$this->db->select('usuarios.*, roles.name as rolName, COUNT(comments.comment_id) as count, SUM(CASE WHEN comments.val != 0 THEN 1 ELSE 0 END) as total_cal, avg(CASE WHEN comments.val != 0 THEN comments.val ELSE null END) as avg_comment');
 		$this->db->join('roles', 'roles.role_id = usuarios.rol', 'LEFT');
 		$this->db->join('comments', 'comments.post_id = usuarios.id', 'LEFT');
 		$this->db->group_by('usuarios.id');
+		$this->db->where('comments.status', 'publish' );
 		$query = $this->db->get_where($this->table, array(  $this->status => 'approved', 'rol' => 3 ));
 		return $query->result_array(); 
 	}
+
+
+	function get_voluntarios_busca($texto=''){
+		$this->db->select('usuarios.*, roles.name as rolName, COUNT(comments.comment_id) as count, SUM(CASE WHEN comments.val != 0 THEN 1 ELSE 0 END) as total_cal, avg(CASE WHEN comments.val != 0 THEN comments.val ELSE null END) as avg_comment');
+		$this->db->join('roles', 'roles.role_id = usuarios.rol', 'LEFT');
+		$this->db->join('comments', 'comments.post_id = usuarios.id', 'LEFT');
+		$this->db->where('comments.status', 'publish' );
+		$this->db->group_by('usuarios.id');
+		
+		$query = $this->db->get_where($this->table, array(  $this->status => 'approved', 'rol' => 3 , "firstName like " => $texto));
+		if ($query->num_rows()>0) {
+			return $query->result_array();
+		}else{
+			return FALSE;
+		}
+
+	}
+
 	function getCountTypes(){
 		$this->db->select('COUNT(id) as count, roles.name as rolName');
 		$this->db->join('roles', 'roles.role_id = usuarios.rol', 'LEFT');
