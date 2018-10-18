@@ -62,11 +62,10 @@ class Usuarios_model extends CI_Model{
 
 
 	function get_voluntarios(){
-		$this->db->select('usuarios.*, roles.name as rolName, COUNT(comments.comment_id) as count, SUM(CASE WHEN comments.val != 0 THEN 1 ELSE 0 END) as total_cal, avg(CASE WHEN comments.val != 0 THEN comments.val ELSE null END) as avg_comment');
+		$this->db->select('usuarios.*, roles.name as rolName, SUM(CASE WHEN ( comments.status = \'publish\' ) THEN 1 ELSE 0 END) as count, SUM(CASE WHEN ( comments.val != 0 && comments.status = \'publish\' ) THEN 1 ELSE 0 END) as total_cal, avg(CASE WHEN comments.val != 0 && comments.status = \'publish\' THEN comments.val ELSE null END) as avg_comment');
 		$this->db->join('roles', 'roles.role_id = usuarios.rol', 'LEFT');
 		$this->db->join('comments', 'comments.post_id = usuarios.id', 'LEFT');
 		$this->db->group_by('usuarios.id');
-		$this->db->where('comments.status', 'publish' );
 		$query = $this->db->get_where($this->table, array(  $this->status => 'approved', 'rol' => 3 ));
 		return $query->result_array(); 
 	}
