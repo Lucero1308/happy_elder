@@ -48,6 +48,7 @@ class Cuenta extends CI_Controller {
 								$config['max_width']            = 2000;
 								$config['max_height']           = 2000;
 								$this->load->library('upload', $config);
+								$this->upload->initialize($config);
 								if ( ! $this->upload->do_upload('photo')) {
 									$data['errors'] =  $this->upload->display_errors();
 								} else {
@@ -99,6 +100,7 @@ class Cuenta extends CI_Controller {
 								$config['max_width']            = 2000;
 								$config['max_height']           = 2000;
 								$this->load->library('upload', $config);
+								$this->upload->initialize($config);
 								if ( ! $this->upload->do_upload('photo')) {
 									$data['errors'] =  $this->upload->display_errors();
 								} else {
@@ -302,6 +304,7 @@ class Cuenta extends CI_Controller {
 						$config['max_width']            = 2000;
 						$config['max_height']           = 2000;
 						$this->load->library('upload', $config);
+						$this->upload->initialize($config);
 						if ( ! $this->upload->do_upload('photo')) {
 							$data['errors'] =  $this->upload->display_errors();
 						} else {
@@ -451,6 +454,7 @@ class Cuenta extends CI_Controller {
 					$config['max_width']            = 2000;
 					$config['max_height']           = 2000;
 					$this->load->library('upload', $config);
+					$this->upload->initialize($config);
 					if ( ! $this->upload->do_upload('photo')) {
 						$data['errors'] =  $this->upload->display_errors();
 					} else {
@@ -539,6 +543,7 @@ class Cuenta extends CI_Controller {
 					$config['max_width']            = 2000;
 					$config['max_height']           = 2000;
 					$this->load->library('upload', $config);
+					$this->upload->initialize($config);
 					if ( ! $this->upload->do_upload('photo')) {
 						$data['errors'] =  $this->upload->display_errors();
 					} else {
@@ -637,6 +642,7 @@ class Cuenta extends CI_Controller {
 					$config['max_width']            = 2000;
 					$config['max_height']           = 2000;
 					$this->load->library('upload', $config);
+					$this->upload->initialize($config);
 					if ( ! $this->upload->do_upload('photo')) {
 						$data['errors'] =  $this->upload->display_errors();
 					} else {
@@ -724,6 +730,7 @@ class Cuenta extends CI_Controller {
 					$config['max_width']            = 2000;
 					$config['max_height']           = 2000;
 					$this->load->library('upload', $config);
+					$this->upload->initialize($config);
 					if ( ! $this->upload->do_upload('photo')) {
 						$data['errors'] =  $this->upload->display_errors();
 					} else {
