@@ -9,7 +9,7 @@ class Cuenta extends CI_Controller {
 		$this->load->model('Usuarios_model');
 		$this->load->library('form_validation');
 	}
-	public function index() { //actualizar cuenta
+	public function index() {
 		$data = array();
 		$data['title'] = 'Perfil';
 
@@ -137,7 +137,7 @@ class Cuenta extends CI_Controller {
 		}
 	}
 
-	private function sendMail( $asunto, $contenido, $para ) { //cambio de contraseña
+	private function sendMail( $asunto, $contenido, $para ) {
 		
 		$config = Array(
 			'protocol' 		=> 'smtp',
@@ -317,7 +317,7 @@ class Cuenta extends CI_Controller {
 							$data_post['hash'] = sha1( time() );
 							$user_id = $this->Usuarios_model->insert($data_post);
 							if( $user_id ) {
-								if ( $data_post['rol'] == 2 ) { //condicion
+								if ( $data_post['rol'] == 2 ) {
 									$user = $this->Usuarios_model->getRows($user_id);
 									$this->session->set_userdata($user);
 									$this->session->set_flashdata('log_success', 'Sesión iniciada correctamente.');
@@ -396,7 +396,7 @@ class Cuenta extends CI_Controller {
 			redirect( base_url().'cuenta/login');
 		}
 	}
-	public function eventos() { //listar
+	public function eventos() {
 		$this->validate_sesion();
 		$data = array();
 		$data['list'] = $this->Eventos_model->getRowsByUser( $this->session->userdata['id'] );
