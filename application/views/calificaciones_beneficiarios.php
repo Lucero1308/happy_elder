@@ -1,4 +1,4 @@
-			<h5><a style="float: right"><strong style="color: #3D095D">Selecciona un cuidador</strong> para que lo califiques!</a></h5>
+	<h5><a style="float: right"><strong style="color: #3D095D">Selecciona un cuidador</strong> para que lo califiques!</a></h5>
 			<br/><br/>
 			<form action="/Calificaciones_beneficiarios/buscar" class="form-inline my-2 my-lg-0" style="float: right" >
 			<input class="form-control" name="s" type="search" placeholder="Buscar" style="border-right: 0; border-radius: .25rem 0 0.25rem;">

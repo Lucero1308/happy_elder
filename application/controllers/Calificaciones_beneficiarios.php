@@ -9,8 +9,8 @@ class Calificaciones_beneficiarios extends CI_Controller {
 	}
 	public function index() {
 		$data['title'] = 'Beneficioso';
-		$data['voluntarios'] = $this->Usuarios_model->get_voluntarios(); // ubicado en el modelo del usuario
-		$data['enfermeras'] = $this->Usuarios_model->get_enfermeras(); //lista en la vista
+		$data['voluntarios'] = $this->Usuarios_model->get_voluntarios();
+		$data['enfermeras'] = $this->Usuarios_model->get_enfermeras();
 		$this->load->view('header', $data);
 		$this->load->view('calificaciones_beneficiarios', $data);
 		$this->load->view('footer');
@@ -35,7 +35,6 @@ class Calificaciones_beneficiarios extends CI_Controller {
 		if ( $usuario = $this->Usuarios_model->existbyHash( $hash ) ) {
 			$this->load->model('model_comments');
 			$this->model_comments->update_coment( array( 'status' => 'trash' ), $commnet_id);
-			$this->session->set_flashdata('log_success','Comentario eliminado correctamente');
 		}
 		redirect(base_url().'calificaciones_beneficiarios/comentarios/'.$hash);
 	}
