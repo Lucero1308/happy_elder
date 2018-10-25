@@ -111,7 +111,7 @@ class Usuarios extends CI_Controller {
 		$data['usuario'] = $this->Usuarios_model->getRowsAdmin( $usuario_id );
 		if ( $data['usuario'] ) {
 			$data_post = array();
-			$data_post['status'] = 'approved';
+			$data_post['status'] = 'approved'; //paso estado
 			if( $this->Usuarios_model->update($data_post, $usuario_id) ) {
 				$contenido = '<p style="color: rgb(61, 133, 198);">¡FELICIDADES!Su cuenta ha sido aprobada en HAPPYELDER!</p>
 				<p style="color: rgb(61, 133, 198);">
@@ -137,7 +137,7 @@ class Usuarios extends CI_Controller {
 		$data['usuario'] = $this->Usuarios_model->getRowsAdmin( $usuario_id );
 		if ( $data['usuario'] ) {
 			$data_post = array();
-			$data_post['status'] = 'canceled';
+			$data_post['status'] = 'canceled';//paso estado
 			if( $this->Usuarios_model->update($data_post, $usuario_id) ) {
 				$contenido = '<p style="color: rgb(61, 133, 198);">Cuenta desaprobada en HAPPYELDER!</p>
 				<p style="color: rgb(61, 133, 198);">

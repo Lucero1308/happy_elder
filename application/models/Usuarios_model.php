@@ -35,21 +35,54 @@ class Usuarios_model extends CI_Model{
 		}
 	}
 	function get_enfermeras(){
-		$this->db->select('usuarios.*, roles.name as rolName, COUNT(comments.comment_id) as count, SUM(CASE WHEN comments.val != 0 THEN 1 ELSE 0 END) as total_cal, avg(CASE WHEN comments.val != 0 THEN comments.val ELSE null END) as avg_comment');
+		$this->db->select('usuarios.*, roles.name as rolName, SUM(CASE WHEN ( comments.status = \'publish\' ) THEN 1 ELSE 0 END) as count, SUM(CASE WHEN ( comments.val != 0 && comments.status = \'publish\' ) THEN 1 ELSE 0 END) as total_cal, avg(CASE WHEN comments.val != 0 && comments.status = \'publish\' THEN comments.val ELSE null END) as avg_comment');
 		$this->db->join('roles', 'roles.role_id = usuarios.rol', 'LEFT');
 		$this->db->join('comments', 'comments.post_id = usuarios.id', 'LEFT');
 		$this->db->group_by('usuarios.id');
 		$query = $this->db->get_where($this->table, array(  $this->status => 'approved', 'rol' => 4 ));
 		return $query->result_array();
 	}
-	function get_voluntarios(){
-		$this->db->select('usuarios.*, roles.name as rolName, COUNT(comments.comment_id) as count, SUM(CASE WHEN comments.val != 0 THEN 1 ELSE 0 END) as total_cal, avg(CASE WHEN comments.val != 0 THEN comments.val ELSE null END) as avg_comment');
+
+
+	function get_enfermeras_busca($texto=''){
+		$this->db->select('usuarios.*, roles.name as rolName, SUM(CASE WHEN ( comments.status = \'publish\' ) THEN 1 ELSE 0 END) as count, SUM(CASE WHEN ( comments.val != 0 && comments.status = \'publish\' ) THEN 1 ELSE 0 END) as total_cal, avg(CASE WHEN comments.val != 0 && comments.status = \'publish\' THEN comments.val ELSE null END) as avg_comment');
+		$this->db->join('roles', 'roles.role_id = usuarios.rol', 'LEFT');
+		$this->db->join('comments', 'comments.post_id = usuarios.id', 'LEFT');
+		$this->db->group_by('usuarios.id');
+		$query = $this->db->get_where($this->table, array(  $this->status => 'approved', 'rol' => 4 , "firstName like " => $texto ));
+		if ($query->num_rows()>0) {
+			return $query->result_array();
+		}else{
+			return false;
+		}
+		
+	}
+
+		function get_voluntarios(){
+		$this->db->select('usuarios.*, roles.name as rolName, SUM(CASE WHEN ( comments.status = \'publish\' ) THEN 1 ELSE 0 END) as count, SUM(CASE WHEN ( comments.val != 0 && comments.status = \'publish\' ) THEN 1 ELSE 0 END) as total_cal, avg(CASE WHEN comments.val != 0 && comments.status = \'publish\' THEN comments.val ELSE null END) as avg_comment');
 		$this->db->join('roles', 'roles.role_id = usuarios.rol', 'LEFT');
 		$this->db->join('comments', 'comments.post_id = usuarios.id', 'LEFT');
 		$this->db->group_by('usuarios.id');
 		$query = $this->db->get_where($this->table, array(  $this->status => 'approved', 'rol' => 3 ));
 		return $query->result_array(); 
 	}
+
+
+	function get_voluntarios_busca($texto=''){
+		$this->db->select('usuarios.*, roles.name as rolName, SUM(CASE WHEN ( comments.status = \'publish\' ) THEN 1 ELSE 0 END) as count, SUM(CASE WHEN ( comments.val != 0 && comments.status = \'publish\' ) THEN 1 ELSE 0 END) as total_cal, avg(CASE WHEN comments.val != 0 && comments.status = \'publish\' THEN comments.val ELSE null END) as avg_comment');
+		$this->db->join('roles', 'roles.role_id = usuarios.rol', 'LEFT');
+		$this->db->join('comments', 'comments.post_id = usuarios.id', 'LEFT');
+		$this->db->group_by('usuarios.id');
+		
+		$query = $this->db->get_where($this->table, array(  $this->status => 'approved', 'rol' => 3 , "firstName like " => $texto));
+		if ($query->num_rows()>0) {
+			return $query->result_array();
+		}else{
+			return FALSE;
+		} // si el resultado es mayor que 0 que me lo imprima , sino no
+
+	}
+
 	function getCountTypes(){
 		$this->db->select('COUNT(id) as count, roles.name as rolName');
 		$this->db->join('roles', 'roles.role_id = usuarios.rol', 'LEFT');
@@ -58,6 +91,7 @@ class Usuarios_model extends CI_Model{
 		$query = $this->db->get('usuarios');
 		return $query->result_array(); 
 	}
+
 	function exist($userName = "", $id = ""){
 		if(!empty($userName)){
 			$query = $this->db->get_where($this->table, array( 'usuarios.userName' => $userName, $this->primary_key . ' !=' => $id ));
@@ -91,7 +125,7 @@ class Usuarios_model extends CI_Model{
 		}
 	}
 	
-	public function checkUser($data) {
+	public function checkUser($data) { //validar el inicio de sesión
 		$st=$this->db->SELECT('*')->from('usuarios')
 			->WHERE('userName',$data['userName'])
 			->WHERE('password',sha1(md5($data['password'])))

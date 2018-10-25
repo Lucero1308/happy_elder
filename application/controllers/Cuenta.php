@@ -306,7 +306,7 @@ class Cuenta extends CI_Controller {
 							$data['errors'] =  $this->upload->display_errors();
 						} else {
 							$upload_image = $this->upload->data();
-							if ( $data_post['rol'] == 2 ) {
+							if ( $data_post['rol'] == 2 ) { //paso estados
 								$data_post['status'] = 'approved';
 							} else {
 								$data_post['status'] = 'pending';
@@ -317,7 +317,7 @@ class Cuenta extends CI_Controller {
 							$data_post['hash'] = sha1( time() );
 							$user_id = $this->Usuarios_model->insert($data_post);
 							if( $user_id ) {
-								if ( $data_post['rol'] == 2 ) {
+								if ( $data_post['rol'] == 2 ) { //usuario visitante
 									$user = $this->Usuarios_model->getRows($user_id);
 									$this->session->set_userdata($user);
 									$this->session->set_flashdata('log_success', 'Sesión iniciada correctamente.');

@@ -1,6 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class Calificaciones_beneficiarios extends CI_Controller {
 	function __construct() {
 		parent::__construct();
@@ -10,8 +9,8 @@ class Calificaciones_beneficiarios extends CI_Controller {
 	}
 	public function index() {
 		$data['title'] = 'Beneficioso';
-		$data['voluntarios'] = $this->Usuarios_model->get_voluntarios();
-		$data['enfermeras'] = $this->Usuarios_model->get_enfermeras();
+		$data['voluntarios'] = $this->Usuarios_model->get_voluntarios(); // ubicado en el modelo del usuario
+		$data['enfermeras'] = $this->Usuarios_model->get_enfermeras(); //lista en la vista
 		$this->load->view('header', $data);
 		$this->load->view('calificaciones_beneficiarios', $data);
 		$this->load->view('footer');
@@ -25,7 +24,6 @@ class Calificaciones_beneficiarios extends CI_Controller {
 		} else {
 			redirect( base_url() );
 		}
-
 		$this->load->view('header', $data);
 		$this->load->view('comentar', $data);
 		$this->load->view('footer');
@@ -37,6 +35,7 @@ class Calificaciones_beneficiarios extends CI_Controller {
 		if ( $usuario = $this->Usuarios_model->existbyHash( $hash ) ) {
 			$this->load->model('model_comments');
 			$this->model_comments->update_coment( array( 'status' => 'trash' ), $commnet_id);
+			$this->session->set_flashdata('log_success','Comentario eliminado correctamente');
 		}
 		redirect(base_url().'calificaciones_beneficiarios/comentarios/'.$hash);
 	}
@@ -115,5 +114,14 @@ class Calificaciones_beneficiarios extends CI_Controller {
 		else {
 			return false;
 		}
+	}
+	public function buscar(){
+		$texto=$this->input->GET('s');
+		$data['title']='Resultados para"'. $texto .'"';
+		$data['enfermeras']=$this->Usuarios_model->get_enfermeras_busca($texto);
+		$data['voluntarios']=$this->Usuarios_model->get_voluntarios_busca($texto);
+		$this->load->view('header', $data);
+		$this->load->view('calificaciones_beneficiarios',$data);
+		$this->load->view('footer');
 	}
 }

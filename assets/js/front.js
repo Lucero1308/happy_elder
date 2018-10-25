@@ -27,7 +27,7 @@ jQuery( document ).ready( function ( $ ) {
 
 	$('form').validator();
 
-// AQUI SE VALIDAEL CAMBIO DE ROL DE USUARIO
+// AQUI SE VALIDA EL CAMBIO DE ROL DE USUARIO
 
 	$('#userRole').change( function (  ) {
 		$('#preguntas').html('');

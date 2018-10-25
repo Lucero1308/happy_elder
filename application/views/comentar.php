@@ -4,7 +4,7 @@
 				<label>Valoración</label>
 				<nav class="navbar navbar-expand-lg p-0">
 					<p class="clasificacion navbar-nav">
-						<input id="radio1" type="radio" name="estrellas" value="5">
+						<input id="radio1" type="radio" name="estrellas" value="5"> <!-- la palabra estrellas es la que se comunica con el controlador -->
 						<label for="radio1">★</label>
 						<input id="radio2" type="radio" name="estrellas" value="4">
 						<label for="radio2">★</label>
@@ -32,10 +32,11 @@
 			</div>
 			<div class="form-group text-center">
 				<button type="submit" class="btn btn-primary">Comentar</button>
+				<a class="btn btn-cancel" href="<?= base_url( '/calificaciones_beneficiarios')?>">Regresar</a>
 			</div>
 		</form>
 	<?php else: ?>
-		<a href="<?=  base_url()?>cuenta/login">Inicia sesión para comentar.</a>
+		<a href="<?=  base_url()?>cuenta/login">Inicia sesión para comentar.</a> <!-- si no inicia sesion no te deja visualizar para comentar -->
 	<?php endif ?>
 	<div class="comments-container">
 		<?php if ( $comments && count( $comments ) ): ?>
@@ -48,10 +49,12 @@
 							</div>
 							<div class="comment-box">
 								<div class="comment-head">
+									<!-- aqui abajo dice: si el id del usuario "enfermera o voluntario" es igual al id del comentario que se muestre la palabra autor -->
+									<!-- el by-author esta en el css,lo nombra como autor -->
 									<h6 class="comment-name <?= $usuario['id'] == $comment['user_id'] ? 'by-author' : '' ?>"><?= $comment['fullName'] ?></h6>
-									<?php $now = date(''); ?>
+									<?php $now = date(''); ?> <!-- registra por la fecha de hoy -->
 									<span>hace <?= timespan(strtotime( $comment['date_added'] ), $now) . ''; ?></span>
-									<?php if ( $this->session->userdata('rol') == 1 || $comment['user_id'] == $this->session->userdata('id') ): ?>
+									<?php if ( $this->session->userdata('rol') == 1 || $comment['user_id'] == $this->session->userdata('id') ): ?> <!-- eliminar comentario -->
 										<p style="clear: both; " >
 											<a onclick="return confirm('¿Seguro que quiere eliminar este comentario?')"  href="<?=  base_url()?>calificaciones_beneficiarios/eliminar/<?= $usuario['hash'] ?>/<?= $comment['comment_id'] ?>">Eliminar</a>
 										</p>
@@ -75,7 +78,7 @@
 									<?php endif ?>
 									<?php if ( $comment['video'] ): ?>
 										<p>
-											<video src="<?= $comment['video'] ?>" controls ></video>
+										<video src="<?= $comment['video'] ?>" controls ></video>
 										</p>
 									<?php endif ?>
 								</div>

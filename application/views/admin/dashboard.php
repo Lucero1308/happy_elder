@@ -3,7 +3,7 @@
 	<?php if ( $usuarios && count( $usuarios ) ): ?>
 		<div class="col-12">
 			<canvas class="my-4 w-100" id="myChart" width="1740" height="733"></canvas>
-		</div>
+		</div>  <!-- si se elimina este cod, no figura imagen -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script> <!-- javascript del grafico, del bootstrap -->
 		<script>
 			var usuarios = <?= json_encode( $usuarios ); ?>;

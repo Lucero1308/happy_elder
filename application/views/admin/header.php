@@ -19,6 +19,8 @@
 			<?php $this->view('admin/sidebar'); ?>
 			<main class="col-md-9 ml-sm-auto col-lg-10 px-4 py-5">
 				<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow py-1">
+					<a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/"><img src="<?= base_url('assets/img/logo.png') ?>" style="max-width: 30px; max-height: 40px" > Happy Elder</a>
+
 					<ul class="ml-auto navbar-nav px-3">
 						<li class="nav-item text-nowrap">
 							<a class="nav-link" href="<?= base_url("/cuenta/logout") ?>">Cerrar sesión</a>

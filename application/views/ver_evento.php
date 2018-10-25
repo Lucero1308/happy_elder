@@ -16,13 +16,14 @@
 		<?php if ( $this->session && $this->session->userdata && ! empty( $this->session->userdata['id'] ) ): ?>
 			<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
 				<input type="hidden" name="cmd" value="_s-xclick">
-				<input type="hidden" name="item_name" value="<?= $evento['name'] ?>">
-				<INPUT TYPE="hidden" NAME="return" value="<?= base_url() ?>eventos/ver/<?= $evento['slug'] ?>?action=complete">
+				<input type="hidden" name="item_name" value="<?= $evento['name'] ?>"> <!-- jalar el nombre del evento en paypal -->
+				<INPUT TYPE="hidden" NAME="return" value="<?= base_url() ?>eventos/ver/<?= $evento['slug'] ?>?action=complete"> <!-- regresar a la pagina -->
 				<input type="hidden" name="hosted_button_id" value="MSUUZDMNXQBAY">
 				<input type="image" src="https://www.sandbox.paypal.com/es_ES/ES/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal, la forma rápida y segura de pagar en Internet.">
 				<img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
 			</form>
 		<?php else: ?>
+			<!-- aqui valida que un usuario se haya logueado -->
 			Debes iniciar sesión para hacer una donación
 		<?php endif ?>
 	</div>
