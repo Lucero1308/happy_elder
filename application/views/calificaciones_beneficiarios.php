@@ -1,10 +1,25 @@
-	<h5><a style="float: right"><strong style="color: #3D095D">Selecciona un cuidador</strong> para que lo califiques!</a></h5>
-			<br/><br/>
+	<br/><h5><a style="float: right"><strong style="color: #3D095D">Selecciona un cuidador</strong> para que lo califiques!</a></h5>
+			<br/>
 			<form action="/Calificaciones_beneficiarios/buscar" class="form-inline my-2 my-lg-0" style="float: right" >
+				<div class="form-inline my-2 my-lg-0" style="float: left">
+				    <select class="form-control" name="tipo">
+				      <option selected >Todos</option>
+				      <option value="voluntario">Voluntarios</option>
+					  <option value="enfermera">Enfermeras</option>
+				    </select>
+				  </div>
+				  &nbsp;&nbsp;
+
 			<input class="form-control" name="s" type="search" placeholder="Buscar" style="border-right: 0; border-radius: .25rem 0 0.25rem;">
 			<button class="btn my-2 my-sm-0" type="submit" style="border-radius:0 .25rem .25rem 0; border-color: #d1d7dc;"><i class="fa fa-search"></i></button>&nbsp;&nbsp;&nbsp; <a href="<?= base_url("/calificaciones_beneficiarios") ?>">Listar todos</a>
+
+
+
+
+
 		</form>
 		<br/>
+
 <?php if ( $voluntarios && count( $voluntarios ) ): ?>
 	<h4 style="color:#3D4A77">Voluntarios</h4>
 	<?php foreach ($voluntarios as $key => $voluntario): ?>
