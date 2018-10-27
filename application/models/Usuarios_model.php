@@ -48,7 +48,7 @@ class Usuarios_model extends CI_Model{
 		$this->db->join('roles', 'roles.role_id = usuarios.rol', 'LEFT');
 		$this->db->join('comments', 'comments.post_id = usuarios.id', 'LEFT');
 		$this->db->group_by('usuarios.id');
-		$query = $this->db->get_where($this->table, array(  $this->status => 'approved', 'rol' => 4 , "firstName like " => $texto ));
+		$query = $this->db->get_where($this->table, array(  $this->status => 'approved', 'rol' => 4 , "fullName like " => '%'.$texto.'%' ));
 		if ($query->num_rows()>0) {
 			return $query->result_array();
 		}else{
@@ -73,7 +73,7 @@ class Usuarios_model extends CI_Model{
 		$this->db->join('roles', 'roles.role_id = usuarios.rol', 'LEFT');
 		$this->db->join('comments', 'comments.post_id = usuarios.id', 'LEFT');
 		$this->db->group_by('usuarios.id');	
-		$query = $this->db->get_where($this->table, array(  $this->status => 'approved', 'rol' => 3 , "firstName like " => $texto));
+		$query = $this->db->get_where($this->table, array(  $this->status => 'approved', 'rol' => 3 , "fullName like " => '%'.$texto.'%'));
 		if ($query->num_rows()>0) {
 			return $query->result_array();
 		}else{

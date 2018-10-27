@@ -116,28 +116,24 @@ class Calificaciones_beneficiarios extends CI_Controller {
 	}
 	public function buscar(){
 		$texto=$this->input->GET('s');
-		$data['title']='Resultados para"'. $texto .'"';
-		$data['enfermeras']=$this->Usuarios_model->get_enfermeras_busca($texto);
-		$data['voluntarios']=$this->Usuarios_model->get_voluntarios_busca($texto);
+		$tipo=$this->input->GET('tipo');
+		if ($tipo=='voluntario') {
+			$data['title']='Listado de usuarios con rol:"'. $tipo .'"';		
+			$data['voluntarios']=$this->Usuarios_model->get_voluntarios_busca($texto);
+			$data['enfermeras']= FALSE;
+		}else if($tipo=='enfermera') {
+			$data['title']='Listado de usuarios con rol:"'. $tipo .'"';		
+			$data['enfermeras']=$this->Usuarios_model->get_enfermeras_busca($texto);
+			$data['voluntarios']= FALSE;
+		} else {
+			$data['title']='Buscar usuario :"'. $texto .'"';		
+			$data['enfermeras']=$this->Usuarios_model->get_enfermeras_busca($texto);
+			$data['voluntarios']=$this->Usuarios_model->get_voluntarios_busca($texto);
+		}
+
 		$this->load->view('header', $data);
 		$this->load->view('calificaciones_beneficiarios',$data);
 		$this->load->view('footer');
 	}
 
- 	public function listar(){
-		$texto=$this->input->GET('s');
-		$tipo=$this->input->GET('tipo');
- 		if ($tipo=='voluntario') {
- 			$data['voluntarios']=$this->Usuarios_model->get_voluntarios_busca($texto);
- 			$data['enfermeras']= FALSE;
- 		}else if($tipo=='enfermera') {
- 			$data['enfermeras']=$this->Usuarios_model->get_enfermeras_busca($texto);
- 			$data['voluntarios']= FALSE;
- 		}
-
- 		$data['title']='Listado de usuarios con rol:"'. $tipo .'"';		
- 		$this->load->view('header', $data);
- 		$this->load->view('calificaciones_beneficiarios',$data);
- 		$this->load->view('footer');
- }
 }
