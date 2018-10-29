@@ -32,6 +32,17 @@ class Eventos_model extends CI_Model{
 		$query = $this->db->get( $this->table );
 		return $query->result_array(); 
 	}
+	function getEventosReporte( $from, $to ){
+		$this->db->select('COUNT(status) as count, status as rolName');
+		$this->db->distinct();
+		$this->db->group_by('status');
+
+		$this->db->select('eventos.*');
+		$this->db->where('dateEvent >=', $from.' 00:00:00');
+		$this->db->where('dateEvent <=', $to.' 23:59:59' );
+		$query = $this->db->get_where($this->table, array( $this->status => 'publish' ));
+		return $query->result_array(); 
+	}
 	function getRowBySlug($slug = ""){
 		if(!empty($slug)){
 			$this->db->select('eventos.*, usuarios.fullName as usuario');
@@ -50,6 +61,9 @@ class Eventos_model extends CI_Model{
 			return array();
 		}
 	}
+
+
+
 	public function insert($data = array()) {
 		$insert = $this->db->insert($this->table, $data);
 		if($insert){

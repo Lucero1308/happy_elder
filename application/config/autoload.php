@@ -106,7 +106,7 @@ $autoload['drivers'] = array();
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('date','url', 'text');
+$autoload['helper'] = array('date','url', 'text', 'dompdf_helper');
 
 
 /*

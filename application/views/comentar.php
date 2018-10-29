@@ -1,40 +1,42 @@
 	<?php if ( $this->session->userdata('id') ): ?>
-		<form enctype="multipart/form-data" action="<?=  base_url()?>calificaciones_beneficiarios/comentar/<?= $usuario['hash'] ?>" method="post">
-			<div class="form-group">
-				<label>Valoración</label>
-				<nav class="navbar navbar-expand-lg p-0">
-					<p class="clasificacion navbar-nav">
-						<input id="radio1" type="radio" name="estrellas" value="5"> <!-- la palabra estrellas es la que se comunica con el controlador -->
-						<label for="radio1">★</label>
-						<input id="radio2" type="radio" name="estrellas" value="4">
-						<label for="radio2">★</label>
-						<input id="radio3" type="radio" name="estrellas" value="3">
-						<label for="radio3">★</label>
-						<input id="radio4" type="radio" name="estrellas" value="2">
-						<label for="radio4">★</label>
-						<input id="radio5" type="radio" name="estrellas" value="1">
-						<label for="radio5">★</label>
-					</p>
-				</nav>
-			</div>
-			<div class="form-group">
-				<label>Comentario</label>
-				<textarea class="form-control" data-required-error="Ingresa un comentario" required="" rows="4" cols="100" name="comment" rows="3"></textarea>
-				<div class="help-block with-errors"></div>
-			</div>
-			<div class="form-group">
-				<label>Subir con foto:</label>
-				<input type="file" class="form-control-file" name="photo">
-			</div>
-			<div class="form-group">
-				<label>Subir con video:</label>
-				<input type="file" class="form-control-file" name="video">
-			</div>
-			<div class="form-group text-center">
-				<button type="submit" class="btn btn-primary">Comentar</button>
-				<a class="btn btn-cancel" href="<?= base_url( '/calificaciones_beneficiarios')?>">Regresar</a>
-			</div>
-		</form>
+		<?php if ( $this->session->userdata('rol') == 2 || $this->session->userdata('id') == $usuario['id'] ): ?>
+			<form enctype="multipart/form-data" action="<?=  base_url()?>calificaciones_beneficiarios/comentar/<?= $usuario['hash'] ?>" method="post">
+				<div class="form-group">
+					<label>Valoración</label>
+					<nav class="navbar navbar-expand-lg p-0">
+						<p class="clasificacion navbar-nav">
+							<input id="radio1" type="radio" name="estrellas" value="5"> <!-- la palabra estrellas es la que se comunica con el controlador -->
+							<label for="radio1">★</label>
+							<input id="radio2" type="radio" name="estrellas" value="4">
+							<label for="radio2">★</label>
+							<input id="radio3" type="radio" name="estrellas" value="3">
+							<label for="radio3">★</label>
+							<input id="radio4" type="radio" name="estrellas" value="2">
+							<label for="radio4">★</label>
+							<input id="radio5" type="radio" name="estrellas" value="1">
+							<label for="radio5">★</label>
+						</p>
+					</nav>
+				</div>
+				<div class="form-group">
+					<label>Comentario</label>
+					<textarea class="form-control" data-required-error="Ingresa un comentario" required="" rows="4" cols="100" name="comment" rows="3"></textarea>
+					<div class="help-block with-errors"></div>
+				</div>
+				<div class="form-group">
+					<label>Subir con foto:</label>
+					<input type="file" class="form-control-file" name="photo">
+				</div>
+				<div class="form-group">
+					<label>Subir con video:</label>
+					<input type="file" class="form-control-file" name="video">
+				</div>
+				<div class="form-group text-center">
+					<button type="submit" class="btn btn-primary">Comentar</button>
+					<a class="btn btn-cancel" href="<?= base_url( '/calificaciones_beneficiarios')?>">Regresar</a>
+				</div>
+			</form>
+		<?php endif ?>
 	<?php else: ?>
 		<a href="<?=  base_url()?>cuenta/login">Inicia sesión para comentar.</a> <!-- si no inicia sesion no te deja visualizar para comentar -->
 	<?php endif ?>

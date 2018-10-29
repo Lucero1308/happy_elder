@@ -42,6 +42,27 @@ class Usuarios_model extends CI_Model{
 		$query = $this->db->get_where($this->table, array(  $this->status => 'approved', 'rol' => 4 ));
 		return $query->result_array();
 	}
+	function get_valoracion_reporte( $from, $to ){
+		$this->db->select('usuarios.fullName, roles.name as rolName, SUM(CASE WHEN ( comments.val != 0 && comments.status = \'publish\' ) THEN 1 ELSE 0 END) as total_cal, avg(CASE WHEN comments.val != 0 && comments.status = \'publish\' THEN comments.val ELSE null END) as avg_comment');
+		$this->db->join('roles', 'roles.role_id = usuarios.rol', 'LEFT');
+		$this->db->join('comments', 'comments.post_id = usuarios.id', 'LEFT');
+		$this->db->where('dateCreate >=', $from.' 00:00:00');
+		$this->db->where('dateCreate <=', $to.' 23:59:59' );
+		$this->db->group_by('usuarios.id');
+		$query = $this->db->get_where($this->table, array(  $this->status => 'approved', 'comments.val !=' => 0 ));
+		return $query->result_array();
+	}
+
+	function get_usuarios_reporte( $from, $to ){
+		$this->db->select('COUNT(id) as count, roles.name as rolName');
+		$this->db->join('roles', 'roles.role_id = usuarios.rol', 'LEFT');
+		$this->db->distinct();
+		$this->db->where('dateCreate >=', $from.' 00:00:00');
+		$this->db->where('dateCreate <=', $to.' 23:59:59' );
+		$this->db->group_by('rol');
+		$query = $this->db->get('usuarios');
+		return $query->result_array(); 
+	}
 
 	function get_enfermeras_busca($texto=''){
 		$this->db->select('usuarios.*, roles.name as rolName, SUM(CASE WHEN ( comments.status = \'publish\' ) THEN 1 ELSE 0 END) as count, SUM(CASE WHEN ( comments.val != 0 && comments.status = \'publish\' ) THEN 1 ELSE 0 END) as total_cal, avg(CASE WHEN comments.val != 0 && comments.status = \'publish\' THEN comments.val ELSE null END) as avg_comment');
@@ -54,7 +75,6 @@ class Usuarios_model extends CI_Model{
 		}else{
 			return false;
 		}
-		
 	}
 
 	function get_voluntarios(){
@@ -79,7 +99,7 @@ class Usuarios_model extends CI_Model{
 		}else{
 			return FALSE;
 		} // si el resultado es mayor que 0 que me lo imprima , sino no
-		}
+	}
 
 
 	function getCountTypes(){

@@ -26,6 +26,11 @@
 					Ubicaciones
 				</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link <?= $this->uri->segment(2) == 'reportes' ? 'active' : '' ?>" href="<?= base_url("/admin/reportes") ?>">
+					Reportes
+				</a>
+			</li>
 		</ul>
 	</div>	
 </nav>

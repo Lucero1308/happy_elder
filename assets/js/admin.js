@@ -7,6 +7,11 @@ jQuery( document ).ready( function ( $ ) {
 		startDate: "now",
 		autoclose: true,
 	});
+	$('.input-daterange').datepicker({
+		format: "yyyy-mm-dd",
+		language: "es",
+		autoclose: true,
+	});
 	$('.form-signin').validator();
 
 	$('#list').DataTable( {
