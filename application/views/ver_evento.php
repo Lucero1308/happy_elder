@@ -30,4 +30,4 @@
 	</div>
 	<hr>
 <?php endif ?>
-<a class="btn btn-cancel" href="<?= base_url( '/eventos')?>">Regresar</a>
+<center><a class="btn btn-cancel" href="<?= base_url( '/eventos')?>" >Regresar</a></center>

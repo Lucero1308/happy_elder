@@ -21,4 +21,5 @@
 
 	<?php endif ?>
 <?php endif ?>
-<a class="btn btn-cancel" href="<?= base_url( '/servicios')?>">Regresar</a>
+<center><a class="btn btn-cancel" href="<?= base_url( '/servicios')?>">Regresar</a></center>
+
