@@ -50,67 +50,159 @@ class Reportes extends CI_Controller {
 			} else {
 				$data_post = $this->security->xss_clean($_POST);
 				$generate_file = false;
-					$this->load->library('excel');
-				if ( $data_post['formato'] == 'xls' ) {
-				}
-
-				$time = sha1( time() );
+				$this->load->library('excel');
+				$time = time();
 				$file_name = 'reporte_'.$time.'.'.$data_post['formato'];
 				$data_post['url'] = 'http://happyelder.pe/uploads/'.$file_name;
 				switch ( $data_post['type'] ) {
 					case 'valoracion':
-						$this->excel->setActiveSheetIndex(0);
-						$this->excel->getActiveSheet()->setTitle('Reporte de valoración');
-				 
 						$this->load->model('Usuarios_model');
 						$list = $this->Usuarios_model->get_valoracion_reporte( $data_post['date_from'], $data_post['date_to'] );
-						$this->excel->getActiveSheet()->fromArray($list);
-						header('Content-Type: application/vnd.ms-excel');
-						header('Content-Disposition: attachment;filename="'.$file_name.'"');
-						header('Cache-Control: max-age=0'); //no cache
-									
-						$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5'); 
-				 
-						$objWriter->save('php://output');
+						if ( $data_post['formato'] == 'pdf' ) {
+							
+						}
+						if ( $data_post['formato'] == 'xls' ) {
+							$new_list = array(
+								array(
+									'index' => '#',
+									'name' => 'Nombre',
+									'rol' => 'Rol',
+									'val' => 'Calificaciones',
+									'avg' => 'Promedio',
+								)
+							);
+							if ( $list && count( $list ) ) {
+								foreach ($list as $key => $lt) {
+									$new_list[] = array(
+										'index' => $key + 1,
+										'name' => $lt['nombre'],
+										'rol' => $lt['rol'],
+										'val' => $lt['total'],
+										'avg' => $lt['avg'],
+									);
+								}
+							}
+							$this->excel->setActiveSheetIndex(0);
+							$this->excel->getActiveSheet()->setTitle('Reporte de valoracion');
+							$this->excel->getActiveSheet()->fromArray($new_list);
+							header('Content-Type: application/vnd.ms-excel');
+							header('Content-Disposition: attachment;filename="'.$file_name.'"');
+							header('Cache-Control: max-age=0'); //no cache
+										
+							$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5'); 
+							$objWriter->save( 'uploads/'.$file_name );
+								
+						}
 						$generate_file = true;
 						break;
 					case 'servicios':
 						$this->load->model('Servicios_model');
 						$list = $this->Servicios_model->getServiciosReporte( $data_post['date_from'], $data_post['date_to'] );
-						$this->excel->getActiveSheet()->fromArray($list);
-						header('Content-Type: application/vnd.ms-excel');
-						header('Content-Disposition: attachment;filename="'.$file_name.'"');
-						header('Cache-Control: max-age=0'); //no cache
-									
-						$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5'); 
-				 
-						$objWriter->save('php://output');
+						if ( $data_post['formato'] == 'pdf' ) {
+
+						}
+						if ( $data_post['formato'] == 'xls' ) {
+							$new_list = array(
+								array(
+									'index' => '#',
+									'name' => 'Nombre',
+									'val' => 'Valor',
+								)
+							);
+							if ( $list && count( $list ) ) {
+								foreach ($list as $key => $lt) {
+									$new_list[] = array(
+										'index' => $key + 1,
+										'name' => $lt['nombre'],
+										'val' => $lt['total'],
+									);
+								}
+							}
+							$this->excel->setActiveSheetIndex(0);
+							$this->excel->getActiveSheet()->setTitle('Reporte de servicios');
+							$this->excel->getActiveSheet()->fromArray($new_list);
+							header('Content-Type: application/vnd.ms-excel');
+							header('Content-Disposition: attachment;filename="'.$file_name.'"');
+							header('Cache-Control: max-age=0'); //no cache
+										
+							$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5'); 
+					
+							$objWriter->save( 'uploads/'.$file_name );
+						}
 						$generate_file = true;
 						break;
 					case 'cuentas':
 						$this->load->model('Usuarios_model');
 						$list = $this->Usuarios_model->get_usuarios_reporte( $data_post['date_from'], $data_post['date_to'] );
-						$this->excel->getActiveSheet()->fromArray($list);
-						header('Content-Type: application/vnd.ms-excel');
-						header('Content-Disposition: attachment;filename="'.$file_name.'"');
-						header('Cache-Control: max-age=0'); //no cache
-									
-						$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5'); 
-				 
-						$objWriter->save('php://output');
+
+						if ( $data_post['formato'] == 'pdf' ) {
+
+						}
+						if ( $data_post['formato'] == 'xls' ) {
+							$new_list = array(
+								array(
+									'index' => '#',
+									'name' => 'Nombre',
+									'val' => 'Valor',
+								)
+							);
+							if ( $list && count( $list ) ) {
+								foreach ($list as $key => $lt) {
+									$new_list[] = array(
+										'index' => $key + 1,
+										'name' => $lt['nombre'],
+										'val' => $lt['total'],
+									);
+								}
+							}
+							$this->excel->setActiveSheetIndex(0);
+							$this->excel->getActiveSheet()->setTitle('Reporte de cuentas');
+							$this->excel->getActiveSheet()->fromArray($new_list);
+							header('Content-Type: application/vnd.ms-excel');
+							header('Content-Disposition: attachment;filename="'.$file_name.'"');
+							header('Cache-Control: max-age=0'); //no cache
+										
+							$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5'); 
+					
+							$objWriter->save( 'uploads/'.$file_name );
+						}
 						$generate_file = true;
 						break;
 					case 'eventos':
 						$this->load->model('Eventos_model');
 						$list = $this->Eventos_model->getEventosReporte( $data_post['date_from'], $data_post['date_to'] );
-						$this->excel->getActiveSheet()->fromArray($list);
-						header('Content-Type: application/vnd.ms-excel');
-						header('Content-Disposition: attachment;filename="'.$file_name.'"');
-						header('Cache-Control: max-age=0'); //no cache
-									
-						$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5'); 
-				 
-						$objWriter->save('php://output');
+
+						if ( $data_post['formato'] == 'pdf' ) {
+
+						}
+						if ( $data_post['formato'] == 'xls' ) {
+							$new_list = array(
+								array(
+									'index' => '#',
+									'name' => 'Nombre',
+									'val' => 'Valor',
+								)
+							);
+							if ( $list && count( $list ) ) {
+								foreach ($list as $key => $lt) {
+									$new_list[] = array(
+										'index' => $key + 1,
+										'name' => $lt['nombre'],
+										'val' => $lt['total'],
+									);
+								}
+							}
+							$this->excel->setActiveSheetIndex(0);
+							$this->excel->getActiveSheet()->setTitle('Reporte de eventos');
+							$this->excel->getActiveSheet()->fromArray($new_list);
+							header('Content-Type: application/vnd.ms-excel');
+							header('Content-Disposition: attachment;filename="'.$file_name.'"');
+							header('Cache-Control: max-age=0'); //no cache
+										
+							$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5'); 
+					
+							$objWriter->save( 'uploads/'.$file_name );
+						}
 						$generate_file = true;
 						break;
 					

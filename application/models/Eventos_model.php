@@ -33,7 +33,7 @@ class Eventos_model extends CI_Model{
 		return $query->result_array(); 
 	}
 	function getEventosReporte( $from, $to ){
-		$this->db->select('COUNT(status) as count, status as rolName');
+		$this->db->select('name as nombre, COUNT(status) as total, status as rolName');
 		$this->db->distinct();
 		$this->db->group_by('status');
 

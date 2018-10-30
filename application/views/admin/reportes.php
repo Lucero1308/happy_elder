@@ -14,11 +14,10 @@
 			<?php if ( $list && count( $list ) ): ?>
 				<?php foreach ($list as $key => $row): ?>
 					<tr>
-						<!-- Condicional para solo mostrar editar con el usuario activo -->
 						<td>
 							<a onclick="return confirm('¿Seguro que quiere eliminar este reporte?')" href="<?= base_url("/admin/reportes/eliminar/" . $row['id']) ?>">Eliminar</a>
 							<?php if ( $row['url'] ): ?>
-							  | <a href="<?= base_url( $row['url'] ) ?>">Descargar</a>
+							  | <a href="<?= $row['url'] ?>">Descargar</a>
 							<?php endif ?>
 						</td>
 						<td><?= $row['id'] ?></td>

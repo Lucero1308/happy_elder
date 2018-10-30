@@ -31,7 +31,7 @@ class Servicios_model extends CI_Model{
 		}
 	}
 	function getServiciosReporte( $from, $to ){ // filas
-		$this->db->select('servicios.*, count( servicios.id ) as count');
+		$this->db->select('servicios.*, name as nombre, count( servicios.id ) as total');
 		$this->db->where('dateCreate >=', $from.' 00:00:00');
 		$this->db->where('dateCreate <=', $to.' 23:59:59' );
 		$this->db->group_by('status');

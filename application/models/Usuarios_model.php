@@ -43,7 +43,7 @@ class Usuarios_model extends CI_Model{
 		return $query->result_array();
 	}
 	function get_valoracion_reporte( $from, $to ){
-		$this->db->select('usuarios.fullName, roles.name as rolName, SUM(CASE WHEN ( comments.val != 0 && comments.status = \'publish\' ) THEN 1 ELSE 0 END) as total_cal, avg(CASE WHEN comments.val != 0 && comments.status = \'publish\' THEN comments.val ELSE null END) as avg_comment');
+		$this->db->select('usuarios.fullName as nombre, roles.name as rol, SUM(CASE WHEN ( comments.val != 0 && comments.status = \'publish\' ) THEN 1 ELSE 0 END) as total, avg(CASE WHEN comments.val != 0 && comments.status = \'publish\' THEN comments.val ELSE null END) as avg');
 		$this->db->join('roles', 'roles.role_id = usuarios.rol', 'LEFT');
 		$this->db->join('comments', 'comments.post_id = usuarios.id', 'LEFT');
 		$this->db->where('dateCreate >=', $from.' 00:00:00');
@@ -54,7 +54,7 @@ class Usuarios_model extends CI_Model{
 	}
 
 	function get_usuarios_reporte( $from, $to ){
-		$this->db->select('COUNT(id) as count, roles.name as rolName');
+		$this->db->select('COUNT(id) as total, roles.name as nombre');
 		$this->db->join('roles', 'roles.role_id = usuarios.rol', 'LEFT');
 		$this->db->distinct();
 		$this->db->where('dateCreate >=', $from.' 00:00:00');

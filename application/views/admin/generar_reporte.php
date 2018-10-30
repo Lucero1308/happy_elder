@@ -39,9 +39,9 @@
 		<div class="form-group">
 			<label for="inputUserName">Fecha</label> 
 			<div class="input-daterange input-group" id="datepicker">
-			    <input type="text" class="input-sm form-control" name="date_from" value="<?= $date_from ?>" />
-			    <span class="input-group-addon px-2">Hasta</span>
-			    <input type="text" class="input-sm form-control" name="date_to" value="<?= $date_to ?>" />
+				<input type="text" class="input-sm form-control" name="date_from" value="<?= $date_from ?>" />
+				<span class="input-group-addon px-2">Hasta</span>
+				<input type="text" class="input-sm form-control" name="date_to" value="<?= $date_to ?>" />
 			</div>
 			<div class="help-block with-errors"	></div>
 		</div>
