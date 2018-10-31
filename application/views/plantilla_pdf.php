@@ -30,12 +30,12 @@
 																			<tbody>
 																				<tr>
 																					<td align="center" class="esd-block-image">
-																						<a target="_blank"> <img class="adapt-img" src="https://demo.stripo.email/content/guids/3fbed056-fb5a-4a80-b9b6-10995fe796fa/images/21161538021162550.jpg" alt="" style="display: block;" height="150"> </a>
+																						<a target="_blank"> <img class="adapt-img" src="https://image.ibb.co/bZex7f/logo.png" alt="" style="display: block;" height="150"> </a>
 																					</td>
 																				</tr>
 																				<tr>
 																					<td align="center" class="esd-block-text">
-																						<p style="font-size: 28px; color: #800000;"><em><strong>PASTELERIA CAKESALE</strong></em></p>
+																						<p style="font-size: 28px; color: #800000;"><em><strong>Happy Elder</strong></em></p>
 																					</td>
 																				</tr>
 																				<tr>
