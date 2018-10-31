@@ -19,6 +19,52 @@ class Reportes extends CI_Controller {
 		$this->load->view('admin/footer');
 		
 	}
+	private function procesing_data( $data, $name ) {
+		$list = array();
+		if ( $data && count( $data ) ) {
+			$list[0] = array();
+			foreach ($data as $key => $dt) {
+				$list[0][] = $dt[ $name ];
+			}
+		}
+		return $list;
+	}
+	private function pdf_generate( $html, $name_view ) {
+		$this->load->helper( array( 'dompdf', 'file' ) );
+		$pdf_string = pdf_create($html, '', false);
+		file_put_contents( './uploads/'.$name_view.'.pdf', $pdf_string ); 
+	}
+	private function jpg_generate_bar( $title, $data, $name_view ) {
+		require_once (APPPATH.'/libraries/JpGraph/jpgraph.php');
+		require_once (APPPATH.'/libraries/JpGraph/jpgraph_bar.php');
+
+		$graph = new Graph(350,200,'auto');
+		$graph->SetScale("textlin");
+
+		$theme_class=new UniversalTheme;
+		$graph->SetTheme($theme_class);
+
+		$graph->SetBox(false);
+
+		$graph->ygrid->SetFill(false);
+		$graph->yaxis->HideLine(false);
+		$graph->yaxis->HideTicks(false,false);
+
+		if ( $data && count( $data ) ) {
+			$list_BarPlot = [];
+			foreach ($data as $key => $dt) {
+				$b1plot = new BarPlot($dt);
+				$list_BarPlot[] = $b1plot;
+			}
+		}
+
+		$gbplot = new GroupBarPlot( $list_BarPlot );
+		$graph->Add($gbplot);
+		var_dump( $title );
+		$graph->title->Set( $title );
+
+		$graph->Stroke( 'uploads/'.$name_view.'.jpg' );
+	}
 	public function generar() {
 		$data = array();
 		if ( isset( $_POST ) && count( $_POST ) ) {
@@ -59,7 +105,27 @@ class Reportes extends CI_Controller {
 						$this->load->model('Usuarios_model');
 						$list = $this->Usuarios_model->get_valoracion_reporte( $data_post['date_from'], $data_post['date_to'] );
 						if ( $data_post['formato'] == 'pdf' ) {
-							
+							$data_grafics = array();
+							ob_start();
+							$list_data_1 = $this->procesing_data($list, 'total');
+							$name_jpg = 'reporte_jpg_'.$time.'_1';
+							$this->jpg_generate_bar( "", $list_data_1, $name_jpg );
+							ob_end_clean();
+							$data_grafics[] = array(
+								'photo' => 'http://happyelder.pe/uploads/'.$name_jpg.'.jpg',
+								'names' => $list,
+								'campo' => 'total',
+							);
+							ob_start();
+							$this->load->view('reporte_pdf', array( 'list' => $list, 'data_grafics' => $data_grafics, 'data_post' => $data_post ) );
+							$contenido = ob_get_contents();
+							ob_end_clean();
+							ob_start();
+							$this->load->view('plantilla_pdf', array( 'contenido' => $contenido ) );
+							$html = ob_get_contents();
+							ob_end_clean();
+							$name_pdf = 'reporte_'.$time;
+							$this->pdf_generate( $html, $name_pdf );
 						}
 						if ( $data_post['formato'] == 'xls' ) {
 							$new_list = array(
@@ -91,7 +157,6 @@ class Reportes extends CI_Controller {
 										
 							$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5'); 
 							$objWriter->save( 'uploads/'.$file_name );
-								
 						}
 						$generate_file = true;
 						break;
