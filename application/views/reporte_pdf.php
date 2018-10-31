@@ -54,6 +54,64 @@
 									<?php endforeach ?>
 								</table>
 							<?php endif ?>
+							<?php if ( $data_post['type'] == 'servicios' ): ?>
+								<table class="table table-sm">
+									<thead>
+										<tr>
+											<td>#</td>
+											<td>Nombre</td>
+											<td>Total</td>
+										</tr>
+									</thead>
+									<?php foreach ($grafi['names'] as $key => $name): ?>
+										<tr>
+											<td><?= $key + 1 ?></td>
+											<td><?= $name['nombre'] == 'publish' ? 'Creados' : 'Reservados'  ?></td>
+											<td><?= $name[ 'total' ] ?></td>
+										</tr>
+									<?php endforeach ?>
+								</table>
+							<?php endif ?>
+							<?php if ( $data_post['type'] == 'cuentas' ): ?>
+								<table class="table table-sm">
+									<thead>
+										<tr>
+											<td>#</td>
+											<td>Nombre</td>
+											<td>Total caloficaciones</td>
+											<td>Promedio</td>
+										</tr>
+									</thead>
+									<?php foreach ($grafi['names'] as $key => $name): ?>
+										<tr>
+											<td><?= $key + 1 ?></td>
+											<td><?= $name['nombre'] ?></td>
+											<td><?= $name[ 'total' ] ?></td>
+											<td><?= $name['avg'] ?></td>
+										</tr>
+									<?php endforeach ?>
+								</table>
+							<?php endif ?>
+							<?php if ( $data_post['type'] == 'eventos' ): ?>
+								<table class="table table-sm">
+									<thead>
+										<tr>
+											<td>#</td>
+											<td>Nombre</td>
+											<td>Total caloficaciones</td>
+											<td>Promedio</td>
+										</tr>
+									</thead>
+									<?php foreach ($grafi['names'] as $key => $name): ?>
+										<tr>
+											<td><?= $key + 1 ?></td>
+											<td><?= $name['nombre'] ?></td>
+											<td><?= $name[ 'total' ] ?></td>
+											<td><?= $name['avg'] ?></td>
+										</tr>
+									<?php endforeach ?>
+								</table>
+							<?php endif ?>
 						<?php endif ?>
 					</td>
 				</tr>

@@ -164,7 +164,28 @@ class Reportes extends CI_Controller {
 						$this->load->model('Servicios_model');
 						$list = $this->Servicios_model->getServiciosReporte( $data_post['date_from'], $data_post['date_to'] );
 						if ( $data_post['formato'] == 'pdf' ) {
-
+							$data_grafics = array();
+							print_r( $list );
+							ob_start();
+							$list_data_1 = $this->procesing_data($list, 'total');
+							$name_jpg = 'reporte_jpg_'.$time.'_1';
+							$this->jpg_generate_bar( "", $list_data_1, $name_jpg );
+							ob_end_clean();
+							$data_grafics[] = array(
+								'photo' => 'http://happyelder.pe/uploads/'.$name_jpg.'.jpg',
+								'names' => $list,
+								'campo' => 'total',
+							);
+							ob_start();
+							$this->load->view('reporte_pdf', array( 'list' => $list, 'data_grafics' => $data_grafics, 'data_post' => $data_post ) );
+							$contenido = ob_get_contents();
+							ob_end_clean();
+							ob_start();
+							$this->load->view('plantilla_pdf', array( 'contenido' => $contenido ) );
+							$html = ob_get_contents();
+							ob_end_clean();
+							$name_pdf = 'reporte_'.$time;
+							$this->pdf_generate( $html, $name_pdf );
 						}
 						if ( $data_post['formato'] == 'xls' ) {
 							$new_list = array(
@@ -202,6 +223,8 @@ class Reportes extends CI_Controller {
 
 						if ( $data_post['formato'] == 'pdf' ) {
 
+							echo $contenido;
+							exit();
 						}
 						if ( $data_post['formato'] == 'xls' ) {
 							$new_list = array(
