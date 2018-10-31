@@ -33,14 +33,14 @@ class Eventos_model extends CI_Model{
 		return $query->result_array(); 
 	}
 	function getEventosReporte( $from, $to ){
-		$this->db->select('name as nombre, COUNT(status) as total, status as rolName');
+		$this->db->select('status as nombre, COUNT(status) as total');
 		$this->db->distinct();
 		$this->db->group_by('status');
 
 		$this->db->select('eventos.*');
 		$this->db->where('dateEvent >=', $from.' 00:00:00');
 		$this->db->where('dateEvent <=', $to.' 23:59:59' );
-		$query = $this->db->get_where($this->table, array( $this->status => 'publish' ));
+		$query = $this->db->get_where($this->table, array(  ));
 		return $query->result_array(); 
 	}
 	function getRowBySlug($slug = ""){

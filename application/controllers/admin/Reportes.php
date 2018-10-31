@@ -293,8 +293,6 @@ class Reportes extends CI_Controller {
 							$this->load->view('reporte_pdf', array( 'list' => $list, 'data_grafics' => $data_grafics, 'data_post' => $data_post ) );
 							$contenido = ob_get_contents();
 							ob_end_clean();
-							echo $contenido;
-							exit();
 							ob_start();
 							$this->load->view('plantilla_pdf', array( 'contenido' => $contenido ) );
 							$html = ob_get_contents();
