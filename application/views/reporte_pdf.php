@@ -78,8 +78,7 @@
 										<tr>
 											<td>#</td>
 											<td>Nombre</td>
-											<td>Total caloficaciones</td>
-											<td>Promedio</td>
+											<td>Total</td>
 										</tr>
 									</thead>
 									<?php foreach ($grafi['names'] as $key => $name): ?>
@@ -87,7 +86,6 @@
 											<td><?= $key + 1 ?></td>
 											<td><?= $name['nombre'] ?></td>
 											<td><?= $name[ 'total' ] ?></td>
-											<td><?= $name['avg'] ?></td>
 										</tr>
 									<?php endforeach ?>
 								</table>
