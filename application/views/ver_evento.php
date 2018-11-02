@@ -1,18 +1,25 @@
 <?php if ( $evento ): ?>
-	<div class="text-center mb-3">
-		<img class="img-fluid img-thumbnail" alt="<?= $evento['name'] ?>" src="<?= $evento['photo'] ?>" >
-	</div>
-	<h6 class="font-italic btn btn-outline-warning">Descripcion del evento:</h6>
-	<div class="cart-text" align="center"><?= $evento['description'] ?></div>
-	<hr>
-	<h6 class="font-italic btn btn-outline-warning">Organizador:</h6>
-	<div class="cart-text" align="center"><?= $evento['organizer'] ?></div>
-	<hr>
-	<h6 class="font-italic btn btn-outline-warning">Ubicación:</h6>
-	<div class="cart-text" align="center"><?= $evento['location'] ?></div>
-	<hr>
-	<h6 class="font-italic btn btn-outline-warning">Donar:</h6>
-	<div class="text-center">
+
+
+
+
+
+  <section class="page-section about-heading">
+      <div class="container">
+        <center><img class="img-fluid img-thumbnail" alt="<?= $evento['name'] ?>" src="<?= $evento['photo'] ?>" width="800px" height="70px" ></center>
+        <div class="about-heading-content">
+          <div class="row">
+            <div class="col-xl-9 col-lg-10 mx-auto">
+              <div class="bg-faded rounded p-5">
+                <h2 class="section-heading mb-4">
+                  <span class="section-heading-upper">NOMBRE DEL ORGANIZADOR: <?= $evento['organizer'] ?></span>
+                  <p></p>
+                  <span class="section-heading-lower">UBICACIÓN: <?= $evento['location'] ?></span>
+                </h2>
+               <p style="text-align: justify;" ><?= $evento['description'] ?></p>
+               <b><i><p style="font-family: 'Malgun Gothic Semilight';">Si quieres donar, dar clic en la opción:</p></i></b>
+                <p>
+                	<div class="text-center">
 		<?php if ( $this->session && $this->session->userdata && ! empty( $this->session->userdata['id'] ) ): ?>
 			<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
 				<input type="hidden" name="cmd" value="_s-xclick">
@@ -28,6 +35,17 @@
 			Debes iniciar sesión para hacer una donación
 		<?php endif ?>
 	</div>
+                </p>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
 	<hr>
 <?php endif ?>
 <center><a class="btn btn-cancel" href="<?= base_url( '/eventos')?>" >Regresar</a></center>
+

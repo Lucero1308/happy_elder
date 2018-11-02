@@ -10,7 +10,7 @@
 				<?php endif ?>
 				<div class="caption">
 					<h5 class="slider-title"><a href="<?= base_url( '/eventos/ver/'.$post['slug'] )  ?>"><?= $post['name'] ?></a></h5>
-					<div class="card-text"><?= $post['description'] ?></div>
+					<!-- <div class="card-text"><?= $post['description'] ?></div> -->
 				</div>
 			</div>
 		</li>
