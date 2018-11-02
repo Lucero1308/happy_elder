@@ -1,9 +1,5 @@
 <?php if ( $evento ): ?>
 
-
-
-
-
   <section class="page-section about-heading">
       <div class="container">
         <center><img class="img-fluid img-thumbnail" alt="<?= $evento['name'] ?>" src="<?= $evento['photo'] ?>" width="800px" height="70px" ></center>
@@ -17,7 +13,7 @@
                   <span class="section-heading-lower">UBICACIÓN: <?= $evento['location'] ?></span>
                 </h2>
                <p style="text-align: justify;" ><?= $evento['description'] ?></p>
-               <b><i><p style="font-family: 'Malgun Gothic Semilight';">Si quieres donar, dar clic en la opción:</p></i></b>
+               <b><i><p style="font-family: 'Malgun Gothic Semilight';">Si quieres donar, dar clic en la siguiente opción:</p></i></b>
                 <p>
                 	<div class="text-center">
 		<?php if ( $this->session && $this->session->userdata && ! empty( $this->session->userdata['id'] ) ): ?>

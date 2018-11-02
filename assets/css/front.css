@@ -367,11 +367,6 @@ label {
 }
 
 
-
-
-
-
-
 .page-section {
   margin-top: 2rem;
 }
@@ -393,18 +388,17 @@ label {
 }
 
 .bg-faded {
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(255, 255, 255, 0.7);
 }
 
-@media (min-width: 22px) {
+@media (min-width: 992px) {
   .about-heading .about-heading-img {
     position: relative;
     z-index: 0;
   }
   .about-heading .about-heading-content {
-    margin-top: -5rem;
+    margin-top: -5.5rem;
     position: relative;
     z-index: 1;
   }
 }
-

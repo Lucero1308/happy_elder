@@ -1,20 +1,32 @@
 <?php if ( $ubicacion ): ?>
-	<div class="text-center mb-3">
-		<img class="img-fluid img-thumbnail" alt="<?= $ubicacion['name'] ?>" src="<?= $ubicacion['photo'] ?>" >
-	</div>
-	<h6 class="font-italic btn btn-outline-warning">Descripción</h6><div class="cart-text" align="center"><?= $ubicacion['description'] ?></div>
-	<hr>
-	<h6 class="font-italic btn btn-outline-warning">Ubicación</h6><div class="cart-text" align="center"><?= $ubicacion['address'] ?></div>
-	<hr>
+
+
+
+    <section class="page-section about-heading">
+      <div class="container">
+        <center><img class="img-fluid rounded about-heading-img mb-3 mb-lg-0" src="<?= $ubicacion['photo'] ?>" alt="" width="800px" height="70px"></center>
+        <div class="about-heading-content">
+          <div class="row">
+            <div class="col-xl-9 col-lg-10 mx-auto">
+              <div class="bg-faded rounded p-5">
+                <h2 class="section-heading mb-4">
+                  <span class="section-heading-upper">UBICACIÓN: <?= $ubicacion['address'] ?></span>
+                </h2>
+                <p style="text-align: justify;"><?= $ubicacion['description'] ?></p>
+
 	<?php if ( $this->session && $this->session->userdata && ! empty( $this->session->userdata['id'] ) ): ?>
 		<?php if ( $this->session->userdata['rol'] == 4 ): ?>
-		<br/><a class="btn btn-primary" href="<?= base_url( '/ubicaciones/seleccionar/'.$ubicacion['slug'] )  ?>">Seleccionar beneficiario</a>
+		<center><a class="btn btn-success" href="<?= base_url( '/ubicaciones/seleccionar/'.$ubicacion['slug'] )  ?>">Seleccionar beneficiario</a></center>
 			<?php endif ?>
 		<?php endif ?>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
 <?php endif ?>
-<a class="btn btn-cancel" href="<?= base_url( '/ubicaciones')?>">Regresar</a>
-
-
-
-
+<center><a class="btn btn-cancel" href="<?= base_url( '/ubicaciones')?>">Regresar</a></center>
 

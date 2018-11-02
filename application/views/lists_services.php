@@ -17,7 +17,7 @@
 							
 							<?php if ( $this->session->userdata['rol'] == 2 ): ?> 
 								<!-- CONDICIONAL -->
-								<div class="text mt-3"><a class="btn btn-primary" href="<?= base_url( '/servicios/reservar/'.$post['slug'] )  ?>">Reservar servicio</a></div>
+								<div class="text mt-3"><a class="btn btn-info" href="<?= base_url( '/servicios/reservar/'.$post['slug'] )  ?>">Reservar servicio</a></div>
 							<?php endif ?>
 
 						<?php endif ?>
