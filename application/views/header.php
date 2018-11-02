@@ -80,10 +80,11 @@
 		</div>
 	</header>
 	<main class="main py-5">
-		<div class="container shadow-sm bg-white">
+		<div class="container shadow-sm ">
 			<div class="py-4">
 				<?php if ( isset( $title ) && $title ): //titulo ?> 
-					<h1 style="color:#3E2C56;"><?= $title ?></h1>
+					<h1 style="color:#351165;  font-family: 'Ink Free';text-transform: uppercase;
+					"><?= $title ?></h1>
 				<?php endif ?>
 				<?php if($this->session->flashdata('log_success')){?>
 					<div class="alert alert-success">
