@@ -40,8 +40,8 @@
 			<div id="wrapChart">
 				<canvas id="myChart" width="500" height="500"></canvas>
 			</div>
-			<div id="wrapChart">
-				<canvas id="myChart2" width="500" height="500"></canvas>
+			<div id="wrapChart_2">
+				<canvas id="myChart2" ></canvas>
 			</div>
 		</div>
 		<script>
