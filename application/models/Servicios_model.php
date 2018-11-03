@@ -31,11 +31,14 @@ class Servicios_model extends CI_Model{
 		}
 	}
 	function getServiciosReporte( $from, $to ){ // filas
-		$this->db->select('servicios.*, status as nombre, count( servicios.id ) as total');
-		$this->db->where('dateCreate >=', $from.' 00:00:00');
-		$this->db->where('dateCreate <=', $to.' 23:59:59' );
-		$this->db->group_by('status');
-		$query = $this->db->get_where($this->table, array( $this->status . ' !=' => 'trash' ));
+		$this->db->select('servicios.*, usuarios.fullName as usuario');
+		$this->db->where('visitanteFecha >=', $from.' 00:00:00');
+		$this->db->where('visitanteFecha <=', $to.' 23:59:59' );
+
+		$this->db->where('servicios.visitante_id != ', 0 );
+		$this->db->where('usuarios.fullName != ', '' );
+		$this->db->join('usuarios', 'usuarios.id = servicios.visitante_id', 'LEFT');
+		$query = $this->db->get_where($this->table, array( $this->status  => 'reservado' ));
 		return $query->result_array(); // retorna un array de cada fila o de la consulta
 	}
 	function exist($slug = "", $id = ""){

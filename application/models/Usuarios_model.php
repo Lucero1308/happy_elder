@@ -51,22 +51,6 @@ class Usuarios_model extends CI_Model{
 		$this->db->where('comments.val != ', 0 );
 		$this->db->where('comments.status', 'publish' );
 		$this->db->group_by('usuarios.id');
-		$this->db->group_by('YEAR(date_added)');
-		$this->db->group_by('MONTH(date_added)');
-		$this->db->order_by('YEAR(date_added) asc');
-		$this->db->order_by('MONTH(date_added) asc');
-		$query = $this->db->get_where($this->table, array(  $this->status => 'approved', 'comments.val !=' => 0 ));
-		return $query->result_array();
-	}
-	function get_valoracion_reporte_2( $from, $to ){
-		$this->db->select('date_added, YEAR(date_added) anho, MONTH(date_added) as mes, post_id, usuarios.fullName as nombre, roles.name as rol, SUM(CASE WHEN ( comments.val != 0 && comments.status = \'publish\' ) THEN 1 ELSE 0 END) as total, avg(CASE WHEN comments.val != 0 && comments.status = \'publish\' THEN comments.val ELSE null END) as avg');
-		$this->db->join('roles', 'roles.role_id = usuarios.rol', 'LEFT');
-		$this->db->join('comments', 'comments.post_id = usuarios.id', 'LEFT');
-		$this->db->where('date_added >=', $from.' 00:00:00');
-		$this->db->where('date_added <=', $to.' 23:59:59' );
-		$this->db->where('comments.val != ', 0 );
-		$this->db->where('comments.status', 'publish' );
-		$this->db->group_by('usuarios.id');
 		//$this->db->group_by('YEAR(date_added)');
 		//$this->db->group_by('MONTH(date_added)');
 		//$this->db->order_by('YEAR(date_added) asc');
@@ -76,17 +60,17 @@ class Usuarios_model extends CI_Model{
 	}
 
 	function get_usuarios_reporte( $from, $to ){
-		$this->db->select('YEAR(record_date) anho, MONTH(dateCreate) as mes, COUNT(id) as total, roles.name as nombre');
-		$this->db->join('roles', 'roles.role_id = usuarios.rol', 'LEFT');
-		//$this->db->distinct();
-		$this->db->where('dateCreate >=', $from.' 00:00:00');
-		$this->db->where('dateCreate <=', $to.' 23:59:59' );
+		$this->db->select('usuarios.*, ubicaciones.name as location, count(usuarios.id) as total');
+		$this->db->where('fechaVisita >=', $from.' 00:00:00');
+		$this->db->where('fechaVisita <=', $to.' 23:59:59' );
+		$this->db->where('usuarios.rol', 4 );
+		$this->db->where('usuarios.status', 'approved' );
+		$this->db->where('beneficiarios.status', 'asignado' );
 		$this->db->group_by('usuarios.id');
-		//YEAR(record_date), MONTH(record_date)
-
-		//$this->db->group_by( 'MONTH(dateCreate)' );
-		$query = $this->db->get('usuarios');
-		echo $this->db->last_query();
+		$this->db->group_by('beneficiarios.location_id');
+		$this->db->join('usuarios', 'usuarios.id = beneficiarios.user_id', 'LEFT');
+		$this->db->join('ubicaciones', 'ubicaciones.id = beneficiarios.location_id', 'LEFT');
+		$query = $this->db->get('beneficiarios');
 		return $query->result_array(); 
 	}
 

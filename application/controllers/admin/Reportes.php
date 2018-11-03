@@ -29,11 +29,6 @@ class Reportes extends CI_Controller {
 					'label' => 'Hasta',
 					'rules' => 'trim|required'
 				),
-				array(
-					'field' => 'formato',
-					'label' => 'Formato',
-					'rules' => 'trim|required'
-				),
 			);
 			$this->form_validation->set_rules($config);
 			if ($this->form_validation->run() == false) {
@@ -54,29 +49,16 @@ class Reportes extends CI_Controller {
 					'11' => 'Noviembre',
 					'12' => 'Diciembre',
 				);
+				$data_graf = array();
 				switch ( $data_post['type'] ) {
 					case 'valoracion':
 						$this->load->model('Usuarios_model');
 						$list = $this->Usuarios_model->get_valoracion_reporte( $data_post['date_from'], $data_post['date_to'] );
-						$data_graf = array();
 						if ( $list && count( $list ) ) {
 							foreach ($list as $key => $lt) {
 								if ( !isset( $data_graf[$lt['anho'].$lt['mes']] ) ) {
-									$data_graf[$lt['anho'].$lt['mes']] = array(
-										'name' =>  $meses[$lt['mes']] . ' ' . $lt['anho'],
-										'total' => 0,
-									); 
 								}
-								$data_graf[$lt['anho'].$lt['mes']]['total'] += $lt['total'];
-							}
-						}
-						$list_2 = $this->Usuarios_model->get_valoracion_reporte_2( $data_post['date_from'], $data_post['date_to'] );
-						$data_graf_2 = array();
-						if ( $list_2 && count( $list_2 ) ) {
-							foreach ($list_2 as $key => $lt) {
-								if ( !isset( $data_graf_2[$lt['anho'].$lt['mes']] ) ) {
-								}
-								$data_graf_2[] = array(
+								$data_graf[] = array(
 									'name' =>  $lt['nombre'],
 									'total' => $lt['avg'],
 								); 
@@ -86,20 +68,50 @@ class Reportes extends CI_Controller {
 					case 'servicios':
 						$this->load->model('Servicios_model');
 						$list = $this->Servicios_model->getServiciosReporte( $data_post['date_from'], $data_post['date_to'] );
+						if ( $list && count( $list ) ) {
+							foreach ($list as $key => $lt) {
+								if ( !isset( $data_graf[$lt['visitante_id']] ) ) {
+									$data_graf[$lt['visitante_id']] = array(
+										'name' =>  $lt['usuario'],
+										'total' => 0,
+									); 
+								}
+								$data_graf[$lt['visitante_id']]['total']++;
+							}
+						}
 						break;
 					case 'cuentas':
 						$this->load->model('Usuarios_model');
 						$list = $this->Usuarios_model->get_usuarios_reporte( $data_post['date_from'], $data_post['date_to'] );
+						if ( $list && count( $list ) ) {
+							foreach ($list as $key => $lt) {
+								if ( !isset( $data_graf[$lt['id']] ) ) {
+									$data_graf[$lt['id']] = array(
+										'name' =>  $lt['fullName'],
+										'total' => 0,
+									); 
+								}
+								$data_graf[$lt['id']]['total']++;
+							}
+						}
 						break;
 					case 'eventos':
 						$this->load->model('Eventos_model');
 						$list = $this->Eventos_model->getEventosReporte( $data_post['date_from'], $data_post['date_to'] );
+						if ( $list && count( $list ) ) {
+							foreach ($list as $key => $lt) {
+								$data_graf[] = array(
+									'name' =>  $lt['name'],
+									'total' => $lt['donaciones'],
+								); 
+							}
+						}
 						break;
 				}
-				$data['data_graf_2'] = $data_graf_2;
+				//$data['data_graf_2'] = $data_graf_2;
 				$data['data_graf'] = $data_graf;
 				$data['list'] = $list;
-				$data['list_2'] = $list_2;
+				//$data['list_2'] = $list_2;
 				$data['data_post'] = $data_post;
 				
 				$this->load->view('admin/header', $data);
@@ -169,293 +181,6 @@ class Reportes extends CI_Controller {
 		$graph->title->Set( $title );
 
 		$graph->Stroke( 'uploads/'.$name_view.'.jpg' );
-	}
-	public function generar() {
-		$data = array();
-		if ( isset( $_POST ) && count( $_POST ) ) {
-			$config = array(
-				array(
-					'field' => 'type',
-					'label' => 'Tipo',
-					'rules' => 'trim|required'
-				),
-				array(
-					'field' => 'date_from',
-					'label' => 'Desde',
-					'rules' => 'trim|required'
-				),
-				array(
-					'field' => 'date_to',
-					'label' => 'Hasta',
-					'rules' => 'trim|required'
-				),
-				array(
-					'field' => 'formato',
-					'label' => 'Formato',
-					'rules' => 'trim|required'
-				),
-			);
-			$this->form_validation->set_rules($config);
-			if ($this->form_validation->run() == false) {
-				$data['errors'] = validation_errors();
-			} else {
-				$data_post = $this->security->xss_clean($_POST);
-				$generate_file = false;
-				$this->load->library('excel');
-				$time = time();
-				$file_name = 'reporte_'.$time.'.'.$data_post['formato'];
-				$data_post['url'] = 'http://happyelder.pe/uploads/'.$file_name;
-				switch ( $data_post['type'] ) {
-					case 'valoracion':
-						$this->load->model('Usuarios_model');
-						$list = $this->Usuarios_model->get_valoracion_reporte( $data_post['date_from'], $data_post['date_to'] );
-						if ( $data_post['formato'] == 'pdf' ) {
-							$data_grafics = array();
-							ob_start();
-							$list_data_1 = $this->procesing_data($list, 'total');
-							$name_jpg = 'reporte_jpg_'.$time.'_1';
-							$this->jpg_generate_bar( "", $list_data_1, $name_jpg );
-							ob_end_clean();
-							$data_grafics[] = array(
-								'photo' => 'http://happyelder.pe/uploads/'.$name_jpg.'.jpg',
-								'names' => $list,
-								'campo' => 'total',
-							);
-							ob_start();
-							$this->load->view('reporte_pdf', array( 'list' => $list, 'data_grafics' => $data_grafics, 'data_post' => $data_post ) );
-							$contenido = ob_get_contents();
-							ob_end_clean();
-							ob_start();
-							$this->load->view('plantilla_pdf', array( 'contenido' => $contenido ) );
-							$html = ob_get_contents();
-							ob_end_clean();
-							$name_pdf = 'reporte_'.$time;
-							$this->pdf_generate( $html, $name_pdf );
-						}
-						if ( $data_post['formato'] == 'xls' ) {
-							$new_list = array(
-								array(
-									'index' => '#',
-									'name' => 'Nombre',
-									'rol' => 'Rol',
-									'val' => 'Calificaciones',
-									'avg' => 'Promedio',
-								)
-							);
-							if ( $list && count( $list ) ) {
-								foreach ($list as $key => $lt) {
-									$new_list[] = array(
-										'index' => $key + 1,
-										'name' => $lt['nombre'],
-										'rol' => $lt['rol'],
-										'val' => $lt['total'],
-										'avg' => $lt['avg'],
-									);
-								}
-							}
-							$this->excel->setActiveSheetIndex(0);
-							$this->excel->getActiveSheet()->setTitle('Reporte de valoracion');
-							$this->excel->getActiveSheet()->fromArray($new_list);
-							header('Content-Type: application/vnd.ms-excel');
-							header('Content-Disposition: attachment;filename="'.$file_name.'"');
-							header('Cache-Control: max-age=0'); //no cache
-										
-							$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5'); 
-							$objWriter->save( 'uploads/'.$file_name );
-						}
-						$generate_file = true;
-						break;
-					case 'servicios':
-						$this->load->model('Servicios_model');
-						$list = $this->Servicios_model->getServiciosReporte( $data_post['date_from'], $data_post['date_to'] );
-						if ( $data_post['formato'] == 'pdf' ) {
-							$data_grafics = array();
-							ob_start();
-							$list_data_1 = $this->procesing_data($list, 'total');
-							$name_jpg = 'reporte_jpg_'.$time.'_1';
-							$this->jpg_generate_bar( "", $list_data_1, $name_jpg );
-							ob_end_clean();
-							$data_grafics[] = array(
-								'photo' => 'http://happyelder.pe/uploads/'.$name_jpg.'.jpg',
-								'names' => $list,
-								'campo' => 'total',
-							);
-							ob_start();
-							$this->load->view('reporte_pdf', array( 'list' => $list, 'data_grafics' => $data_grafics, 'data_post' => $data_post ) );
-							$contenido = ob_get_contents();
-							ob_end_clean();
-							ob_start();
-							$this->load->view('plantilla_pdf', array( 'contenido' => $contenido ) );
-							$html = ob_get_contents();
-							ob_end_clean();
-							$name_pdf = 'reporte_'.$time;
-							$this->pdf_generate( $html, $name_pdf );
-						}
-						if ( $data_post['formato'] == 'xls' ) {
-							$new_list = array(
-								array(
-									'index' => '#',
-									'name' => 'Nombre',
-									'val' => 'Valor',
-								)
-							);
-							if ( $list && count( $list ) ) {
-								foreach ($list as $key => $lt) {
-									$new_list[] = array(
-										'index' => $key + 1,
-										'name' => $lt['nombre'],
-										'val' => $lt['total'],
-									);
-								}
-							}
-							$this->excel->setActiveSheetIndex(0);
-							$this->excel->getActiveSheet()->setTitle('Reporte de servicios');
-							$this->excel->getActiveSheet()->fromArray($new_list);
-							header('Content-Type: application/vnd.ms-excel');
-							header('Content-Disposition: attachment;filename="'.$file_name.'"');
-							header('Cache-Control: max-age=0'); //no cache
-										
-							$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5'); 
-					
-							$objWriter->save( 'uploads/'.$file_name );
-						}
-						$generate_file = true;
-						break;
-					case 'cuentas':
-						$this->load->model('Usuarios_model');
-						$list = $this->Usuarios_model->get_usuarios_reporte( $data_post['date_from'], $data_post['date_to'] );
-
-						if ( $data_post['formato'] == 'pdf' ) {
-							$data_grafics = array();
-							ob_start();
-							$list_data_1 = $this->procesing_data($list, 'total');
-							$name_jpg = 'reporte_jpg_'.$time.'_1';
-							$this->jpg_generate_bar( "", $list_data_1, $name_jpg );
-							ob_end_clean();
-							$data_grafics[] = array(
-								'photo' => 'http://happyelder.pe/uploads/'.$name_jpg.'.jpg',
-								'names' => $list,
-								'campo' => 'total',
-							);
-							ob_start();
-							$this->load->view('reporte_pdf', array( 'list' => $list, 'data_grafics' => $data_grafics, 'data_post' => $data_post ) );
-							$contenido = ob_get_contents();
-							ob_end_clean();
-							ob_start();
-							$this->load->view('plantilla_pdf', array( 'contenido' => $contenido ) );
-							$html = ob_get_contents();
-							ob_end_clean();
-							$name_pdf = 'reporte_'.$time;
-							$this->pdf_generate( $html, $name_pdf );
-						}
-						if ( $data_post['formato'] == 'xls' ) {
-							$new_list = array(
-								array(
-									'index' => '#',
-									'name' => 'Nombre',
-									'val' => 'Valor',
-								)
-							);
-							if ( $list && count( $list ) ) {
-								foreach ($list as $key => $lt) {
-									$new_list[] = array(
-										'index' => $key + 1,
-										'name' => $lt['nombre'],
-										'val' => $lt['total'],
-									);
-								}
-							}
-							$this->excel->setActiveSheetIndex(0);
-							$this->excel->getActiveSheet()->setTitle('Reporte de cuentas');
-							$this->excel->getActiveSheet()->fromArray($new_list);
-							header('Content-Type: application/vnd.ms-excel');
-							header('Content-Disposition: attachment;filename="'.$file_name.'"');
-							header('Cache-Control: max-age=0'); //no cache
-										
-							$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5'); 
-					
-							$objWriter->save( 'uploads/'.$file_name );
-						}
-						$generate_file = true;
-						break;
-					case 'eventos':
-						$this->load->model('Eventos_model');
-						$list = $this->Eventos_model->getEventosReporte( $data_post['date_from'], $data_post['date_to'] );
-
-						if ( $data_post['formato'] == 'pdf' ) {
-							$data_grafics = array();
-							ob_start();
-							$list_data_1 = $this->procesing_data($list, 'total');
-							$name_jpg = 'reporte_jpg_'.$time.'_1';
-							$this->jpg_generate_bar( "", $list_data_1, $name_jpg );
-							ob_end_clean();
-							$data_grafics[] = array(
-								'photo' => 'http://happyelder.pe/uploads/'.$name_jpg.'.jpg',
-								'names' => $list,
-								'campo' => 'total',
-							);
-							ob_start();
-							$this->load->view('reporte_pdf', array( 'list' => $list, 'data_grafics' => $data_grafics, 'data_post' => $data_post ) );
-							$contenido = ob_get_contents();
-							ob_end_clean();
-							ob_start();
-							$this->load->view('plantilla_pdf', array( 'contenido' => $contenido ) );
-							$html = ob_get_contents();
-							ob_end_clean();
-							$name_pdf = 'reporte_'.$time;
-							$this->pdf_generate( $html, $name_pdf );
-						}
-						if ( $data_post['formato'] == 'xls' ) {
-							$new_list = array(
-								array(
-									'index' => '#',
-									'name' => 'Nombre',
-									'val' => 'Valor',
-								)
-							);
-							if ( $list && count( $list ) ) {
-								foreach ($list as $key => $lt) {
-									$new_list[] = array(
-										'index' => $key + 1,
-										'name' => $lt['nombre'],
-										'val' => $lt['total'],
-									);
-								}
-							}
-							$this->excel->setActiveSheetIndex(0);
-							$this->excel->getActiveSheet()->setTitle('Reporte de eventos');
-							$this->excel->getActiveSheet()->fromArray($new_list);
-							header('Content-Type: application/vnd.ms-excel');
-							header('Content-Disposition: attachment;filename="'.$file_name.'"');
-							header('Cache-Control: max-age=0'); //no cache
-										
-							$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5'); 
-					
-							$objWriter->save( 'uploads/'.$file_name );
-						}
-						$generate_file = true;
-						break;
-					
-					default:
-						$data['errors'] = 'No existe ese tipo de reporte.';
-						break;
-				}
-				if( $generate_file ) {
-					unset( $data_post['is_submitted'] );
-					$reporte_id = $this->Reportes_model->insert($data_post);
-					if( $reporte_id ) {
-						$this->session->set_flashdata('log_success','Se creó el reporte correctamente.');
-						redirect( base_url().'admin/reportes');
-					}
-				}
-				$data['errors'] = 'Ocurrió un error al generar el reporte.';
-			}
-		}
-		$data['title'] = 'Generar reporte';
-
-		$this->load->view('admin/header', $data);
-		$this->load->view('admin/generar_reporte', $data);
-		$this->load->view('admin/footer');
 	}
 	private function validate_sesion() {
 		if( !$this->isLoggedin() ) { 

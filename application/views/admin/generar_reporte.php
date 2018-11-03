@@ -3,12 +3,10 @@
 		$type			= set_value('type');
 		$date_from			= set_value('date_from');
 		$date_to			= set_value('date_to');
-		$formato			= set_value('formato');
 	} else {
 		$type			= '';
 		$date_from			= '';
 		$date_to			= '';
-		$formato			= '';
 	}
 ?>
 <div class="row">
@@ -23,16 +21,8 @@
 			<select id="type" data-required-error="Por favor selecciona un tipo" name="type" class="form-control" required="required">
 				<option <?= $type == 'valoracion' ? "selected = 'selected'" : "" ;?> value="valoracion">Valoración</option>
 				<option <?= $type == 'servicios' ? "selected = 'selected'" : "" ;?> value="servicios">Servicios</option>
-				<option <?= $type == 'cuentas' ? "selected = 'selected'" : "" ;?> value="cuentas">Cuentas</option>
+				<option <?= $type == 'cuentas' ? "selected = 'selected'" : "" ;?> value="cuentas">Enfermeras</option>
 				<option <?= $type == 'eventos' ? "selected = 'selected'" : "" ;?> value="eventos">Eventos</option>
-			</select>
-			<div class="help-block with-errors"	></div>
-		</div>
-		<div class="form-group">
-			<label for="formato">Formato</label> 
-			<select id="formato" data-required-error="Por favor selecciona un formato" name="formato" class="form-control" required="required">
-				<option <?= $formato == 'pdf' ? "selected = 'selected'" : "" ;?> value="pdf">PDF</option>
-				<option <?= $formato == 'xls' ? "selected = 'selected'" : "" ;?> value="xls">Excel</option>
 			</select>
 			<div class="help-block with-errors"	></div>
 		</div>
