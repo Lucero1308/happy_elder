@@ -4,48 +4,47 @@
 		<div class="col-12">
 			<canvas class="my-4 w-100" id="myChart" width="1740" height="733"></canvas>
 		</div>  <!-- si se elimina este cod, no figura imagen -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script> <!-- javascript del grafico, del bootstrap -->
 		<script>
-			var usuarios = <?= json_encode( $usuarios ); ?>;
-			var data_chart = {
-				type: 'line',
-				data: {
-					labels: [],
-					datasets: [{
-						data: [],
-						lineTension: 0,
-						backgroundColor: 'transparent',
-						borderColor: '#007bff',
-						borderWidth: 4,
-						pointBackgroundColor: '#007bff'
-					}],
-				},
-				options: {
-					scales: {
-						yAxes: [{
-							ticks: {
-								beginAtZero: true
-							}
-						}]
+			jQuery( window ).ready( function () {
+				var usuarios = <?= json_encode( $usuarios ); ?>;
+				var data_chart = {
+					type: 'line',
+					data: {
+						labels: [],
+						datasets: [{
+							data: [],
+							lineTension: 0,
+							backgroundColor: 'transparent',
+							borderColor: '#007bff',
+							borderWidth: 4,
+							pointBackgroundColor: '#007bff'
+						}],
 					},
-					legend: {
-						display: false,
+					options: {
+						scales: {
+							yAxes: [{
+								ticks: {
+									beginAtZero: true
+								}
+							}]
+						},
+						legend: {
+							display: false,
+						}
 					}
+				};
+				if( usuarios ) {
+					usuarios.forEach( function( type_user, index ) { 
+						console.log( type_user, index );
+						data_chart.data.labels.push( type_user.rolName ); 
+						// para el nombre de abajo
+						data_chart.data.datasets[0].data.push( type_user.count ); 
+						// datos,cantidad
+					});
 				}
-			};
-			if( usuarios ) {
-				usuarios.forEach( function( type_user, index ) { 
-					console.log( type_user, index );
-					data_chart.data.labels.push( type_user.rolName ); 
-					// para el nombre de abajo
-					data_chart.data.datasets[0].data.push( type_user.count ); 
-					// datos,cantidad
-				});
-			}
-			console.log( usuarios );
-			console.log( data_chart );
-			var ctx = document.getElementById("myChart");
-			var myChart = new Chart(ctx, data_chart);
+				var ctx = document.getElementById("myChart");
+				var myChart = new Chart(ctx, data_chart);
+			} );
 		</script>
 
 		<div class="col-12 col-lg-4">

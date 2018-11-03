@@ -6,7 +6,11 @@
 	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
 	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
 }
-
+#wrapChart {
+	width: 500px;
+	height: 500px;
+	margin: auto;
+}
 
 .form-signin {
     width: 100%;
@@ -31,10 +35,12 @@
 .form-signin .form-control:focus {
 	z-index: 2;
 }
+/*
 body.admin {
 	background-image: url("http://happyelder.pe/uploads/F1.jpg");
- background-size: cover;
+ 	background-size: cover;
 }
+*/
 .form-signin .btn-lg{
 	margin-top: 8px;
 }

@@ -10,6 +10,110 @@ class Reportes extends CI_Controller {
 		$this->validate_sesion();
 	}
 	public function index() {
+
+		$data['title'] = 'Generar reporte';
+		if ( isset( $_POST ) && count( $_POST ) ) {
+			$config = array(
+				array(
+					'field' => 'type',
+					'label' => 'Tipo',
+					'rules' => 'trim|required'
+				),
+				array(
+					'field' => 'date_from',
+					'label' => 'Desde',
+					'rules' => 'trim|required'
+				),
+				array(
+					'field' => 'date_to',
+					'label' => 'Hasta',
+					'rules' => 'trim|required'
+				),
+				array(
+					'field' => 'formato',
+					'label' => 'Formato',
+					'rules' => 'trim|required'
+				),
+			);
+			$this->form_validation->set_rules($config);
+			if ($this->form_validation->run() == false) {
+				$data['errors'] = validation_errors();
+			} else {
+				$data_post = $this->security->xss_clean($_POST);
+				$meses = array(
+					'1' => 'Enero',
+					'2' => 'Febrero',
+					'3' => 'Marzo',
+					'4' => 'Abril',
+					'5' => 'Mayo',
+					'6' => 'Junio',
+					'7' => 'Julio',
+					'8' => 'Agosto',
+					'9' => 'Septiembre',
+					'10' => 'Octubre',
+					'11' => 'Noviembre',
+					'12' => 'Diciembre',
+				);
+				switch ( $data_post['type'] ) {
+					case 'valoracion':
+						$this->load->model('Usuarios_model');
+						$list = $this->Usuarios_model->get_valoracion_reporte( $data_post['date_from'], $data_post['date_to'] );
+						$data_graf = array();
+						if ( $list && count( $list ) ) {
+							foreach ($list as $key => $lt) {
+								if ( !isset( $data_graf[$lt['anho'].$lt['mes']] ) ) {
+									$data_graf[$lt['anho'].$lt['mes']] = array(
+										'name' =>  $meses[$lt['mes']] . ' ' . $lt['anho'],
+										'total' => 0,
+									); 
+								}
+								$data_graf[$lt['anho'].$lt['mes']]['total'] += $lt['total'];
+							}
+						}
+						$list_2 = $this->Usuarios_model->get_valoracion_reporte_2( $data_post['date_from'], $data_post['date_to'] );
+						$data_graf_2 = array();
+						if ( $list_2 && count( $list_2 ) ) {
+							foreach ($list_2 as $key => $lt) {
+								if ( !isset( $data_graf_2[$lt['anho'].$lt['mes']] ) ) {
+								}
+								$data_graf_2[] = array(
+									'name' =>  $lt['nombre'],
+									'total' => $lt['avg'],
+								); 
+							}
+						}
+						break;
+					case 'servicios':
+						$this->load->model('Servicios_model');
+						$list = $this->Servicios_model->getServiciosReporte( $data_post['date_from'], $data_post['date_to'] );
+						break;
+					case 'cuentas':
+						$this->load->model('Usuarios_model');
+						$list = $this->Usuarios_model->get_usuarios_reporte( $data_post['date_from'], $data_post['date_to'] );
+						break;
+					case 'eventos':
+						$this->load->model('Eventos_model');
+						$list = $this->Eventos_model->getEventosReporte( $data_post['date_from'], $data_post['date_to'] );
+						break;
+				}
+				$data['data_graf_2'] = $data_graf_2;
+				$data['data_graf'] = $data_graf;
+				$data['list'] = $list;
+				$data['list_2'] = $list_2;
+				$data['data_post'] = $data_post;
+				
+				$this->load->view('admin/header', $data);
+				$this->load->view('admin/reporte', $data);
+				$this->load->view('admin/footer');
+				return;
+			}
+
+		}
+		$this->load->view('admin/header', $data);
+		$this->load->view('admin/generar_reporte', $data);
+		$this->load->view('admin/footer');
+		/*
+
 		$data = array();
 		$data['list'] = $this->Reportes_model->getRowsAdmin();
 		$data['title'] = 'Reportes';
@@ -18,6 +122,7 @@ class Reportes extends CI_Controller {
 		$this->load->view('admin/reportes', $data);
 		$this->load->view('admin/footer');
 		
+		*/
 	}
 	private function procesing_data( $data, $name ) {
 		$list = array();
