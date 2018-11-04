@@ -59,113 +59,92 @@
             <p>Control de la medicación, insulina, cambios posturales, etc.</p>
            </div><!-- /.col-lg-4 -->
         </div><!-- /.row -->
-
-<hr class="featurette-divider">
-<h3>¿Quiénes somos?</h3>
-<hr class="featurette-divider">
-<p>En Happy Elder es una página web que brinda servicios profesionales para el cuidado de nuestros ancianos. Ofrecemos todo tipo de servicios de calidad, ya sean a domicilios, paseos rutinarios, actividades rutinarias, recreaciones terapéuticas ¡y más! Happy Elder quiere hacerte fácil lo que parecía difícil, te ayudaremos a encontrar a la mejor cuidadora de mayores para tu familiar. Queremos darte la tranquilidad de que tu familiar está en buenas manos.</p>
-<hr class="featurette-divider">
-<h3>¿Qué ofrecemos?</h3>
-<hr class="featurette-divider">
-<h5>CUIDADO DE ANCIANOS</h5>
-<p>Cuando una persona se hace mayor, a menudo necesita mayores atenciones en su día a día. El objetivo de Happy Elder es que las personas mayores puedan tener una mejor calidad de vida, haciéndolas sentir seguras.</p>
-<h5>EVENTOS PRO-VEJEZ:</h5>
-<p>Aprovechamos los tiempos libres y la energía vital de los jóvenes para canalizar actividades recreativas tratando de reinventar la vejez a base de la diversión. Por eso, se generarán eventos cada fin de semana para que sus adultos mayores puedan distraerse.</p>
-
-
-
-
+<hr>
 
     <!-- Portfolio Grid -->
     <section class="bg-light" id="portfolio">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">Portfolio</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+            <h2 class="section-heading text-uppercase">Cuidadores de personas mayores</h2>
+            <h3 class="section-subheading text-muted">¿Porqué elegirnos?</h3>
           </div>
         </div>
-        <div class="row">
+     <div class="row">
           <div class="col-md-4 col-sm-6 portfolio-item">
             <a class="portfolio-link" data-toggle="modal" href="#portfolioModal1">
               <div class="portfolio-hover">
-
               </div>
-              <img class="img-fluid" src="uploads/I1.jpg" alt="">
+              <img class="img-fluid" src="uploads/C10.jpg" alt="">
             </a>
             <div class="portfolio-caption">
-              <h4>Threads</h4>
-              <p class="text-muted">Illustration</p>
+              <h4>Cuidadores</h4>
+              <p class="text-muted">¿Cómo ayudan los cuidadores a los mayores?</p>
             </div>
           </div>
           <div class="col-md-4 col-sm-6 portfolio-item">
             <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
-                  <i class="fas fa-plus fa-3x"></i>
                 </div>
               </div>
-              <img class="img-fluid" src="img/portfolio/02-thumbnail.jpg" alt="">
+              <img class="img-fluid" src="uploads/C11.jpg" alt="">
             </a>
             <div class="portfolio-caption">
-              <h4>Explore</h4>
-              <p class="text-muted">Graphic Design</p>
+              <h4>¿Quienes somos?</h4>
+              <p class="text-muted">Conócenos!</p>
             </div>
           </div>
           <div class="col-md-4 col-sm-6 portfolio-item">
             <a class="portfolio-link" data-toggle="modal" href="#portfolioModal3">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
-                  <i class="fas fa-plus fa-3x"></i>
                 </div>
               </div>
-              <img class="img-fluid" src="img/portfolio/03-thumbnail.jpg" alt="">
+              <img class="img-fluid" src="uploads/C12.jpg"  alt="">
             </a>
             <div class="portfolio-caption">
-              <h4>Finish</h4>
-              <p class="text-muted">Identity</p>
+              <h5>Te damos una solución para cada necesidad</h5>
+              <p class="text-muted">Puedes elegir el servicio que más se adapte a tus necesidades</p>
             </div>
           </div>
           <div class="col-md-4 col-sm-6 portfolio-item">
             <a class="portfolio-link" data-toggle="modal" href="#portfolioModal4">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
-                  <i class="fas fa-plus fa-3x"></i>
                 </div>
               </div>
-              <img class="img-fluid" src="img/portfolio/04-thumbnail.jpg" alt="">
+              <img class="img-fluid" src="uploads/C13.jpg"  alt="">
             </a>
             <div class="portfolio-caption">
-              <h4>Lines</h4>
-              <p class="text-muted">Branding</p>
+              <h4>¿Por qué confiar en HAPPYELDER?</h4>
+              <p class="text-muted">Te explicamos...</p>
             </div>
           </div>
           <div class="col-md-4 col-sm-6 portfolio-item">
             <a class="portfolio-link" data-toggle="modal" href="#portfolioModal5">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
-                  <i class="fas fa-plus fa-3x"></i>
                 </div>
               </div>
-              <img class="img-fluid" src="img/portfolio/05-thumbnail.jpg" alt="">
+              <img class="img-fluid" src="uploads/C14.jpg" alt=""> 
             </a>
             <div class="portfolio-caption">
-              <h4>Southwest</h4>
-              <p class="text-muted">Website Design</p>
+              <h4>Voluntariado</h4>
+              <p class="text-muted">¿Qué te ofrecen las personas que hacen voluntariado?</p>
             </div>
           </div>
           <div class="col-md-4 col-sm-6 portfolio-item">
             <a class="portfolio-link" data-toggle="modal" href="#portfolioModal6">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
-                  <i class="fas fa-plus fa-3x"></i>
                 </div>
               </div>
-              <img class="img-fluid" src="img/portfolio/06-thumbnail.jpg" alt="">
+              <img class="img-fluid" src="uploads/C15.jpg" alt="">
             </a>
             <div class="portfolio-caption">
-              <h4>Window</h4>
-              <p class="text-muted">Photography</p>
+              <h4>Donaciones</h4>
+              <p class="text-muted">¿Para que es el fondo?</p>
             </div>
           </div>
         </div>
@@ -188,18 +167,13 @@
               <div class="col-lg-8 mx-auto">
                 <div class="modal-body">
                   <!-- Project Details Go Here -->
-                  <h2 class="text-uppercase">Project Name</h2>
-                  <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                  <img class="img-fluid d-block mx-auto" src="img/portfolio/01-full.jpg" alt="">
-                  <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                  <ul class="list-inline">
-                    <li>Date: January 2017</li>
-                    <li>Client: Threads</li>
-                    <li>Category: Illustration</li>
-                  </ul>
+                  <h3 class="text-uppercase">¿Cómo ayudan los cuidadores a los mayores?</h3>
+                  <p class="item-intro text-muted">Los cuidadores controlan que la persona mayor se tome la medicación a la hora que debe tomársela.</p>
+                  <img class="img-fluid d-block mx-auto" src=uploads/C10.jpg alt="">
+                  <p>Los cuidadores incentivan la vida activa de los mayores preparando actividades cognitivas para ejercer la mente y la memoria. Les ayudan a realizar ejercicios físicos para mantenerlo activo.</p>
+                  <p>Lo más importante, los cuidadores evitan que los mayores se sientan solos, cuidándolos como se merecen; con paciencia, pasión, empatía, respeto, profesionalidad, cariño y siempre con una sonrisa.</p>
                   <button class="btn btn-primary" data-dismiss="modal" type="button">
-                    <i class="fas fa-times"></i>
-                    Close Project</button>
+                    Regresar</button>
                 </div>
               </div>
             </div>
@@ -222,18 +196,11 @@
               <div class="col-lg-8 mx-auto">
                 <div class="modal-body">
                   <!-- Project Details Go Here -->
-                  <h2 class="text-uppercase">Project Name</h2>
-                  <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                  <img class="img-fluid d-block mx-auto" src="img/portfolio/02-full.jpg" alt="">
-                  <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                  <ul class="list-inline">
-                    <li>Date: January 2017</li>
-                    <li>Client: Explore</li>
-                    <li>Category: Graphic Design</li>
-                  </ul>
+                  <h3 class="text-uppercase">¿Quiénes somos?</h3>
+                  <img class="img-fluid d-block mx-auto" src="uploads/C11.jpg" alt="">
+                  <p>Happy Elder es una página web que brinda servicios profesionales para el cuidado de nuestros ancianos. Ofrecemos todo tipo de servicios de calidad, ya sean a domicilios, paseos rutinarios, actividades rutinarias, recreaciones terapéuticas ¡y más! Happy Elder quiere hacerte fácil lo que parecía difícil, te ayudaremos a encontrar a la mejor cuidadora de mayores para tu familiar. Queremos darte la tranquilidad de que tu familiar está en buenas manos.</p>
                   <button class="btn btn-primary" data-dismiss="modal" type="button">
-                    <i class="fas fa-times"></i>
-                    Close Project</button>
+                     Regresar</button>
                 </div>
               </div>
             </div>
@@ -256,18 +223,19 @@
               <div class="col-lg-8 mx-auto">
                 <div class="modal-body">
                   <!-- Project Details Go Here -->
-                  <h2 class="text-uppercase">Project Name</h2>
-                  <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                  <img class="img-fluid d-block mx-auto" src="img/portfolio/03-full.jpg" alt="">
-                  <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                  <h3 class="text-uppercase">Te damos una solución para cada necesidad</h3>
+                  <p class="item-intro text-muted">Esocoje el servicio que más te agrade</p>
+                  <img class="img-fluid d-block mx-auto" src="uploads/C12.jpg"  alt="">
+                  <p>HAPPYELDER quiere hacerte fácil lo que parecía muy difícil. Desde HAPPYELDER te ayudaremos a encontrar el cuidador o cuidadora de mayores ideal para tu familiar. Queremos darte la tranquilidad de que tu mayor está en las mejores manos.</p>
                   <ul class="list-inline">
-                    <li>Date: January 2017</li>
-                    <li>Client: Finish</li>
-                    <li>Category: Identity</li>
+                    <li>-Cuidados externos</li>
+                    <li>-Cuidados internos 24h</li>
+                    <li>-Servicios en casa</li>
+                    <li>-Cuidadoras con experiencia</li>
+                    <li>-Voluntariados</li>
                   </ul>
                   <button class="btn btn-primary" data-dismiss="modal" type="button">
-                    <i class="fas fa-times"></i>
-                    Close Project</button>
+                    Regresar</button>
                 </div>
               </div>
             </div>
@@ -290,18 +258,15 @@
               <div class="col-lg-8 mx-auto">
                 <div class="modal-body">
                   <!-- Project Details Go Here -->
-                  <h2 class="text-uppercase">Project Name</h2>
-                  <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                  <img class="img-fluid d-block mx-auto" src="img/portfolio/04-full.jpg" alt="">
-                  <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                  <h3 class="text-uppercase">¿Por qué confiar en HAPPYELDER?</h3>
+                  <img class="img-fluid d-block mx-auto" src="uploads/C13.jpg" alt="">
                   <ul class="list-inline">
-                    <li>Date: January 2017</li>
-                    <li>Client: Lines</li>
-                    <li>Category: Branding</li>
+                    <li>☼Los mejores cuidadores, con experiencia y titulación demostrable</li>
+                    <li>☼Servicio de calidad con la garantía</li>
+                    <li>☼Seguridad y calidad con el sello de garantía de HAPPYELDER.</li>
                   </ul>
                   <button class="btn btn-primary" data-dismiss="modal" type="button">
-                    <i class="fas fa-times"></i>
-                    Close Project</button>
+                    Regresar</button>
                 </div>
               </div>
             </div>
@@ -324,18 +289,12 @@
               <div class="col-lg-8 mx-auto">
                 <div class="modal-body">
                   <!-- Project Details Go Here -->
-                  <h2 class="text-uppercase">Project Name</h2>
-                  <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                  <img class="img-fluid d-block mx-auto" src="img/portfolio/05-full.jpg" alt="">
-                  <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                  <ul class="list-inline">
-                    <li>Date: January 2017</li>
-                    <li>Client: Southwest</li>
-                    <li>Category: Website Design</li>
-                  </ul>
+                  <h3 class="text-uppercase">Voluntariado</h3>
+                  <p class="item-intro text-muted">¿Qué te ofrecen las personas que hacen voluntariado?</p>
+                  <img class="img-fluid d-block mx-auto" src="uploads/C14.jpg"  alt="">
+                  <p>Al igual que las cuidadoras, las personas que ofrecen voluntariado tambien brindan sus servicios para el cuidado de la persona mayor, con la única diferencia que lo hacen por su voluntad,sin estimar costos.</p>
                   <button class="btn btn-primary" data-dismiss="modal" type="button">
-                    <i class="fas fa-times"></i>
-                    Close Project</button>
+                    Regresar</button>
                 </div>
               </div>
             </div>
@@ -358,18 +317,12 @@
               <div class="col-lg-8 mx-auto">
                 <div class="modal-body">
                   <!-- Project Details Go Here -->
-                  <h2 class="text-uppercase">Project Name</h2>
-                  <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                  <img class="img-fluid d-block mx-auto" src="img/portfolio/06-full.jpg" alt="">
-                  <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                  <ul class="list-inline">
-                    <li>Date: January 2017</li>
-                    <li>Client: Window</li>
-                    <li>Category: Photography</li>
-                  </ul>
+                  <h3 class="text-uppercase">Donaciones</h3>
+                  <p class="item-intro text-muted">¿Para qué es el fondo?.</p>
+                  <img class="img-fluid d-block mx-auto" src="uploads/C15.jpg" alt="">
+                  <p>En la plataforma web, verás una seccion de donde se publican asilos y casas de reposo que necesiten de ayuda economica para seguir apoyando a las personas de la tercera edad que más lo necesiten, es por eso, que le brindamos la oportunidad a los Voluntarios para publicar eventos que permitan a la comunidad donar para dichos fines.</p>
                   <button class="btn btn-primary" data-dismiss="modal" type="button">
-                    <i class="fas fa-times"></i>
-                    Close Project</button>
+                    Regresar</button>
                 </div>
               </div>
             </div>
