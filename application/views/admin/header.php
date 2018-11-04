@@ -15,7 +15,7 @@
 	<script src="<?php echo base_url('assets/js/jquery.min.js') ?>"></script>
 
 </head>
-<body class="admin <?php echo isset($bodyClass) ? $bodyClass : ''; ?>">
+<body class="admini <?php echo isset($bodyClass) ? $bodyClass : ''; ?>">
 	<div class="container-fluid">
 		<div class="row">
 			<?php $this->view('admin/sidebar'); ?>
