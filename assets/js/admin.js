@@ -8,6 +8,7 @@ jQuery( document ).ready( function ( $ ) {
 		autoclose: true,
 	});
 	$('.input-daterange').datepicker({
+		orientation: "bottom auto",
 		format: "yyyy-mm-dd",
 		language: "es",
 		autoclose: true,
