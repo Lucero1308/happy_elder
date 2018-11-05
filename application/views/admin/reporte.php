@@ -542,7 +542,7 @@
 						<tr>
 							<th>Nombre</th>
 							<th>Rol</th>
-							<th>Calificación</th>
+							<th>Prom. de calificaciones</th>
 						</tr>
 					</thead>
 					<tbody>

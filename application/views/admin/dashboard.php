@@ -1,6 +1,82 @@
 <div class="row">
-		
-	<?php if ( $usuarios && count( $usuarios ) ): ?>
+
+        <div class="col-xl-3 col-sm-6 mb-3">
+              <div class="card text-white bg-primary o-hidden h-100">
+                <div class="card-body">
+                  <div class="card-body-icon">
+                    <i class="fas fa-fw fa-comments"></i>
+                  </div>  	
+                 <b><div class="mr-5">Cant.servicios</div></b>
+                 <?php if ( $servicios && count( $servicios ) ): ?>
+                  <div class="col-xs-9 text-right">
+                  	<?php $total = 0; ?>
+				<?php foreach ($servicios as $key => $row): $total+=$row['count'] ?>
+				<?php endforeach ?>
+                  	<h2 style="color: black;"><?= $total ?></h2>
+                     </div>
+                </div>
+              </div>
+            </div>
+	<?php endif ?>
+
+            <div class="col-xl-3 col-sm-6 mb-3">
+              <div class="card text-white bg-warning o-hidden h-100">
+                <div class="card-body">
+                  <div class="card-body-icon">
+                    <i class="fas fa-fw fa-list"></i>
+                  </div>
+                  <b><div class="mr-5">Cant. ubicaciones</div></b>
+                  <?php if ( $ubicaciones && count( $ubicaciones ) ): ?>
+                  <div class="col-xs-9 text-right">
+                  	<?php $total = 0; ?>
+                  	<?php foreach ($ubicaciones as $key => $row): $total+=$row['count'] ?>
+                  	<?php endforeach ?>
+                        <h2 style="color: black;"><?= $total ?></h2>
+                     </div>
+                </div>
+	<?php endif ?>
+
+              </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 mb-3">
+              <div class="card text-white bg-success o-hidden h-100">
+                <div class="card-body">
+                  <div class="card-body-icon">
+                    <i class="fas fa-fw fa-shopping-cart"></i>
+                  </div>
+                  <b><div class="mr-5">Cant. eventos</div></b>
+                 <?php if ( $eventos && count( $eventos ) ): ?>
+                   <div class="col-xs-9 text-right">
+                   	<?php $total = 0; ?>
+					<?php foreach ($eventos as $key => $row): $total+=$row['count'] ?>
+					<?php endforeach ?>
+                   	<h2 style="color: black;"><?= $total ?></h2>
+                     </div>
+                </div>
+              </div>
+            </div>
+	<?php endif ?>
+
+            <div class="col-xl-3 col-sm-6 mb-3">
+              <div class="card text-white bg-danger o-hidden h-100">
+                <div class="card-body">
+                  <div class="card-body-icon">
+                    <i class="fas fa-fw fa-life-ring"></i>
+                  </div>
+                  <b><div class="mr-5">Total de usuarios</div></b>	
+            <?php if ( $usuarios && count( $usuarios ) ): ?>
+            	<div class="col-xs-9 text-right">
+            		<?php $total = 0; ?>
+					<?php foreach ($usuarios as $key => $row): $total+=$row['count'] ?>
+					<?php endforeach ?>
+            		<h2 style="color: black;"><?= $total ?></h2>
+                     </div>
+                </div>
+              </div>
+            </div>
+
+
+
 		<div class="col-12">
 			<canvas class="my-4 w-100" id="myChart" width="1740" height="733"></canvas>
 		</div>  <!-- si se elimina este cod, no figura imagen -->
@@ -46,7 +122,15 @@
 				var myChart = new Chart(ctx, data_chart);
 			} );
 		</script>
+</div>
 
+
+   <div class="card mb-3">
+            <div class="card-header">
+              <i class="fas fa-table"></i>
+              Detalle de la página</div>
+            <div class="card-body">
+            <div class="row">
 		<div class="col-12 col-lg-4">
 			<h3>Usuarios</h3>
 			<div class="table-responsive">
@@ -166,4 +250,7 @@
 			</div>
 		</div>
 	<?php endif ?>
+
+              </div>
+            </div>
 </div>

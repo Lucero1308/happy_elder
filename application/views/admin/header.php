@@ -13,6 +13,8 @@
 	<link href="<?php echo base_url('assets/css/font-awesome.min.css') ?>" rel="stylesheet">
 	<link href="<?php echo base_url('assets/css/admin.css') ?>" rel="stylesheet"> <!-- Aqui se llama a los css -->
 	<script src="<?php echo base_url('assets/js/jquery.min.js') ?>"></script>
+	<link href="<?php echo base_url('assets/css/icons/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css')?>">
+	<link href="<?php echo base_url('assets/css/icons/fontawesome-free/css/font-awesome.min.css" rel="stylesheet" type="text/css')?>">
 
 </head>
 <body class="admini <?php echo isset($bodyClass) ? $bodyClass : ''; ?>">
