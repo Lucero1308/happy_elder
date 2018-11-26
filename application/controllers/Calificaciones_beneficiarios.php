@@ -7,14 +7,14 @@ class Calificaciones_beneficiarios extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->model('Usuarios_model');
 	}
-	//public function index() {
-	//	$data['title'] = 'Beneficioso';
-	//	$data['voluntarios'] = $this->Usuarios_model->get_voluntarios();
-	//	$data['enfermeras'] = $this->Usuarios_model->get_enfermeras();
-	//	$this->load->view('header', $data);
-	//	$this->load->view('calificaciones_beneficiarios', $data);
-	//	$this->load->view('footer');
-	//}
+	public function index() {
+		$data['title'] = 'Beneficioso';
+		$data['voluntarios'] = $this->Usuarios_model->get_voluntarios();
+		$data['enfermeras'] = $this->Usuarios_model->get_enfermeras();
+		$this->load->view('header', $data);
+		$this->load->view('calificaciones_beneficiarios', $data);
+		$this->load->view('footer');
+	}
 	public function comentarios( $hash ) {
 		$data['title'] = 'Comentarios';
 		$this->load->model('model_comments');
