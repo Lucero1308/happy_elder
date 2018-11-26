@@ -72,7 +72,7 @@ class Calificaciones_beneficiarios extends CI_Controller {
 				$configVideo['upload_path']          = './uploads/';
 				$configVideo['overwrite'] = true; 
 				$configVideo['allowed_types']        = 'mp4';
-				$configVideo['max_size']             = 8000;// = MB
+				$configVideo['max_size']             = 8000;// == MB
 				$configVideo['max_width']            = 2000;
 				$configVideo['max_height']           = 1999;
 				$this->load->library('upload', $configVideo);
