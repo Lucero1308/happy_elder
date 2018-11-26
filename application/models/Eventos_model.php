@@ -4,19 +4,19 @@ class Eventos_model extends CI_Model{
 	public $primary_key = 'eventos.id';
 	public $status = 'eventos.status';
 
-	// function getRows($id = ""){
-	//	if(!empty($id)){
-	//		$this->db->select('eventos.*, usuarios.fullName as usuario');
-	//		$this->db->join('usuarios', 'usuarios.id = eventos.user_id', 'LEFT');
-	//		$query = $this->db->get_where($this->table, array( $this->primary_key => $id, $this->status => 'publish' ));
-	//		return $query->row_array();
-	//	}else{
-	//		$this->db->select('eventos.*, usuarios.fullName as usuario');
-		//	$this->db->join('usuarios', 'usuarios.id = eventos.user_id', 'LEFT');
-	//		$query = $this->db->get_where($this->table, array( $this->status => 'publish' ));
-		//	return $query->result_array();
-	//	}
-	//}
+	 function getRows($id = ""){
+		if(!empty($id)){
+			$this->db->select('eventos.*, usuarios.fullName as usuario');
+			$this->db->join('usuarios', 'usuarios.id = eventos.user_id', 'LEFT');
+			$query = $this->db->get_where($this->table, array( $this->primary_key => $id, $this->status => 'publish' ));
+			return $query->row_array();
+		}else{
+			$this->db->select('eventos.*, usuarios.fullName as usuario');
+			$this->db->join('usuarios', 'usuarios.id = eventos.user_id', 'LEFT');
+			$query = $this->db->get_where($this->table, array( $this->status => 'publish' ));
+			return $query->result_array();
+		}
+	}
 	function exist($slug = "", $id = ""){
 		if(!empty($slug)){
 			$query = $this->db->get_where($this->table, array( 'eventos.slug' => $slug, $this->primary_key . ' !=' => $id ));
