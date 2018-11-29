@@ -95,7 +95,7 @@ class Cuenta extends CI_Controller {
 								$config['upload_path']          = './uploads/';
 								$config['overwrite'] = true; 
 								$config['allowed_types']        = 'gif|jpg|png|jpeg';
-								$config['max_size']             = 2000;// = MB
+								$config['max_size']             = 2000;// == MB
 								$config['max_width']            = 2000;
 								$config['max_height']           = 2000;
 								$this->load->library('upload', $config);
