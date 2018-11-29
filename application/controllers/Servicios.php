@@ -37,7 +37,7 @@ class Servicios extends CI_Controller {
 		$config = Array(
 			'protocol' 		=> 'smtp',
 			'smtp_host' 	=> 'ssl://smtp.googlemail.com',
-			'smtp_port' 	=> 465, //465 o 587
+			'smtp_port' 	=> 465, // 465 o 587
 			'smtp_user' 	=> 'lolivaresv13@gmail.com', //para que no llegue spam
 			'smtp_pass' 	=> 'Lucki1012',
 			'mailtype' 		=> 'html',
