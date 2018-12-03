@@ -135,7 +135,5 @@ class Calificaciones_beneficiarios extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-}
-
 
 }
