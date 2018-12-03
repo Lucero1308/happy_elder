@@ -108,7 +108,7 @@ class Usuarios_model extends CI_Model{
 			return $query->result_array();
 		}else{
 			return FALSE;
-		} // si el resultado es mayor que 0 que me lo imprima , sino no
+		} // si el resultado es mayor que 0 que me lo imprima , sino NO
 	}
 
 

@@ -4,7 +4,7 @@ class Eventos_model extends CI_Model{
 	public $primary_key = 'eventos.id';
 	public $status = 'eventos.status';
 
-	function getRows($id = ""){
+	 function getRows($id = ""){
 		if(!empty($id)){
 			$this->db->select('eventos.*, usuarios.fullName as usuario');
 			$this->db->join('usuarios', 'usuarios.id = eventos.user_id', 'LEFT');

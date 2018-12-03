@@ -38,8 +38,8 @@ class Servicios extends CI_Controller {
 		$config = Array(
 			'protocol' 		=> 'smtp',
 			'smtp_host' 	=> 'ssl://smtp.googlemail.com',
-			'smtp_port' 	=> 465, //465 o 587
-			'smtp_user' 	=> 'lolivaresv13@gmail.com', //para que no llega spam
+			'smtp_port' 	=> 465, // 465 o 587
+			'smtp_user' 	=> 'lolivaresv13@gmail.com', //para que no llegue spam
 			'smtp_pass' 	=> 'Lucki1012',
 			'mailtype' 		=> 'html',
 			'charset' 		=> 'UTF-8',
@@ -101,7 +101,6 @@ class Servicios extends CI_Controller {
 			redirect( base_url() );
 		}
 	}
-
 	public function pruebaServicio(){
 		$data['title'] = 'Prueba Servicios';
 		$result  ='is_bool';
@@ -114,5 +113,7 @@ class Servicios extends CI_Controller {
 		$this->load->view('pruebas', $data);
 		$this->load->view('footer');
 	}
+
+}
 
 }

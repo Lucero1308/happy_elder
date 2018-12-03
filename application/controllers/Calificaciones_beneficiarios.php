@@ -72,7 +72,7 @@ class Calificaciones_beneficiarios extends CI_Controller {
 				$configVideo['upload_path']          = './uploads/';
 				$configVideo['overwrite'] = true; 
 				$configVideo['allowed_types']        = 'mp4';
-				$configVideo['max_size']             = 8000;// = MB
+				$configVideo['max_size']             = 8000;// == MB
 				$configVideo['max_width']            = 2000;
 				$configVideo['max_height']           = 1999;
 				$this->load->library('upload', $configVideo);
@@ -126,14 +126,12 @@ class Calificaciones_beneficiarios extends CI_Controller {
 			$data['enfermeras']=$this->Usuarios_model->get_enfermeras_busca($texto);
 			$data['voluntarios']= FALSE;
 		} else {
-			$data['title']='Resultados de la busqueda:';		
+			$data['title']='Buscar usuario :"'. $texto .'"';		
 			$data['enfermeras']=$this->Usuarios_model->get_enfermeras_busca($texto);
 			$data['voluntarios']=$this->Usuarios_model->get_voluntarios_busca($texto);
 		}
-
 		$this->load->view('header', $data);
 		$this->load->view('calificaciones_beneficiarios',$data);
 		$this->load->view('footer');
 	}
-
 }

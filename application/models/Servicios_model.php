@@ -30,7 +30,7 @@ class Servicios_model extends CI_Model{
 			return $query->result_array(); // retorna un array de cada fila o de la consulta
 		}
 	}
-	function getServiciosReporte( $from, $to ){ // filas
+	function getServiciosReporte( $from, $to ){ //filas
 		$this->db->select('servicios.*, usuarios.fullName as usuario');
 		$this->db->where('visitanteFecha >=', $from.' 00:00:00');
 		$this->db->where('visitanteFecha <=', $to.' 23:59:59' );
