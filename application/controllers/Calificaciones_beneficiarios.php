@@ -126,7 +126,7 @@ class Calificaciones_beneficiarios extends CI_Controller {
 			$data['enfermeras']=$this->Usuarios_model->get_enfermeras_busca($texto);
 			$data['voluntarios']= FALSE;
 		} else {
-			$data['title']='Buscar usuario :"'. $texto .'"';		
+			$data['title']='Resultados de la busqueda:';		
 			$data['enfermeras']=$this->Usuarios_model->get_enfermeras_busca($texto);
 			$data['voluntarios']=$this->Usuarios_model->get_voluntarios_busca($texto);
 		}

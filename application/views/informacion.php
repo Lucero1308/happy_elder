@@ -56,7 +56,7 @@
           <div class="col-lg-4" align ="center">
              <img class="rounded-circle" src="<?= base_url( 'uploads/I2.png' ) ?>" alt="Generic placeholder image" width="140" height="140">
             <h2>CURAS BÁSICAS</h2>
-            <p>Control de la medicación, insulina, cambios posturales, etc.</p>
+            <p>Control de la medicación, insulina, cambios posturales,y más</p>
            </div><!-- /.col-lg-4 -->
         </div><!-- /.row -->
 <hr>

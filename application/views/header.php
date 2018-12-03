@@ -41,6 +41,22 @@
 						</li>
 					</ul>
 				</div>
+			
+
+				 <div class="btn-group" role="group">
+				   <button id="btnGroupDrop1" type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				      Pruebas
+				   </button>
+				    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+				      <a class="dropdown-item" href="<?= base_url("/servicios/pruebaServicio") ?>">Servicios</a>
+				      <a class="dropdown-item" href="<?= base_url("/home/pruebaHome") ?>">Home</a>
+				      <a class="dropdown-item" href="<?= base_url("/eventos/pruebaEvento") ?>">Eventos</a>
+
+				   </div>
+  				</div>
+
+
+
 				<ul class="navbar-nav ml-md-auto d-md-flex">
 					
 					<?php if ( $this->session && $this->session->userdata && ! empty( $this->session->userdata['id'] ) ): ?>

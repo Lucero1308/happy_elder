@@ -34,7 +34,7 @@
 					<label for="visitanteFecha">Fecha de servicio</label> 
 					<div class="input-group date">
 						<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-						<input value="<?= $visitanteFecha ?>" name="visitanteFecha" type="text" readonly required="required" class="form-control">
+						<input value="<?= $visitanteFecha ?>" name="visitanteFecha" type="text" readonly required="required" class="form-control" data-required-error="Por favor establezca una fecha para la reserva">
 					</div>
 				</div>
 				<div class="form-group">

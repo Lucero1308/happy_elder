@@ -6,6 +6,7 @@ class Servicios extends CI_Controller {
 			$this->load->helper('form');
 			$this->load->library('form_validation');
 			$this->load->model('Servicios_model');
+			$this ->load ->library ('unit_test');
 	}
 	public function index() {
 		$data = array();
@@ -100,4 +101,18 @@ class Servicios extends CI_Controller {
 			redirect( base_url() );
 		}
 	}
+
+	public function pruebaServicio(){
+		$data['title'] = 'Prueba Servicios';
+		$result  ='is_bool';
+		$result2 = 'is_array';
+		$nombre='Prueba Servicios';
+		$data['pruebita']=$this->unit->run($this->isLoggedin(),$result, $nombre, 'Pruebas unitarias - Validar que el usuario este logueado, para pasar al método de Reservar - Método "Loggedin"');
+		$data['pruebas']=$this->unit->run($this->sendMail(),$result, $nombre, 'Pruebas unitarias - Envío de correos - Metodo "sendMail"');
+		$data['prueba']=$this->unit->run($this->Servicios_model->getRowBySlug($slug),$result2, $nombre, 'Pruebas unitarias - Recojer datos de la funcion ver (Por slug)- Servicios');
+		$this->load->view('header', $data);
+		$this->load->view('pruebas', $data);
+		$this->load->view('footer');
+	}
+
 }
