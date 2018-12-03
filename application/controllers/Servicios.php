@@ -101,6 +101,7 @@ class Servicios extends CI_Controller {
 			redirect( base_url() );
 		}
 	}
+
 	public function pruebaServicio(){
 		$data['title'] = 'Prueba Servicios';
 		$result  ='is_bool';

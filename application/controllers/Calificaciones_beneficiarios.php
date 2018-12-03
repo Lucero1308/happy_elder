@@ -134,4 +134,8 @@ class Calificaciones_beneficiarios extends CI_Controller {
 		$this->load->view('calificaciones_beneficiarios',$data);
 		$this->load->view('footer');
 	}
+
+}
+
+
 }
